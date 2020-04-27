@@ -6,7 +6,8 @@
 //
 //
 
-//*********	COLOR		*********//
+
+//******	COLOR		*********//
 
 #define DEFAULT "\033[1;0m"
 #define GREY "\033[1;30m"
@@ -158,5 +159,6 @@ int main(){
 
 	p1.printPolinomio();
 	
+	//Realizando prueba
 
 }
