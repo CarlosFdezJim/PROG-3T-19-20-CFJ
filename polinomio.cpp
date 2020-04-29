@@ -100,18 +100,18 @@ class Polinomio{
 		 * @brief Método que se encarga de pedir los datos de el polinomio deseado.
 		 */
 		void DatosPolinomio();
-		void resizeAumentarPolinomio();
+		void resizeAumentarPolinomio(int DIM);
 };
 Polinomio::Polinomio(){
 
 	cout  << PURPLE << "\n ****    CREANDO POLINOMIO    **** " << DEFAULT << endl;
 
 	//Inicializamos los miembros del polinomio.
-	max_grado = 0;
+	max_grado = 10;
 	grado = 0;
 
 	//Creamos un vector dinámico de coeficientes.
-	coef = new float[max_grado];	//Reservo 11 espacios de memoria.
+	coef = new float[max_grado+1];	
 
 	//Rellenamos el vector de coeficientes 0
 	for(int i=0; i <= max_grado; i++){
@@ -122,7 +122,7 @@ Polinomio::Polinomio(){
 	if (coef == 0){
 		cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
 		exit(-1);
-	}
+		}
 
 	cout << GREEN << "El polinomio se ha creado correctamente.\n" << DEFAULT ;
 	cout  << PURPLE << "************************************** " << DEFAULT << endl;
@@ -136,17 +136,24 @@ Polinomio::Polinomio(int max){
 	max_grado = max;
 	grado = 0;
 
-	//Creamos un vector dinámico de coeficientes.
-	coef = new float[max_grado];	//Reservo el valor de max_grado+1.
+	if( max_grado >= 0){
+		//Creamos un vector dinámico de coeficientes.
+		coef = new float[max_grado+1];	//Reservo el valor de max_grado+1.
 
-	//Rellenamos el vector de coeficientes 0
-	for(int i=0; i <= max_grado; i++){
-		coef[i]= 0.0;
-	}
+		//Rellenamos el vector de coeficientes a 0
+		for(int i=0; i <= max_grado; i++){
+			coef[i]= 0.0;
+		}
 
-	//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
-	if (coef == 0){
-		cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
+		//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
+		if (coef == 0){
+			cerr << "Error. No hay memoria suficiente. Se abortará la ejecución " << endl;
+			cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
+			exit(-1);
+		}
+	}else if (max_grado < 0){
+		cerr << "¡¡ERROR!! un polinomo no puede tener un grado negativo." << endl;
+		cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
 		exit(-1);
 	}
 
@@ -159,44 +166,44 @@ Polinomio::~Polinomio(){
 	cout  << PURPLE << "\n ****    BORRANDO POLINOMIO    **** " << DEFAULT << endl;
 
 	//Rellenamos el vector de coeficientes 0
-	for(int i=0; i <= max_grado; i++){
+	for(int i=0; i <= grado; i++){
 		coef[i]=0;
 	}
-
+		//cout << "DEBUG destructor 1: Max_grado vale: " << getMax_Grado() << " y grado : " << getGrado() << endl;
 	//Borramos los datos de los miembros del polinomio.
 	max_grado = 0;
 	grado = 0;
-
+		//cout << "DEBUG destructor 2: Max_grado vale: " << getMax_Grado() << " y grado : " << getGrado() << endl;
 	//Borramos el vector dinámico de coeficientes.
 	delete [] coef;
-
+		//cout << "DEBUG destructor 3: Max_grado vale: " << getMax_Grado() << " y grado : " << getGrado() << endl;
 	//Borramos el valor del puntero.
 	coef = 0;
-
+		//cout << "DEBUG destructor 4: Max_grado vale: " << getMax_Grado() << " y grado : " << getGrado() << endl;
 	cout << GREEN << "El polinomio se ha borrado correctamente." << DEFAULT << endl;
 	cout  << PURPLE << "************************************** " << DEFAULT << endl;
 
 }
-void Polinomio::resizeAumentarPolinomio(){
+void Polinomio::resizeAumentarPolinomio(int DIM){
 	
-	/*float *aux = 0;
-	
-	aux = new float[max_grado+1]; 
+	float *aux = new float[DIM+1];
 
 	if (aux == 0){
 		cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
 		exit(-1);
 	}
 
-	for(int i = 0;i < getMax_Grado();i++){
+	for(int i = 0;i <= getMax_Grado();i++){
 		aux[i]=coef[i];
 	}
 	
 	delete [] coef;
 	coef = aux;
-	*/
-
+	max_grado = DIM;
+	
 }
+///////////////////////////////				SET				///////////////////////////////
+
 void Polinomio::setCoeficientev1(int i, float c){
 
 	//Añadimos en la posicion [i] el coeficiente (c) y actualizamos el grado con el setGrado.
@@ -205,19 +212,27 @@ void Polinomio::setCoeficientev1(int i, float c){
 }
 void Polinomio::setCoeficientev2(int i, float c){
 	
-	if(max_grado > grado){
-		//Añadimos en la posicion [i] el coeficiente (c) y actualizamos el grado con el setGrado.
+	if( i >= getMax_Grado()){
+		resizeAumentarPolinomio(i+1);
+		//if(coef[i] != 0){
+			coef[i]=c;
+			setGrado(i);
+		//}
+		cout << "DEBUG setCoeficiente 1: Max_grado vale: " << getMax_Grado() << " y grado : " << getGrado() << endl;
+	}else if (i == 0){
 		coef[i]=c;
 		setGrado(i);
-		//resizeAumentarPolinomio();
-		//grado++;
-		//max_grado++;
-	}else
-		cout << "Ya no hay más espacio" << endl;
+		//cout << "DEBUG setCoeficiente 2: Max_grado vale: " << getMax_Grado() << " y grado : " << getGrado() << endl;
+	}
 }
 void Polinomio::setGrado(int i){
 
-	grado = i;
+	if(i >= 0){
+		grado = i;
+	}else if (i < 0){
+		cerr << "Error un polinomo no puede tener un grado negativo" << endl;
+		exit(-1);
+	}
 }
 void Polinomio::setMax_Grado(int i){
 
@@ -231,64 +246,66 @@ void Polinomio::setMax_Grado(int i){
 		exit(-1);
 	}
 }
+///////////////////////////////				GET				///////////////////////////////
+
 float Polinomio::getCoeficiente(int i) const{
 
 	return coef[i];
 }
 int Polinomio::getGrado() const{
 
-	if(grado != 0){
-		return grado;
-	}else 
-		return 1;
+	return grado;
 }
 int Polinomio::getMax_Grado() const{
 
 	return max_grado;
 }
+///////////////////////////////				PRINT				///////////////////////////////
+
 void Polinomio::printPolinomio() const{
 
 	cout << GREY << "****************************************" << DEFAULT << endl;
 
-	cout << getCoeficiente(getGrado());
-	if(getGrado() > 0){
-		cout << "x^" << getGrado();
-		for(int i = getGrado()-1; i >= 0; i--){
-			if( getCoeficiente(i) != 0.0){
-				cout << " + " << getCoeficiente(i) << "x^" << i; 
-			}
-		}
-	}
-	cout << endl;
+        cout <<"P(x) = ";
+	
+        for(int i = 0; i<= getMax_Grado(); i++){
+            cout << coef[i] << "x^" << i;
+            if(i != getMax_Grado()){
+                cout << " + ";
+            }
+        }
+        cout << endl;
 
 	cout << GREY << "****************************************" << DEFAULT << endl; 
-	cout << CYAN << "Máximo grado del polinomio: " << DEFAULT << max_grado << endl;
+	cout << CYAN << "Máximo grado del polinomio: " << DEFAULT << getMax_Grado() << endl;
 }
 
 void Polinomio::DatosPolinomio(){
 
 	//Declaración de variables
-	int va = 0;
+	float va = 0.0;
 
-cout << "DEBUG: Max_grado vale: " << max_grado << " y grado : " << grado << endl;
+		cout << "DEBUG 1: Max_grado vale: " << getMax_Grado() << " y grado : " << getGrado() << endl;
+
 	cout << "Introduzca los valores de menor grado a mayor. " << endl;
-	cout << BLUE << "Recuerde que el máximo grado de este polinomio es " << max_grado << DEFAULT << endl;
-	for(int i = 0; i <= max_grado;i++){
+	cout << BLUE << "Recuerde que el máximo grado de este polinomio es " << getMax_Grado() << DEFAULT << endl;
+	for(int i = 0; i <= getMax_Grado();i++){
 		cin >> va;
 		setCoeficientev2(i,va);
-cout << "DEBUG: Max_grado vale: " << max_grado << " y grado : " << grado << endl;
-	}
 
+		cout << "DEBUG 2: Max_grado vale: " << getMax_Grado() << " y grado : " << getGrado() << endl;
+	}
 }
 int main(){
 
 	//Declaración de variable auxiliar.
 	int max = 0;
-	cout  << PURPLE << "\n ****   POLINOMIO V2    **** " << DEFAULT << endl;
+
+	cout  << PURPLE << "\n ****   POLINOMIO    **** " << DEFAULT << endl;
 	cout << BLUE << "Introduzca el máximo grado del polinomio: " << DEFAULT << endl;
 	cin >> max;
 
-	Polinomio p1(max);		// 1) Creamos Polinomio.
+	Polinomio p1(max);	// 1) Creamos Polinomio.
 
 	p1.DatosPolinomio();	// 2) Pedimos Datos al usuario
 
