@@ -34,25 +34,35 @@ class Polinomio{
 		float *coef;				//Vector con los coeficientes
 		int grado;			//Grado actual del polinomio. El grado de un polinomio no puede ser negativo.
 		int max_grado;			//Máximo grado permitido a este polinomio. El grado de un polinomio no puede ser negativo.
+
+		/**
+		 * @brief Aumenta la posición del vector "DIM" veces (número pasado por referencia), copiandolo en un vector auxiliar de mayor dimensión.
+		 * 	|0 |1 |2 |3 |4 |5 |6 |  --> resize(3);
+		 * 	|0 |1 |2 |3 |4 |5 |6 |7 |8 |9 |
+		 * @post Se abrá aumentado la dimensión del vector DIM veces.
+		 */
+		void resizeAumentarPolinomio(int DIM);
 	public:
 		/**
 		 * @brief Se crea un polinomio estático y reservamos memoria para el vector de coeficientes.
-		 * @post Tendrémos creado un polinomio y se reservará memoria para el vector de coeficientes y los iniciaremos a 0.
+		 * @pre El grado del polinomo NO puede ser negativo.
+		 * @post Tendremos creado un polinomio y se reservará memoria para el vector de coeficientes y los iniciaremos a 0.
 		 */
 		Polinomio();				//Constructor del polinomio (CrearPolinomio).
 		/**
-		 * @brief Se crea un polinomio estático y asignaremos el valor del max_grado del polinomio.
+		 * @brief Se crea un polinomio estático y asignaremos el valor pasado por parámetros al max_grado.
+		 * @pre El grado del polinomo NO puede ser negativo.
 		 * @post Tendrémos creado un polinomio y se reservará memoria para el vector de coeficientes y los iniciaremos a 0.
 		 */
 		Polinomio( int max);
 		/**
-		 * @brief Se elimina la memoria dinámica reservada del Polinomio y ponemos los miembros a 0.
+		 * @brief Se libera la memoria estática reservada del Polinomio, eliminamos el vector de coeficientes y ponemos los miembros a 0.
 		 * @pre Se debe de tener creado el polinomo.
-		 * @post Borraremos la memoria del Polinomio creado anteriormente.
+		 * @post Borraremos la memoria estática del Polinomio creado anteriormente.
 		 */
 		~Polinomio();
 		/**
-		 * @brief Insertamos el valor del coeficiente en la posición del iterador i que el pasamos en el método.
+		 * @brief Insertamos el valor del coeficiente (c) y lo introducimos en la posición del iterador (i) que le pasamos en el método.
 		 * @param int i			//Grado actual del polinomio donde vamos a insertar el coeficiente.
 		 * @param float c		//Coeficiente del polinomio.
 		 * @pre Debemos de haber creado el Polimio correctamente y debe de haber tenido memoria suficiente para crearse.
@@ -60,53 +70,98 @@ class Polinomio{
 		 */
 		void setCoeficientev1(int i, float c);
 		/**
-		 * @brief 
+		 * @brief Insertamos el valor del coeficiente (c) y lo introducimos en la posición del iterador (i) que le pasamos en el método. Si es necesario 			 * usa el método resize para ampliar la dimensión del vector automáticamente.
 		 * @param int i			//Grado actual del polinomio donde vamos a insertar el coeficiente.
 		 * @param float c		//Coeficiente del polinomio.
+		 * @pre Debemos de haber creado el Polimio correctamente y debe de haber tenido memoria suficiente para crearse.
+		 * @post Insertaremos el coeficiente en la posición que deseamos.
 		 */
 		void setCoeficientev2(int i, float c);
 		/**
-		 * @brief Introducimos el grado del polinomio en base al valor de [i]
-		 * @param int i		
-		 * @pre Debemos de haber introducido algún monomio.
-		 * @post El grado se guardará en el miembro correspondiente.
+		 * @brief Introducimos el grado del polinomio en base al valor de [i].
+		 * @param int i
+		 * @pre El grado del polinomo NO puede ser negativo.
+		 * @pre Debemos de haber creado al menos un monomio.
+		 * @post El grado se guardará en el miembro correspondiente (grado).
 		 */
 		void setGrado(int i);
 		/**
-		 * @brief Introducimos el máximo grado del polinomio en base al valor introducido por el usuario.
+		 * @brief Introducimos el máximo grado del polinomio en base al valor de [i].
 		 * @param int i		//Valor que le pedimos al usuario.
-		 * @pre Debemos de haber introducido algún monimio.
-		 * @post El grado se guardará en el miembro correspondiente.
+		 * @pre El grado del polinomo NO puede ser negativo.
+		 * @pre Debemos de haber creado al menos un monomio.
+		 * @post El grado se guardará en el miembro correspondiente ( max_grado).
 		 */
 		void setMax_Grado(int i);
 		/**
-		 * @brief Devolvemos el valor que tenemos dentro del miembro Coeficiente en la posición determinada por el indicador [i].
-		 * @pre El coeficiente debe de tener un valor introducido.
+		 * @brief Devolvemos el valor que tenemos dentro del miembro vector coef[] en la posición determinada por el indicador [i]. Lo definimos const para 			 * evitar que accidentalmente alguna sentencia modifique algún dato miembro de la clase.
+		 * @pre El coeficiente debe de tener al menos un valor introducido.
+		 * @post Devolveremos el valor del coeficiente indicado por el indicador [i].
 		 */
 		float getCoeficiente(int i) const;
 		/**
-		 * @brief Devolvemos el valor que tenemos dentro del miembro grado.
+		 * @brief Devolvemos el valor que tenemos dentro del miembro grado. Lo definimos const para evitar que accidentalmente alguna sentencia modifique 			 * algún dato miembro de la clase.
+		 * @pre El grado del polinomo NO puede ser negativo.
+		 * @post Devolveremos el valor del miembro grado.
 		 */
 		int getGrado() const;
 		/**
-		 * @brief Devolvemos el valor que tenemos dentro del miembro max_grado.
+		 * @brief Devolvemos el valor que tenemos dentro del miembro max_grado. Lo definimos const para evitar que accidentalmente alguna sentencia 			 * modifique algún dato miembro de la clase.
+		 * @pre El grado del polinomo NO puede ser negativo.
+		 * @post Devolveremos el valor del miembro max_grado.
 		 */
 		int getMax_Grado() const;
 		/**
-		 * @brief Imprimimos el Polinomio.
+		 * @brief Imprimimos por pantalla el polinomio hasta el valor de max_grado.
+		 * @post Imprimimos por pantalla el Polinomio.
 		 */
 		void printPolinomio() const;
 		/**
-		 * @brief Método que se encarga de pedir los datos de el polinomio deseado.
+		 * @brief Método que se encarga de pedir el grado y los coeficientes al usuario para introducirlos en el vector.
+		 * @post Se insertarán los datos del usuario en el vector.
 		 */
 		void DatosPolinomio();
-		void resizeAumentarPolinomio(int DIM);
+		/**
+		 * @brief Método de testing nº0: 
+		 * Imprime por pantalla el contenido por defecto tras la creación de un polinomio
+		 * @post Mostrarmos el vector por pantalla.
+		 */
 		void Testing_0();
+		/**
+		 * @brief Método de testing nº1: 
+		 * Inserta un monomio de grado menor al actual.
+		 * @post Mostrarmos el vector por pantalla con un monomio menor al actual.
+		 */
 		void Testing_1();
+		/**
+		 * @brief Método de testing nº2: 
+		 * Inserta un monomio de grado negativo.
+		 * @post Provocará un error por el filtro y se abortará la ejecución porque el grado no puede ser negativo.
+		 */
 		void Testing_2();
+		/**
+		 * @brief Método de testing nº3: 
+		 * Inserta un monomio de grado mayor al actual, pero que sea menor que max_grado.
+		 * @post Se insertará correctamente el valor introducido y se muestra por pantalla.
+		 */
 		void Testing_3();
+		/**
+		 * @brief Método de testing nº4: 
+		 * Inserta un monomio de grado mayor al actual, y que sea mayor que max_grado.
+		 * @post Se insertará correctamente el valor introducido usando el  método resize automáticamente y se muestra por pantalla.
+		 */
 		void Testing_4();
+		/**
+		 * @brief Método de testing nº5: 
+		 * Inserta un monomio de grado igual al actual y cuyo coeficiente sea 0.
+		 * @post 
+		 */
 		void Testing_5();
+		/**
+		 * @brief Método de testing nº5.1: 
+		 * Si todos los coeficientes anteriores también son 0.
+		 * @post 
+		 */
 		void Testing_5_1();
 };
 Polinomio::Polinomio(){
@@ -386,9 +441,17 @@ int main(){
 
 	cout  << PURPLE << "\n ****   POLINOMIO    **** " << DEFAULT << endl;
 	cout << BLUE << "Introduzca el máximo grado del polinomio: " << DEFAULT << endl;
-	//cin >> max;
+	cin >> max;
 
-	Polinomio p1(10);	// 1) Creamos Polinomio.
+	if( max >= 0 ){	
+		
+	}else{
+		cout << ERROR << "El polinomio no puede tener un grado negativo. Se abortará la ejecución. " << DEFAULT << endl;
+		exit(-1);
+	}
+
+	Polinomio p1(max);	// 1) Creamos Polinomio.
+	
 
 	//TESTING
 	//p1.Testing_0();
@@ -397,7 +460,7 @@ int main(){
 	//p1.Testing_3();
 	//p1.Testing_4();	
 	p1.Testing_5();
-	p1.Testing_5_1();	
+	//p1.Testing_5_1();	
 
 	/*p1.setCoeficientev2(4,5);
 	p1.setCoeficientev2(8,4);

@@ -13,3 +13,4 @@
 	caso4: insertar un monomio de grado mayor al grado actual, y que sea mayor que max_grado
 	caso5: insertar un monomio de grado igual que el grado actual, y cuyo coeficiente sea cero 
 	caso5.1: si todos los coeficientes anteriores también son cero
+5)AVANZADO: Polinomio (1ª Parte): setCoeficienteV3 (memoria exacta: aumento y disminuyo) EMPLEAR FUNCIÓN PRIVADA resize()
