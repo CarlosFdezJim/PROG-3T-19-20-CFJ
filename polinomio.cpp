@@ -79,13 +79,20 @@ class Polinomio{
 		 */
 		void setCoeficientev2(int i, float c);
 		/**
+		 * @brief Insertamos el valor del coeficiente (c) y lo introducimos en la posición del iterador (i) que le pasamos en el método. Si es necesario 			 * usa el método resize para ampliar la dimensión del vector automáticamente.
+		 * @param int i			//Grado actual del polinomio donde vamos a insertar el coeficiente.
+		 * @param float c		//Coeficiente del polinomio.
+		 * @pre Debemos de haber creado el Polimio correctamente y debe de haber tenido memoria suficiente para crearse.
+		 * @post Insertaremos el coeficiente en la posición que deseamos.
+		 */
+		void setCoeficientev3(int i, float c);
+		/**
 		 * @brief Introducimos el grado del polinomio en base al valor de [i].
 		 * @param int i
 		 * @pre El grado del polinomo NO puede ser negativo.
 		 * @pre Debemos de haber creado al menos un monomio.
 		 * @post El grado se guardará en el miembro correspondiente (grado).
 		 */
-		void setCoeficientev3(int i, float c);
 		void setGrado(int i);
 		/**
 		 * @brief Introducimos el máximo grado del polinomio en base al valor de [i].
@@ -119,10 +126,15 @@ class Polinomio{
 		 */
 		void printPolinomio() const;
 		/**
-		 * @brief Método que se encarga de pedir el grado y los coeficientes al usuario para introducirlos en el vector.
+		 * @brief Método que se encarga de pedir los coeficientes al usuario para introducirlos en el vector automáticamente.
 		 * @post Se insertarán los datos del usuario en el vector.
 		 */
 		void DatosPolinomio();
+		/**
+		 * @brief Método que se encarga de pedir el grado y los coeficientes al usuario para introducirlos en el vector.
+		 * @post Se insertarán los datos del usuario en el vector.
+		 */
+		void DatosPolinomio2();
 		/**
 		 * @brief Método de testing nº0: 
 		 * Imprime por pantalla el contenido por defecto tras la creación de un polinomio
@@ -171,6 +183,12 @@ class Polinomio{
 		 * @post Se mostrarán los testing desde el 0 hasta el 5.1.
 		 */
 		void TestingAutom();
+		/**
+		 * @brief Método que te dejará seleccionar que tipo de testing quieres utilizar. 
+		 * Muestra un menú para saleccionar si quieres usar cualquier caso de testing ya programado.
+		 * @post Se mostrará un menú donde el FRONT END puede elegir los testing que desee desde el 0 hasta el 5.1 y el testing automático.
+		 */
+		void MenuTesting();
 };
 Polinomio::Polinomio(){
 
@@ -180,19 +198,27 @@ Polinomio::Polinomio(){
 	max_grado = 10;
 	grado = 0;
 
-	//Creamos un vector dinámico de coeficientes.
-	coef = new float[max_grado+1];	
+	//Filtro para que al crear un polinomio no sea de grado negativo, en caso de serlo abaoratrá la ejecución.
+	if( max_grado >= 0){
+		//Creamos un vector dinámico de coeficientes.
+		coef = new float[max_grado+1];	//Reservo el valor de max_grado+1.
 
-	//Rellenamos el vector de coeficientes 0
-	for(int i=0; i <= max_grado; i++){
-		coef[i]= 0.0;
-	}
-
-	//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
-	if (coef == 0){
-		cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
-		exit(-1);
+		//Rellenamos el vector de coeficientes a 0
+		for(int i=0; i <= max_grado; i++){
+			coef[i]= 0.0;
 		}
+
+		//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
+		if (coef == 0){
+			cerr << "Error. No hay memoria suficiente. Se abortará la ejecución " << endl;
+			cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
+			exit(-1);
+		}
+	}else if (max_grado < 0){
+		cerr << "¡¡ERROR!! un polinomo no puede tener un grado negativo." << endl;
+		cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
+		exit(-1);
+	}
 
 	cout << GREEN << "El polinomio se ha creado correctamente.\n" << DEFAULT ;
 	cout  << PURPLE << "************************************** " << DEFAULT << endl;
@@ -206,6 +232,7 @@ Polinomio::Polinomio(int max){
 	max_grado = max;
 	grado = 0;
 
+	//Filtro para que al crear un polinomio no sea de grado negativo, en caso de serlo abaoratrá la ejecución.
 	if( max_grado >= 0){
 		//Creamos un vector dinámico de coeficientes.
 		coef = new float[max_grado+1];	//Reservo el valor de max_grado+1.
@@ -297,7 +324,8 @@ void Polinomio::resizeDisminuirPolinomio(int DIM){
 
 void Polinomio::setCoeficientev1(int i, float c){
 
-	if( i >= getMax_Grado()){
+	//Filtro para que el grado que vamos a insertar en el vector sea menos que max_grado.
+	if( i > getMax_Grado()){
 		cout << " Lo siento no puedo insertar un valor mayor que el grado máximo del polinomio." << endl;
 	}else{
 		setGrado(i);
@@ -306,7 +334,7 @@ void Polinomio::setCoeficientev1(int i, float c){
 }
 void Polinomio::setCoeficientev2(int i, float c){
 
-
+	//Filtro para que el grado que vamos a insertar en el vector aumente si fuese necesario.
 	if(i >= 0){
 		if( i >= getMax_Grado()){
 			resizeAumentarPolinomio(i+1);
@@ -323,20 +351,29 @@ void Polinomio::setCoeficientev2(int i, float c){
 }
 void Polinomio::setCoeficientev3(int i, float c){
 
-	if( i >= getMax_Grado()){
-		resizeAumentarPolinomio(i+1);
-		setGrado(i);
-		coef[i]=c;
-	}else if (i < getMax_Grado()){
-		resizeDisminuirPolinomio(i-1);
-		setGrado(i);
-		coef[i]=c;	
+	//Filtro para que el grado que vamos a insertar en el vector aumente si fuese necesario.
+	if(i >= 0){
+		if( i >= getMax_Grado()){
+			resizeAumentarPolinomio(i+1);
+			setGrado(i);
+			coef[i]=c;
+		}else if (i < getMax_Grado()){
+			//resizeDisminuirPolinomio(i-1);
+			setGrado(i);
+			coef[i]=c;
+			}
+	}else if (i < 0){
+		cerr << RED << "Error un polinomo no puede tener un grado negativo" << DEFAULT << endl;
+		cerr << ERROR << "No se insertará ese monomio" << DEFAULT << endl;
 	}
 }
 void Polinomio::setGrado(int i){
 
+	//Filtro para evitar que grado sea negativo. Si es menor que 0 muestra un mensaje y no inserta nada.
 	if(i >= 0){
-		grado = i;
+		if( i >= grado){
+			grado = i;
+		}
 	}else if (i < 0){
 		cerr << RED << "Error un polinomo no puede tener un grado negativo" << DEFAULT << endl;
 		cerr << ERROR << "No se insertará ese monomio" << DEFAULT << endl;
@@ -344,6 +381,7 @@ void Polinomio::setGrado(int i){
 }
 void Polinomio::setMax_Grado(int i){
 
+	//Filtro para evitar que max_grado sea negativo. Si es 0 muestra un mensaje.
 	if(i > 1){
 		setMax_Grado(i);
 	}else if( i == 0){
@@ -372,24 +410,41 @@ int Polinomio::getMax_Grado() const{
 
 void Polinomio::printPolinomio() const{
 
-	cout << GREY << "****************************************" << DEFAULT << endl;
+	cout << GREY << "***	DEBUG POLINOMIO  ***" << DEFAULT << endl;
 
-        cout <<"P(x) = ";	
-        for(int i = 0; i<= getMax_Grado(); i++){
+      	cout <<"P(x) = ";	
+        for(int i = 0; i < getMax_Grado();i++){
             cout << coef[i] << "x^" << i;
-            if(i != getMax_Grado()){
+            if(i != getMax_Grado()-1){
                 cout << " + ";
-            }
+            }else if (i = getMax_Grado()){
+		}
         }
         cout << endl;
 
 	cout << GREY << "****************************************" << DEFAULT << endl; 
+
+        cout <<"P(x) = ";	
+        for(int i = 0; i < getMax_Grado();i++){
+		if(coef[i] != 0.0){
+		    cout << coef[i] << "x^" << i;
+		    if(i != getMax_Grado()-1){
+		        cout << " + ";
+		    }
+		}
+
+        }
+        cout << endl;
+
+	cout << GREY << "****************************************" << DEFAULT << endl; 
+
+
 	cout << CYAN << "Máximo grado del polinomio: " << DEFAULT << getMax_Grado() << endl;
 }
 
 void Polinomio::DatosPolinomio(){
 
-	//Declaración de variables
+	//Declaración de variable.
 	float va = 0.0;
 
 	cout << "Introduzca los valores de menor grado a mayor. " << endl;
@@ -401,15 +456,113 @@ void Polinomio::DatosPolinomio(){
 		cout << YELLOW << "***" << DEFAULT << endl;
 	}
 }
-///////////////////////////////				TESTING				///////////////////////////////
+void Polinomio::DatosPolinomio2(){
 
+	//Declaración de variable.
+	float va = 0.0;	//Coeficiente
+	int x = 0;	//Grado actual
+
+	cout << "Introduzca el grado del monomio. " << endl;
+	cout << BLUE << "Recuerde que el máximo grado de este polinomio es " << getMax_Grado() << DEFAULT << endl;
+	for(int i = 0; i < getMax_Grado();i++){
+		cout << "Introduzca el grado del monomio . " << endl;
+		cin >> x;
+		cout << "Introduzca el valor de su coeficiente. " << endl;
+		cin >> va;
+		setCoeficientev2(x,va);
+		setGrado(i);
+		cout << YELLOW << "***" << DEFAULT << endl;
+	}
+}
+///////////////////////////////				TESTING				///////////////////////////////
+/**
+ * @brief Se mostrarán por pantalla las opciones de testing que el FRONT END quiera usar.
+ * @post Se mostrará en el menú las siguientes opciones.
+ * @version 1.0
+ * @author Carlos Fdez.
+ */
+void Menu(){
+
+	cout << BLUE <<"/***************************************"<< endl;
+		cout << "****	TESTING UNITARIO POLINOMIO  ****" << endl;
+		cout << "****************************************/ " << DEFAULT;
+	cout << PURPLE <<  "\nAquí le mostramos las opciones disponibles para realizar el testing : " << DEFAULT;
+	cout << PURPLE <<  "\n[1] " << DEFAULT << " TESTING 0. ";
+	cout << PURPLE <<  "\n[2] " << DEFAULT << " TESTING 1. ";
+	cout << PURPLE <<  "\n[3] " << DEFAULT << " TESTING 2. ";
+	cout << PURPLE <<  "\n[4] " << DEFAULT << " TESTING 3. ";
+	cout << PURPLE <<  "\n[5] " << DEFAULT << " TESTING 4. ";
+	cout << PURPLE <<  "\n[6] " << DEFAULT << " TESTING 5. "; 
+	cout << PURPLE <<  "\n[7] " << DEFAULT << " TESTING 5.1. ";	
+	cout << PURPLE <<  "\n[8] " << DEFAULT << " TESTING AUTOMÁTICO. ";	
+	cout << PURPLE <<  "\n[9] " << DEFAULT << " Salir. " << endl;
+
+}
+void Polinomio::MenuTesting(){
+
+	//Declaración de variables.
+	int opcion=0;
+	
+	//Filtro para que el usuario no se salga de las opciones.
+	while(opcion!=10){
+		//Mostramos menú anteriormente realizado.
+		Menu();
+		
+		//Pedimos al usuario que escoga una opción de las mostradas previamente.
+		cout << "\nEliga usted el programa que desea ejecutar: " << endl;		
+		cin >> opcion;
+	
+			switch (opcion){
+			
+				case 1:
+					Testing_0();
+				break;
+				
+				case 2:
+					Testing_1();
+				break;
+				
+				case 3:
+					Testing_2();
+				break;
+				
+				case 4:		
+					Testing_3();
+				break;
+				
+				case 5:		
+					Testing_4();
+				break;
+				
+				case 6:		
+					Testing_5();
+				break;
+
+				case 7:		
+					Testing_5_1();
+				break;
+
+				case 8:		
+					TestingAutom();
+				break;
+
+				case 9:		
+					cout << PURPLE << "----------SALIENDO----------\n" ;
+					cout << "\nGracias por usar el testing del POLINOMIO " << endl;
+					cout << "\n © Carlos Fdez \n" << DEFAULT << endl;
+					exit(-1);
+				break;
+				
+				default:
+					cout << PURPLE << "Lo siento, la opción seleccionada no es correcta. " << DEFAULT << endl;
+					cout << PURPLE << "Por favor seleccione otra o pulse 9 para salir. \n" << DEFAULT << endl;
+			}
+	}
+}
 void Polinomio::Testing_0(){
 
 	cout  << YELLOW << "\n ****   TESTING 0    **** " << DEFAULT << endl;
 	cout << BLUE << "Imprimiendo por pantalla el contenido por defecto tras la creación de un polinomio: " << DEFAULT << endl;
-
-	max_grado = 0;
-	grado = 0;  
  	
     	printPolinomio();
 
@@ -420,13 +573,10 @@ void Polinomio::Testing_1(){
 
 	cout  << YELLOW << "\n ****   TESTING 1    **** " << DEFAULT << endl;
 	cout << BLUE << "Inserta un monomio de grado menos al actual. " << DEFAULT << endl;
-
-	max_grado = 0;
-	grado = 0;  
  	
 	cout << BLUE << "El grado actual es: " << getGrado() << endl;
-    	setCoeficientev2(12,4);
-	setCoeficientev2(4,8);
+    	setCoeficientev3(12,1);
+	setCoeficientev3(4,8);
 
     	printPolinomio();
 
@@ -438,11 +588,8 @@ void Polinomio::Testing_2(){
 	cout  << YELLOW << "\n ****   TESTING 2    **** " << DEFAULT << endl;
 	cout << BLUE << "Inserta un monomio de grado negativo. " << DEFAULT << endl;
 
-	max_grado = 0;
-	grado = 0;  
- 	
 	cout << BLUE << "El grado actual es: " << getGrado() << endl;   	
-    	setCoeficientev2(-1,4);
+    	setCoeficientev3(-1,4);
 
     	printPolinomio();
 
@@ -453,13 +600,10 @@ void Polinomio::Testing_3(){
 
 	cout  << YELLOW << "\n ****   TESTING 3    **** " << DEFAULT << endl;
 	cout << BLUE << "Inserta un monomio de grado mayor al actual, pero que sea menor que max_grado. " << DEFAULT << endl;
-
-	max_grado = 0;
-	grado = 0;  
  	
 	cout << BLUE << "El grado actual es: " << getGrado() << endl;      	
-    	setCoeficientev2(1,4);
-    	setCoeficientev2(8,87);
+    	setCoeficientev3(1,4);
+    	setCoeficientev3(8,87);
 
     	printPolinomio();
 
@@ -470,13 +614,10 @@ void Polinomio::Testing_4(){
 
 	cout  << YELLOW << "\n ****   TESTING 4    **** " << DEFAULT << endl;
 	cout << BLUE << "Inserta un monomio de grado mayor al actual, y que sea mayor que max_grado. " << DEFAULT << endl;
-
-	max_grado = 0;
-	grado = 0;  
  	
 	cout << BLUE << "El grado actual es: " << getGrado() << endl;  	
-    	setCoeficientev2(3,4);
-    	setCoeficientev2(18,87);
+    	setCoeficientev3(3,4);
+    	setCoeficientev3(18,87);
 
     	printPolinomio();
 
@@ -488,12 +629,10 @@ void Polinomio::Testing_5(){
 	cout  << YELLOW << "\n ****   TESTING 5    **** " << DEFAULT << endl;
 	cout << BLUE << "Inserta un monomio de grado igual al actual y cuyo coeficiente sea 0. " << DEFAULT << endl;
  
-	max_grado = 0;
-	grado = 0;  
  	
 	cout << BLUE << "El grado actual es: " << getGrado() << endl;  	  	
-    	setCoeficientev2(3,0);
-    	setCoeficientev2(3,4);
+    	setCoeficientev3(3,4);
+    	setCoeficientev3(0,4);
 
     	printPolinomio();
 
@@ -505,12 +644,10 @@ void Polinomio::Testing_5_1(){
 	cout  << YELLOW << "\n ****   TESTING 5.1    **** " << DEFAULT << endl;
 	cout << BLUE << "Si todos los coeficientes anteriores también son 0. " << DEFAULT << endl;
 
-	max_grado = 0;
-	grado = 0;  
  	
 	cout << BLUE << "El grado actual es: " << getGrado() << endl;  	   	
-    	setCoeficientev2(3,0);
-    	setCoeficientev2(3,0);
+    	setCoeficientev3(8,0);
+    	setCoeficientev3(4,0);
 
     	printPolinomio();
 
@@ -531,41 +668,49 @@ void Polinomio::TestingAutom(){
 
     	cout  << YELLOW << "\n ****   TESTING AUTOMÁTICO TERMINADO    **** " << DEFAULT << endl;
 }
-int main(){
+/**
+ * @brief Módulo que se encarga de pedir al usuario el valor máximo de su polinomio.
+ * @param int max	//Número que devolvemos para quear un polinomio de valor exacto.
+ * @pre El valor no puede ser negativo, es decir tiene que ser mayor que 0.
+ * @post 
+ * @version 1.0
+ * @author Carlos Fdez.
+ */
+int GradoPolinomio(int max){
 
 	//Declaración de variable auxiliar.
-	int max = 0;
+	//int max = 0;
 
 	cout  << PURPLE << "\n ****   POLINOMIO    **** " << DEFAULT << endl;
 	cout << BLUE << "Introduzca el máximo grado del polinomio: " << DEFAULT << endl;
 	cin >> max;
 
-	if( max >= 0 ){	
-		
-	}else{
+	// Filtro para que no introduzca el usuario ningún valor negativo. Ya que un Polinomio no puede ser negativo.
+	if( max < 0 ){	
 		cout << ERROR << "El polinomio no puede tener un grado negativo. Se abortará la ejecución. " << DEFAULT << endl;
 		exit(-1);
 	}
 
+	return max;
+
+}
+int main(){
+
+	//Declaración de variable auxiliar.
+	int max = 0;
+
+	GradoPolinomio(max);	// 7) Módulo que se encarga de pedir al usuario el grado máximo del polinomio.
+
 	Polinomio p1(max);	// 1) Creamos Polinomio.
 
 	//p1.DatosPolinomio();	// 2) Pedimos Datos al usuario.
+	//p1.DatosPolinomio2();	// 2) Pedimos Datos al usuario.
 
-	//p1.printPolinomio();	// 3) Imprimimios polinomio.
+	p1.printPolinomio();	// 3) Imprimimios polinomio.
 
 	//TESTING UNITARIOS	// 4) Test Unitarios
-	//p1.Testing_0();
-	//p1.Testing_1();
-	//p1.Testing_2();
-	//p1.Testing_3();
-	//p1.Testing_4();	
-	//p1.Testing_5();
-	//p1.Testing_5_1();
-	
-	//TESTING AUTOMATIZADOS	// 5) Test Unitarios
-	p1.TestingAutom();
-
-
-
+	//TESTING AUTOMATIZADOS	// 5) Test Automatizados
+	//MENU TESTING		// 6) Menú donde puedes seleccionar el testing que desees tanto unitario como automático.
+	//p1.MenuTesting();
 
 }
