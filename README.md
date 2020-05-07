@@ -17,3 +17,5 @@ Polinomio 3º Trimestre.
 		caso5.1: si todos los coeficientes anteriores también son cero.
 
 	5)AVANZADO: Polinomio (1ª Parte): setCoeficienteV3 (memoria exacta: aumento y disminuyo) EMPLEAR FUNCIÓN PRIVADA resize().
+
+	6)Polinomio (2ª Parte): constructor por copia (Pensando).
