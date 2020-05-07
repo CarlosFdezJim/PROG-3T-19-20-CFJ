@@ -72,6 +72,12 @@ class Polinomio{
 		 */
 		Polinomio( int max);
 		/**
+		 * @brief Crea una copia exacta del polinomio que le pasamos por referencia.
+		 * @pre El grado del polinomo NO puede ser negativo.
+		 * @post Tendrémos creado un polinomio identico reservandose memoria para el vector de coeficientes y los inicializando a 0.
+		 */
+		Polinomio(const Polinomio &p);
+		/**
 		 * @brief Se libera la memoria estática reservada del Polinomio, eliminamos el vector de coeficientes y ponemos los miembros a 0.
 		 * @pre Se debe de tener creado el polinomo.
 		 * @post Borraremos la memoria estática del Polinomio creado anteriormente.
@@ -263,7 +269,6 @@ Polinomio::Polinomio(int max){
 		//Rellenamos el vector de coeficientes a 0
 		for(int i=0; i <= max_grado; i++){
 			coef[i]= 0.0;
-			cout << "Contructor: " << coef[i] << endl;
 		}
 
 	}else if (max_grado < 0){
@@ -276,6 +281,46 @@ Polinomio::Polinomio(int max){
 	cout  << PURPLE << "************************************** " << DEFAULT << endl;
 
 }
+/*Polinomio::Polinomio(const Polinomio &p1){
+
+	cout  << PURPLE << "\n ****    CREANDO COPIA DEL POLINOMIO    **** " << DEFAULT << endl;
+
+	//Copiamos los miembros del polinomio.
+	this->max_grado = p1.getMax_Grado();
+	this->grado = p1.getGrado();
+
+	//Filtro para que al crear un polinomio no sea de grado negativo, en caso de serlo abaoratrá la ejecución.
+	if( max_grado >= 0){
+		//Creamos un vector dinámico de coeficientes.
+		coef = new float[max_grado+1];	//Reservo el valor de max_grado+1.
+
+		//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
+		if (coef == 0){
+			cerr << RED << "Error. No hay memoria suficiente. " << DEFAULT;
+			cerr << ERROR << "Se abortará la ejecución." << DEFAULT << endl;
+			exit(-1);
+		}
+
+		//Rellenamos el vector de coeficientes a 0
+		for(int i=0; i <= max_grado; i++){
+			this->coef[i]= 0.0;
+		}
+
+		//Copio el contenido de coef[i] en aux[i].
+		for(int i = 0;i <= max_grado;i++){
+			this->coef[i]=p1.coef[i];
+		}
+
+	}else if (max_grado < 0){
+		cerr << "¡¡ERROR!! un polinomo no puede tener un grado negativo." << endl;
+		cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
+		exit(-1);
+	}
+
+	cout << GREEN << "La copia del polinomio se ha creado correctamente.\n" << DEFAULT ;
+	cout  << PURPLE << "************************************** " << DEFAULT << endl;
+
+}*/
 Polinomio::~Polinomio(){
 
 	cout  << PURPLE << "\n ****    BORRANDO POLINOMIO    **** " << DEFAULT << endl;
@@ -283,7 +328,6 @@ Polinomio::~Polinomio(){
 	//Rellenamos el vector de coeficientes a 0
 	for(int i=0; i <= max_grado; i++){
 		coef[i]= 0.0;
-		cout << "Destructor: " << coef[i] << endl;
 	}
 
 	//Borramos los datos de los miembros del polinomio.
@@ -348,34 +392,34 @@ void Polinomio::resizeAumentarPolinomio(int DIM){
 
 	//Reservo memoria para el vector auxiliar con una DIM +1.
 	float *aux = new float[DIM+1];
-
+cout << "DEBUG1: max grado: " << max_grado << " grado: " << grado << endl;
 	//Compruebo que hay memoria suficiente.
 	if (aux == 0){
 		cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
 		exit(-1);
 	}
-
+cout << "DEBUG2: max grado: " << max_grado << " grado: " << grado << endl;
 	//Relleno el vector auxiliar de 0.
 	for(int i = 0;i <= DIM;i++){
 		aux[i] = 0.0;
-			cout << "ResizeAum: " << aux[i] << endl;
 	}
 
+cout << "DEBUG3: max grado: " << max_grado << " grado: " << grado << endl;
 	//Copio el contenido de coef[i] en aux[i].
 	for(int i = 0;i <= DIM;i++){
 		aux[i]=coef[i];
 	}
-	
+cout << "DEBUG4: max grado: " << max_grado << " grado: " << grado << endl;
 	//Eliminamos la memoria del vector coef.
 	delete [] coef;
-
+cout << "DEBUG5: max grado: " << max_grado << " grado: " << grado << endl;
 	//Reasignamos el puntero de coeficientes.
 	coef = aux;
-
+cout << "DEBUG6: max grado: " << max_grado << " grado: " << grado << endl;
 	//Actualizo el máximo grado y el grado.
 	max_grado = DIM;
 	grado = max_grado;
-
+cout << "DEBUG7: max grado: " << max_grado << " grado: " << grado << endl;
 }
 void Polinomio::resizeDisminuirPolinomio(int DIM){
 
@@ -391,7 +435,6 @@ void Polinomio::resizeDisminuirPolinomio(int DIM){
 	//Relleno el vector auxiliar de 0.
 	for(int i = 0; i <= DIM; i++){
 		aux[i] = 0.0;
-			cout << "ResizeDis: " << aux[i] << endl;
 	}
 
 	//Copio el contenido de coef[i] en aux[i].
@@ -444,18 +487,41 @@ void Polinomio::setCoeficientev3(int i, float c){
 		if( i > getMax_Grado()){
 			resizeAumentarPolinomio(i);
 			coef[i]=c;
-		}else if (i <= getMax_Grado() && c != 0){
+		}else if (i <= getMax_Grado() && c != 0.0){
+			setGrado(i);
 			coef[i]=c;
-		}else if (i == getMax_Grado() && c == 0){
+		}else if (i == getMax_Grado() && c == 0.0){
 			for(int i = getMax_Grado()-1; i >= 0 && encontrado == false; i--){
 				if(coef[i] != 0){
 					resizeDisminuirPolinomio(i);
 					setGrado(i);
 					encontrado = true;
 				}
-
 			}
 		}
+
+/*		if( i > getMax_Grado()){
+			float *aux = new float[i+1];
+				for(int j=0; j <= grado; j++){
+					aux[j]=coef[j];
+				}
+			delete [] coef;
+			coef=aux;
+			for (int j=grado+1;j <= i; ++j){
+				coef[j]= 0.0;		
+			}
+			max_grado=i;
+		}
+		coef[i]=c;
+	
+		if(c != 0.0 && i == grado){
+			grado=i;
+		}else if(c == 0.0 && i == grado){
+			while(coef[grado]== 0.0 && grado > 0){
+				grado--;
+			}
+		}*/
+
 	}else if (i < 0){
 		cerr << RED << "Error un polinomo no puede tener un grado negativo" << DEFAULT << endl;
 		cerr << ERROR << "No se insertará ese monomio" << DEFAULT << endl;
@@ -534,7 +600,7 @@ cout << "DEBUG PRINT: Max_grado: " << getMax_Grado() << " y grado: " << getGrado
 	cout << GREY << "****************************************" << DEFAULT << endl; 
 
         cout <<"P(x) = ";	
-        for(int i = 0; i < getMax_Grado();i++){
+        for(int i = 0; i <= getMax_Grado();i++){
 		if(coef[i] != 0.0){
 		    cout << coef[i] << "x^" << i;
 		    if(i != getMax_Grado()-1){
@@ -815,15 +881,15 @@ int main(){
 	//p1.DatosPolinomio2();	// 2) Pedimos Datos al usuario.
 
 
-	//p1.setCoeficientev3(13,6);
-	//p1.setCoeficientev3(0,6);
-	//p1.setCoeficientev3(1,6);
-	//p1.setCoeficientev3(2,6);
-	//p1.setCoeficientev3(7,6);
-	//p1.setCoeficientev3(4,6);
-	//p1.setCoeficientev3(5,6);
-	//p1.setCoeficientev3(6,6);
-	p1.setCoeficientev3(100,6);
+	/*p1.setCoeficientev3(13,6);
+	p1.setCoeficientev3(0,6);
+	p1.setCoeficientev3(1,6);
+	p1.setCoeficientev3(2,6);
+	p1.setCoeficientev3(7,6);
+	p1.setCoeficientev3(4,6);
+	p1.setCoeficientev3(5,6);
+	p1.setCoeficientev3(6,6);*/
+	p1.setCoeficientev3(20,6);
 
 	p1.printPolinomio();	// 3) Imprimimios polinomio.
 
