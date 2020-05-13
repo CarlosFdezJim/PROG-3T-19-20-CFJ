@@ -5,7 +5,7 @@ Polinomio 3º Trimestre.
 
 	2) Polinomio (1ª Parte): setCoeficienteV1 (sin aumentar memoria y detectando cambio de grado al aumentar).
 
-	3) Polinomio (1ª Parte): setCoeficienteV2 (aumentando memoria y detectando cambio de grado al aumentar, y cuando nos asignen a cero el 		monomio, que discuta y 		asigne correctamente el grado actual).
+	3) Polinomio (1ª Parte): setCoeficienteV2 (aumentando memoria y detectando cambio de grado al aumentar, y cuando nos asignen a cero el monomio, que discuta y asigne correctamente el grado actual).
 
 	4) Testing Unitario de setCoeficienteV2 (probando ejemplos en el main que verifiquen que todos los casos funcionan).
 
@@ -20,6 +20,6 @@ Polinomio 3º Trimestre.
 
 	6) Polinomio (2ª Parte): constructor por copia.
 
-	7) Polinomio (2ª Parte): sumar v1. Se almacena el resultado de la suma en el propio objeto que llama al método. (TRABAJANDO).
+	7) Polinomio (2ª Parte): sumar v1. Se almacena el resultado de la suma en el propio objeto que llama al método.
 
-	8) Polinomio (2ª Parte): sumar v2. Se almacena el resultado de la suma de dos polinomios externos, en el propio objeto que llama al 		método.
+	8) Polinomio (2ª Parte): sumar v2. Se almacena el resultado de la suma de dos polinomios externos, en el propio objeto que llama al método.
