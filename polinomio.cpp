@@ -665,18 +665,15 @@ void Polinomio::sumPolinomio(Polinomio &p2){
 }
 
 void Polinomio::sumPolinomiov2(Polinomio &p2,Polinomio &p3){
-	/*for(int i = 0; i <= p2.getGrado(); i++){
-		this->setCoeficientev3(i,this->getCoeficiente(i) + p2.getCoeficiente(i));	
-			for( int i = p2.getGrado()+1;  i < this->getGrado();i++){
-				this->coef[i] = p2.coef[i];
-			}
-	}*/
+
+	p2.setCoeficientev3(9,7);
+	p3.setCoeficientev3(9,7);
+
 	if(p2.getGrado() > p3.getGrado()){
-		for(int i = 0; i <= p3.getGrado(); i++){
+		for(int i = 0; i <= p2.getGrado(); i++){
 			this->setCoeficientev3(i,p2.getCoeficiente(i) + p3.getCoeficiente(i));	
 				for( int i = p3.getGrado()+1;  i < p2.getGrado();i++){
-					//this->setCoeficientev3(i, p2.coef[i] = p3.coef[i]);
-					this->coef[i] = p2.coef[i] = p3.coef[i];
+					this->setCoeficientev3(i, p2.coef[i] = p3.coef[i]);
 				}
 		}
 	}else if(p2.getGrado() < p3.getGrado()){
@@ -964,8 +961,8 @@ int main(){
 	//p1.DatosPolinomio2();	// Pedimos Datos al usuario. (coeficiente y valor)
 
 	/****		Datos introducidos por el programador FrontEnd en p1	****/
-	p3.setCoeficientev3(7,35);
-	/*p1.setCoeficientev3(0,6);
+	/*p1.setCoeficientev3(7,35);
+	p1.setCoeficientev3(0,6);
 	p1.setCoeficientev3(1,6);
 	p1.setCoeficientev3(2,6);
 	p1.setCoeficientev3(7,6);
@@ -978,8 +975,8 @@ int main(){
 	//p1.printPolinomio();
 
 	/****		Datos introducidos por el programador FrontEnd en p2	****/
-	p2.setCoeficientev3(9,7);
-	/*p2.setCoeficientev3(4,20);
+	/*p2.setCoeficientev3(9,7);
+	p2.setCoeficientev3(4,20);
 	p2.setCoeficientev3(5,25);
 	p2.setCoeficientev3(6,30);
 	p2.setCoeficientev3(10,50);
