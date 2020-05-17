@@ -224,14 +224,31 @@ class Polinomio{
 		 */
 		void MenuTesting();
 		/**
-		 * @brief Método que 
-		 * Muestra un menú para saleccionar si quieres usar cualquier caso de testing ya programado.
-		 * @post Se mostrará un menú donde el FRONT END puede elegir los testing que desee desde el 0 hasta el 5.1 y el testing automático.
+		 * @brief Método que suma dos polinomio. Pasando uno por referencia. El resultado se almacena en el polinomio llamante.(en este caso p1)
+		 * @pre Debe te tener creado los dos polinomios.
+		 * @post Sumará el resultado de los dos polinomios y los alamacenará en el polinomio llamante (en este caso p1).
 		 */
 		void sumPolinomio(Polinomio &p2);
+		/**
+		 * @brief Método que suma dos polinomio. Pasando los dos por referencia. El resultado se almacena en el polinomio llamante.(en este caso p1)
+		 * @pre Debe te tener creado los dos polinomios.
+		 * @post Sumará el resultado de los dos polinomios y los alamacenará en el polinomio llamante (en este caso p1).
+		 */
 		void sumPolinomiov2(Polinomio &p2,Polinomio &p3);
+		/**
+		 * @brief Método que suma dos polinomio. Pasando uno por referencia. El resultado se almacena en el polinomio auxiliar (creado en el mismo método) 			 * que devolveremos con un return.
+		 * @pre Debe te tener creado los dos polinomios.
+		 * @post Sumará el resultado de los dos polinomios y los alamacenará en el polinomio llamante (en este caso p1).
+		 */
+		Polinomio sumPolinomiov3(const Polinomio &p2);
+		/**
+		 * @brief  			  
+		 * @pre 
+		 * @post 
+		 */
+		Polinomio* sumPolinomiov4(const Polinomio *p2);
 };
-///////////////////////////////				DEBUG				///////////////////////////////
+///////////////////////////////				DEBUG					////////////////////////////////
 
 void Polinomio::setDEBUG(bool DEBUG){
 	this->DEBUG = DEBUG;
@@ -666,9 +683,6 @@ void Polinomio::sumPolinomio(Polinomio &p2){
 
 void Polinomio::sumPolinomiov2(Polinomio &p2,Polinomio &p3){
 
-	p2.setCoeficientev3(9,7);
-	p3.setCoeficientev3(9,7);
-
 	if(p2.getGrado() > p3.getGrado()){
 		for(int i = 0; i <= p2.getGrado(); i++){
 			this->setCoeficientev3(i,p2.getCoeficiente(i) + p3.getCoeficiente(i));	
@@ -690,6 +704,66 @@ void Polinomio::sumPolinomiov2(Polinomio &p2,Polinomio &p3){
 	}
 
 	this->printPolinomio();
+}
+Polinomio Polinomio::sumPolinomiov3(const Polinomio &p2){
+
+	Polinomio aux (p2);
+	
+	this->setCoeficientev3(7,7);
+	aux.setCoeficientev3(7,7);
+	
+
+	if(this->getGrado() > aux.getGrado()){
+		for(int i = 0; i <= this->getGrado(); i++){
+			aux.setCoeficientev3(i,this->getCoeficiente(i) + aux.getCoeficiente(i));	
+				for( int i =  this->getGrado()+1; i < aux.getGrado();i++){
+					 aux.setCoeficientev3(i,aux.coef[i] = this->getCoeficiente(i));
+				}
+		}
+	}else if(this->getGrado() < aux.getGrado()){
+		for(int i = 0; i <= this->getGrado(); i++){
+			aux.setCoeficientev3(i, this->getCoeficiente(i) + aux.getCoeficiente(i));	
+				for( int i =  this->getGrado()+1; i < aux.getGrado();i++){
+					 aux.setCoeficientev3(i,aux.coef[i] = this->getCoeficiente(i));
+				}
+		}	
+	}else if(this->getGrado() == aux.getGrado()){
+		for(int i = 0; i <= this->getGrado(); i++){
+			 aux.setCoeficientev3(i,this->getCoeficiente(i) + aux.getCoeficiente(i));
+		}
+	}
+
+	return aux;
+}
+Polinomio* Polinomio::sumPolinomiov4(const Polinomio *p2){
+
+	Polinomio *aux = new Polinomio();
+
+	this->setCoeficientev3(10,7);
+	aux->setCoeficientev3(10,7);
+	
+
+	if(this->getGrado() > aux->getGrado()){
+		for(int i = 0; i <= this->getGrado(); i++){
+			aux->setCoeficientev3(i,this->getCoeficiente(i) + aux->getCoeficiente(i));	
+				for( int i =  this->getGrado()+1; i < aux->getGrado();i++){
+					 aux->setCoeficientev3(i,aux->coef[i] = this->getCoeficiente(i));
+				}
+		}
+	}else if(this->getGrado() < aux->getGrado()){
+		for(int i = 0; i <= this->getGrado(); i++){
+			aux->setCoeficientev3(i, this->getCoeficiente(i) + aux->getCoeficiente(i));	
+				for( int i =  this->getGrado()+1; i < aux->getGrado();i++){
+					 aux->setCoeficientev3(i,aux->coef[i] = this->getCoeficiente(i));
+				}
+		}	
+	}else if(this->getGrado() == aux->getGrado()){
+		for(int i = 0; i <= this->getGrado(); i++){
+			 aux->setCoeficientev3(i,this->getCoeficiente(i) + aux->getCoeficiente(i));
+		}
+	}
+
+	return aux;
 }
 ///////////////////////////////			OTHER METHODS			///////////////////////////////
 
@@ -950,8 +1024,11 @@ int main(){
 	/****		Creación de Polinomios		****/
 	Polinomio p1;		// Creación de un Polinomio.
 	//Polinomio p1 (max);	// Creación de un Polinomio de max_grado = max (variable introducida por el usuario).
-	Polinomio p2 (p1);	// Creamos una copia del polinomio
-	Polinomio p3 (p1);	// Creamos una copia del polinomio
+	//Polinomio p2 (p1);	// Creamos una copia del polinomio
+	//Polinomio p3 (p1);	// Creamos una copia del polinomio
+	//Polinomio *p1;
+	Polinomio*p2;
+	Polinomio *res;
 
 	/****		Modo DEBUG		****/
 	p1.setDEBUG(true);
@@ -983,14 +1060,16 @@ int main(){
 
 	/****		Imprimir Polinomio p2		****/
 	//p2.printPolinomio();	// Imprimimos polinomio p2 (copia exacta de p1).
-
-
+	//p1.setCoeficientev3(10,6);
+	//p2.setCoeficientev3(4,50);
 	/****		SUMAR 		****/
-	p1.sumPolinomiov2(p2,p3);
+	//Polinomio *res = new Polinomio();
+	res = p1.sumPolinomiov4(p2);
+	res->printPolinomio();
 
 	/****		MENÚ TESTING Polinomio p1		****/		
 	if(TESTING == true){
-		p1.MenuTesting();	// Menú donde puedes seleccionar el testing que desees tanto unitario como automático.
+		res->MenuTesting();	// Menú donde puedes seleccionar el testing que desees tanto unitario como automático.
 	}
 
 
