@@ -248,17 +248,17 @@ class Polinomio{
 		 */
 		Polinomio* sumPolinomiov4(const Polinomio *p2);
 		/**
-		 * @brief 
-		 * @pre 
+		 * @brief Sobrecarga del operador +.
 		 * @post 
 		 */
 		Polinomio operator+(const Polinomio &p2);
 		/**
-		 * @brief 		  
-		 * @pre 
+		 * @brief Sobrecarga del operador =. 
 		 * @post 
 		 */
-		//friend ostream& operator<<(ostream &flujo, const Polinomio &p);
+		 void operator=(const Polinomio &p);
+		friend ostream& operator<<(ostream &flujo, const Polinomio &p);
+		friend istream& operator>>(std::istream &flujo, Polinomio &p);		
 };
 ///////////////////////////////				DEBUG					////////////////////////////////
 
@@ -781,70 +781,118 @@ Polinomio* Polinomio::sumPolinomiov4(const Polinomio *p2){
 }
 ///////////////////////////////			SOBRECARGA			///////////////////////////////
 
-Polinomio Polinomio::operator+(const Polinomio &p2){
+Polinomio Polinomio::operator+(const Polinomio &p){
 
-	Polinomio aux (p2);
+	Polinomio aux(p);
 
 	if(this->getGrado() > aux.getGrado()){
-		for(int i = 0; i <= this->getGrado(); i++){
-			aux.setCoeficientev3(i,this->getCoeficiente(i) + aux.getCoeficiente(i));	
-				for( int i =  this->getGrado()+1; i < aux.getGrado();i++){
-					 aux.setCoeficientev3(i,aux.coef[i] = this->getCoeficiente(i));
-				}
-		}
-	}else if(this->getGrado() < aux.getGrado()){
 		for(int i = 0; i <= aux.getGrado(); i++){
+			aux.setCoeficientev3(i,this->getCoeficiente(i) + aux.getCoeficiente(i));	
+		}
+			for( int i = aux.getGrado()+1; i <= this->getGrado();i++){
+				 aux.setCoeficientev3(i,this->getCoeficiente(i));
+			}
+			
+	}else if(this->getGrado() < aux.getGrado()){
+		for(int i = 0; i <= this->getGrado(); i++){
 			aux.setCoeficientev3(i, this->getCoeficiente(i) + aux.getCoeficiente(i));	
-				for( int i =  this->getGrado()+1; i < aux.getGrado();i++){
-					 aux.setCoeficientev3(i,aux.coef[i] = this->getCoeficiente(i));
-				}
-		}	
+		}		
+			for( int i = this->getGrado()+1; i <= aux.getGrado();i++){
+				 aux.setCoeficientev3(i,aux.getCoeficiente(i));
+			}
+			
 	}else if(this->getGrado() == aux.getGrado()){
 		for(int i = 0; i <= this->getGrado(); i++){
 			 aux.setCoeficientev3(i,this->getCoeficiente(i) + aux.getCoeficiente(i));
 		}
 	}
-
+	
 	return aux;
 }
-/*ostream& operator<<(ostream &flujo, const Polinomio &p){
-	setDEBUG(true);
+void Polinomio::operator=(const Polinomio &p){
+
+	delete[] this->coef;
+
+	//Inicializamos los miembros del polinomio.
+	this->max_grado = p.max_grado;
+	this->grado = p.grado;
+
+	//Filtro para que al crear un polinomio no sea de grado negativo, en caso de serlo abortará la ejecución.
+	if(this->max_grado >= 0){
+		//Creamos un vector dinámico de coeficientes.
+		this->coef = new float[this->getMax_Grado()+1];	//Reservo el valor de max_grado+1.
+
+
+		//Rellenamos el vector de coeficientes a 0
+		for(int i=0; i <= this->getMax_Grado(); i++){
+			this->coef[i]= p.coef[i];
+		}
+
+	}else if (this->max_grado < 0){
+		cerr << "¡¡ERROR!! un polinomo no puede tener un grado negativo." << endl;
+		cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
+		exit(-1);
+	}
+
+
+}
+ostream& operator<<(ostream &flujo, const Polinomio &p){
 	
-	if(this->getDEBUG() == true){
-		flujo << GREY << "***	DEBUG POLINOMIO  ***" << DEFAULT << endl;
-		flujo << "DEBUG: Max_grado: " << getMax_Grado() << " y grado: " << getGrado() << endl;	
+	cout << GREY << "***	DEBUG POLINOMIO  ***" << DEFAULT << endl;
+	cout << "DEBUG: Max_grado: " << p.getMax_Grado() << " y grado: " << p.getGrado() << endl;	
 
 	flujo << GREY << "****************************************" << DEFAULT << endl; 
-	      	flujo <<"P(x) = ";	
-		for(int i = 0; i <= getGrado();i++){
-		    flujo << coef[i] << "x^" << i;
-		    if(i != getGrado()){
+	      	flujo << "P(x) = ";	
+		for(int i = 0; i <= p.getGrado();i++){
+		    flujo << p.coef[i] << "x^" << i;
+		    if(i != p.getGrado()){
 		        flujo << " + ";
 		    }
 		}
 		flujo << endl;
-	}
 
 	flujo << GREY << "****************************************" << DEFAULT << endl; 
 
       	flujo <<"P(x) = ";
-	flujo << getCoeficiente(getGrado());
-	if(getGrado() > 0){
-		flujo << "x^" << getGrado();
+	flujo << p.getCoeficiente(p.getGrado());
+	if(p.getGrado() > 0){
+		flujo << "x^" << p.getGrado();
 	}
-	for(int i = getGrado()-1; i >= 0; i--){
-		if(getCoeficiente(i) != 0.0){
-			flujo << " + " << getCoeficiente(i) << "x^" << i;		
+	for(int i = p.getGrado()-1; i >= 0; i--){
+		if(p.getCoeficiente(i) != 0.0){
+			flujo << " + " << p.getCoeficiente(i) << "x^" << i;		
 		}
 	}
 	flujo << endl;
 
 	flujo << GREY << "****************************************" << DEFAULT << endl; 
 
-	flujo << CYAN << "Máximo grado del polinomio: " << DEFAULT << getMax_Grado() << endl;
+	flujo << CYAN << "Máximo grado del polinomio: " << DEFAULT << p.getMax_Grado() << endl;
 	
 	return flujo;
-}*/
+}
+istream& operator>>(std::istream &flujo, Polinomio &p){
+	
+	//Declaración de variables
+	int i;		//Variable que nos indica el grado de este polinomio.
+	float c;	//Variable que ingresa el valor de este polinomio.
+	
+		cout << "Introduciremos los datos en el polinomoi como deseemos,"; 
+		cout << RED << " recuerda que para terminar debes de pulsar -1 en el grado del monomio." << DEFAULT << endl;
+	do{
+
+		cout << "Introduzca el grado del monomio. " << endl;
+		flujo >> i;
+		cout << "Introduzca el valor de su coeficiente. " << endl;
+		flujo >> c;
+		
+		if(i >= 0){
+			p.setCoeficientev3(i,c);
+		}
+	}while(i >= 0);
+	
+	return flujo;
+}
 ///////////////////////////////			OTHER METHODS			///////////////////////////////
 
 void Polinomio::DatosPolinomio(){
@@ -1169,18 +1217,45 @@ int main(){
 	res = p1.sumPolinomiov4(p2);
 	res->printPolinomio();	
 	
+	delete res;
+	res = 0;
+	
 	/****		SOBRECARGA OPERADOR +		****/
-	Polinomio p2 (p1);	// Creamos una copia del polinomio
-	Polinomio res (p1);
-	res = p1.sumPolinomiov3(p2);
-	p1 = p2 + res;
+	/*Polinomio p2 (p1);	// Creamos una copia del polinomio
+	
+	p1.setCoeficientev3(10,5);
+	p2.setCoeficientev3(4,35);
+	
+	Polinomio res = p2 + p1;
 	res.printPolinomio();
 	
-	//p1.printPolinomio();
-	//p2.printPolinomio();
-	//res.printPolinomio();
+	/****		SOBRECARGA OPERADOR =		****/
+	/*Polinomio p2 (p1);	// Creamos una copia del polinomio
+	
+	p1.setCoeficientev3(10,5);
+	p1.printPolinomio();
+	p2.setCoeficientev3(4,35);
+	p2.printPolinomio();
+	p1=p2;
+	
+	p1.printPolinomio();
+	
+	/****		SOBRECARGA OPERADOR <<		****/
+	/*p1.setCoeficientev3(1,5);
+	p1.setCoeficientev3(5,25);
+	p1.setCoeficientev3(3,15);
+	
+	cout << p1;
 
-
+	/****		SOBRECARGA OPERADOR <<		****/
+	/*p1.setCoeficientev3(1,5);
+	p1.setCoeficientev3(5,25);
+	p1.setCoeficientev3(3,15);*/
+	
+	cin >> p1;
+	
+	cout << p1;
+	
 	/****		MENÚ TESTING Polinomio p1		****/		
 	/*if(TESTING == true){
 		res.MenuTesting();	// Menú donde puedes seleccionar el testing que desees tanto unitario como automático.

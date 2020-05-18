@@ -31,4 +31,14 @@ Polinomio 3º Trimestre.
 
 	11) Polinomio (2ª Parte): Sobrecarga Interna del Método Sumar.
 
+	12) Polinomio (2ª Parte): Sobrecarga de Operador Igualación.
+
+	13) Polinomio (2ª Parte): Sobrecarga Interna E/S. Clase Friend.
+
+	14) Objetos definidos mediante otros objetos: Clase Vista que utiliza a la Clase Polinomio.
+
+		1) BÁSICO: método printMenu(), método crearPolinomioUsuario() y eliminarPolinomioUsuario() con un vector estático de Polinomios.
+
+		2) AVANZADO: método crearPolinomioUsuario() y eliminarPolinomioUsuario() con un vector dinámico de Polinomios.
+
 
