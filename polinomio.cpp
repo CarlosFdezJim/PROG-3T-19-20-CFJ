@@ -24,6 +24,23 @@
 #include <string.h>
 using namespace std;
 
+/*****************************************
+** Definición de la clase Vista 	**
+*****************************************/
+/*class Vista{
+	private:
+		int util;
+		Polinomio v[util];
+		
+		void crearPolinomioUsuario();
+		void borrarPolinomioUsuario();
+	
+	public:
+		friend class Polinomio;
+		void printMenu();
+		void MenuTesting();
+
+};*/
 
 /*****************************************
 ** Definición de la clase Polinomio 	**
@@ -337,38 +354,31 @@ class Polinomio{
 		 * @version 1.0
 		 */
 		 void operator=(const Polinomio &p);
-		 		/**
+		 /**
 		 * @brief Sobrecarga del operador <<. 
 		 * @post Se utiliza para poder imprimir un polinomio utilizando simplemente este operador.
-		 * Ejemplo --> cout >> p1.
+		 * Ejemplo --> cout << p1.
 		 * @author Carlos Fdez
 		 * @version 1.0
 		 */
 		friend ostream& operator<<(ostream &flujo, const Polinomio &p);
 		/**
+		 * @brief Sobrecarga del operador << por punteros. 
+		 * @post Se utiliza para poder imprimir un polinomio utilizando simplemente este operador.
+		 * Ejemplo --> cout << p1.
+		 * @author Carlos Fdez
+		 * @version 2.0
+		 */
+		friend ostream& operator<<(ostream &flujo, Polinomio* p);
+		/**
 		 * @brief Sobrecarga del operador >>. 
 		 * @post Se utiliza para introducir datos en un polinomio utilizando simplemente este operador.
 		 * Ejemplo --> cin >> p1.
 		 */
-		friend istream& operator>>(std::istream &flujo, Polinomio &p);		
-};
-/*****************************************
-** Definición de la clase Vista 	**
-*****************************************/
-class Vista{
-	private:
-		int util;
-		Polinomio v[util];
+		friend istream& operator>>(std::istream &flujo, Polinomio &p);
 		
-		void crearPolinomioUsuario();
-		void borrarPolinomioUsuario();
-	
-	public:
-		friend class Polinomio;
-		void printMenu();
-		void MenuTesting();
-
 };
+
 ///////////////////////////////				DEBUG					////////////////////////////////
 
 void Polinomio::setDEBUG(bool DEBUG){
@@ -980,6 +990,41 @@ ostream& operator<<(ostream &flujo, const Polinomio &p){
 	
 	return flujo;
 }
+ostream& operator<<(ostream &flujo, Polinomio* p){
+	
+	cout << GREY << "***	DEBUG POLINOMIO  ***" << DEFAULT << endl;
+	cout << "DEBUG: Max_grado: " << p->getMax_Grado() << " y grado: " << p->getGrado() << endl;	
+
+	flujo << GREY << "****************************************" << DEFAULT << endl; 
+	      	flujo << "P(x) = ";	
+		for(int i = 0; i <= p->getGrado();i++){
+		    flujo << p->coef[i] << "x^" << i;
+		    if(i != p->getGrado()){
+		        flujo << " + ";
+		    }
+		}
+		flujo << endl;
+
+	flujo << GREY << "****************************************" << DEFAULT << endl; 
+
+      	flujo <<"P(x) = ";
+	flujo << p->getCoeficiente(p->getGrado());
+	if(p->getGrado() > 0){
+		flujo << "x^" << p->getGrado();
+	}
+	for(int i = p->getGrado()-1; i >= 0; i--){
+		if(p->getCoeficiente(i) != 0.0){
+			flujo << " + " << p->getCoeficiente(i) << "x^" << i;		
+		}
+	}
+	flujo << endl;
+
+	flujo << GREY << "****************************************" << DEFAULT << endl; 
+
+	flujo << CYAN << "Máximo grado del polinomio: " << DEFAULT << p->getMax_Grado() << endl;
+	
+	return flujo;
+}
 istream& operator>>(std::istream &flujo, Polinomio &p){
 	
 	//Declaración de variables
@@ -1253,18 +1298,18 @@ int GradoPolinomio(int max){
 }
 ///////////////////////////////				MODO VISTA				///////////////////////////////
 
-void Vista::printMenu(){
+/*void Vista::printMenu(){
 
 	cout << BLUE <<"/***************************************"<< endl;
 		cout << "****	     CLASE VISTA	    ****" << endl;
-		cout << "****************************************/ " << DEFAULT;
-	cout << PURPLE <<  "\nAquí le mostramos las opciones disponibles para realizar en la clase vista : " << DEFAULT;
+		cout << "****************************************/ /*" << DEFAULT;*/
+	/*cout << PURPLE <<  "\nAquí le mostramos las opciones disponibles para realizar en la clase vista : " << DEFAULT;
 	cout << PURPLE <<  "\n[1] " << DEFAULT << " Crear Polinomio. ";
 	cout << PURPLE <<  "\n[2] " << DEFAULT << " Borrar Polinomio. ";
-	cout << PURPLE <<  "\n[3] " << DEFAULT << " Salir. " << endl;
+	cout << PURPLE <<  "\n[3] " << DEFAULT << " Salir. " << endl;*/
 
-}
-void Vista::MenuTesting(){
+//}
+/*void Vista::MenuTesting(){
 
 	//Declaración de variables.
 	int opcion=0;
@@ -1309,8 +1354,8 @@ void Vista::MenuTesting(){
 					cout << PURPLE << "Por favor seleccione otra o pulse 3 para salir. \n" << DEFAULT << endl;
 			}
 	}
-}
-Vista::crearPolinomio(){
+}*/
+/*Vista::crearPolinomio(){
 	
 	Polinomio p;
 
@@ -1319,7 +1364,7 @@ Vista::eliminarPolinomio(){
 	
 	~Polinomio p;
 
-}
+}*/
 int main(){
 
 	//Declaración de variable que asignaremos para crear el polinomio de un tamaño inicial.
@@ -1440,8 +1485,12 @@ int main(){
 	//cout << p1;
 	
 	/****		SOBRECARGA OPERADOR <<		****/
-	Vista v1;	
-	v1.MenuTesting();
+	
+	
+	
+	/****		SOBRECARGA OPERADOR << por punteros		****/
+	//Vista v1;	
+	//v1.MenuTesting();
 
 
 }
