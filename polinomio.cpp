@@ -1,5 +1,5 @@
 //
-//	POLINOMIO.cpp
+//	polinomio.cpp
 //
 //  Created by Carlos Fdez
 //  https://github.com/CarlosFdezJim/PROG-3T-19-20-CFJ
@@ -21,363 +21,9 @@
 //**************************************//
 #include <iostream>
 #include <stdlib.h>
-#include <string.h>
+#include "polinomio.h"
 using namespace std;
 
-/*****************************************
-** Definición de la clase Vista 	**
-*****************************************/
-/*class Vista{
-	private:
-		int util;
-		Polinomio v[util];
-		
-		void crearPolinomioUsuario();
-		void borrarPolinomioUsuario();
-	
-	public:
-		friend class Polinomio;
-		void printMenu();
-		void MenuTesting();
-
-};*/
-
-/*****************************************
-** Definición de la clase Polinomio 	**
-*****************************************/
-
-class Polinomio{
-
-	private:
-		float *coef;			//Vector con los coeficientes
-		int grado;			//Grado actual del polinomio. El grado de un polinomio no puede ser negativo.
-		int max_grado;			//Máximo grado permitido a este polinomio. El grado de un polinomio no puede ser negativo.
-		bool DEBUG;			//Miembro de la clase polinomio de tipo booleano que se usa para ver determinados mensajes de error que nos interesen.
-
-		/**
-		 * @brief Cambia la dimensión del vector aumentando o disminuyendo si fuera necesario.
-		 * 	|0 |1 |2 |3 |4 |5 |6 |  --> resize(9);
-		 * 	|0 |1 |2 |3 |4 |5 |6 |7 |8 |9 |
-		 * 	|0 |1 |2 |3 |4 |5 |6 |  --> resize(3);
-		 * 	|0 |1 |2 |3 |
-		 * @post Se abrá aumentado la dimensión del vector DIM veces.
-		 * @author Carlos Fdez
-		 * @version 2.0
-		 */
-		void resize(int DIM);
-		/**
-		 * @brief Aumenta la posición del vector "DIM" veces (número pasado por referencia), copiandolo en un vector auxiliar de mayor dimensión.
-		 * 	|0 |1 |2 |3 |4 |5 |6 |  --> resize(3);
-		 * 	|0 |1 |2 |3 |4 |5 |6 |7 |8 |9 |
-		 * @post Se abrá aumentado la dimensión del vector DIM veces.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void resizeAumentarPolinomio(int DIM);
-		/**
-		 * @brief Aumenta la posición del vector "DIM" veces (número pasado por referencia), copiandolo en un vector auxiliar de menor dimensión.
-		 * 	|0 |1 |2 |3 |4 |5 |6 |  --> resize(3);
-		 * 	|0 |1 |2 |3 |
-		 * @post Se abrá aumentado la dimensión del vector DIM veces.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void resizeDisminuirPolinomio(int DIM);
-	public:
-		/**
-		 * @brief Método que activa el debug para realizar el testing. ¡ OJO ! Sólo lo puede usar el BACK END ya que es un método privado.
-		 * @pre 
-		 * @post Cambia el valor de la variable DEBUG que activa o desactiva el modo DEBUG.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void setDEBUG(bool DEBUG);
-		/**
-		 * @brief Método que devuelve un booleano, y activa o desactuva el método DEBUG
-		 * @pre 
-		 * @post Devuelve un booleano que usaremos para activar o desactivar el modo DEBUG.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		bool getDEBUG();
-		/**
-		 * @brief Se crea un polinomio estático y reservamos memoria para el vector de coeficientes.
-		 * @pre El grado del polinomo NO puede ser negativo.
-		 * @post Tendremos creado un polinomio y se reservará memoria para el vector de coeficientes y los iniciaremos a 0.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		Polinomio();				//Constructor del polinomio (CrearPolinomio).
-		/**
-		 * @brief Se crea un polinomio estático y asignaremos el valor pasado por parámetros al max_grado.
-		 * @pre El grado del polinomo NO puede ser negativo.
-		 * @post Tendrémos creado un polinomio y se reservará memoria para el vector de coeficientes y los iniciaremos a 0.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		Polinomio( int max);
-		/**
-		 * @brief Crea una copia exacta del polinomio que le pasamos por referencia.
-		 * @pre El grado del polinomo NO puede ser negativo.
-		 * @post Tendrémos creado un polinomio identico reservandose memoria para el vector de coeficientes y los inicializando a 0.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		Polinomio(const Polinomio &p1);
-		/**
-		 * @brief Se libera la memoria estática reservada del Polinomio, eliminamos el vector de coeficientes y ponemos los miembros a 0.
-		 * @pre Se debe de tener creado el polinomo.
-		 * @post Borraremos la memoria estática del Polinomio creado anteriormente.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		~Polinomio();
-		/**
-		 * @brief Insertamos el valor del coeficiente (c) y lo introducimos en la posición del iterador (i) que le pasamos en el método.
-		 * @param int i			//Grado actual del polinomio donde vamos a insertar el coeficiente.
-		 * @param float c		//Coeficiente del polinomio.
-		 * @pre Debemos de haber creado el Polimio correctamente y debe de haber tenido memoria suficiente para crearse.
-		 * @post Insertaremos el coeficiente en la posición que deseamos.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 * 	· Esta versión tiene un filtrado para que no permita introducir un coeficiente negativo.
-		 * 	· Esta versión introduce los datos en el polinomio.
-		 */
-		void setCoeficientev1(int i, float c);
-		/**
-		 * @brief Insertamos el valor del coeficiente (c) y lo introducimos en la posición del iterador (i) que le pasamos en el método. Si es necesario 			 * usa el método resize para ampliar la dimensión del vector automáticamente.
-		 * @param int i			//Grado actual del polinomio donde vamos a insertar el coeficiente.
-		 * @param float c		//Coeficiente del polinomio.
-		 * @pre Debemos de haber creado el Polimio correctamente y debe de haber tenido memoria suficiente para crearse.
-		 * @post Insertaremos el coeficiente en la posición que deseamos.
-		 * @author Carlos Fdez
-		 * @version 2.0
-		 * 	· Esta versión tiene un filtrado para que no permita introducir un coeficiente negativo.
-		 * 	· Esta versión incluye el método resize aumentar  en el caso de que el grado que se quiere incluir es mayor al max_grado actual.
-		 */
-		void setCoeficientev2(int i, float c);
-		/**
-		 * @brief Insertamos el valor del coeficiente (c) y lo introducimos en la posición del iterador (i) que le pasamos en el método. Si es necesario 			 * usa el método resize para ampliar la dimensión del vector automáticamente.
-		 * @param int i			//Grado actual del polinomio donde vamos a insertar el coeficiente.
-		 * @param float c		//Coeficiente del polinomio.
-		 * @pre Debemos de haber creado el Polimio correctamente y debe de haber tenido memoria suficiente para crearse.
-		 * @post Insertaremos el coeficiente en la posición que deseamos.
-		 * @author Carlos Fdez
-		 * @version 3.0
-		 * 	· Esta versión tiene un filtrado para que no permita introducir un coeficiente negativo.
-		 * 	· Esta versión incluye el método resize aumentar y disminuir.
-		 * 	· Esta versión tiene memoria exacta Es decir el grado y el max_grado tienen el mismo valor.
-		 */
-		void setCoeficientev3(int i, float c);
-		/**
-		 * @brief Introducimos el grado del polinomio en base al valor de [i].
-		 * @param int i
-		 * @pre El grado del polinomo NO puede ser negativo.
-		 * @pre Debemos de haber creado al menos un monomio.
-		 * @post El grado se guardará en el miembro correspondiente (grado).
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void setGrado(int i);
-		/**
-		 * @brief Introducimos el máximo grado del polinomio en base al valor de [i].
-		 * @param int i		//Valor que le pedimos al usuario.
-		 * @pre El grado del polinomo NO puede ser negativo.
-		 * @pre Debemos de haber creado al menos un monomio.
-		 * @post El grado se guardará en el miembro correspondiente ( max_grado).
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void setMax_Grado(int i);
-		/**
-		 * @brief Devolvemos el valor que tenemos dentro del miembro vector coef[] en la posición determinada por el indicador [i]. Lo definimos const para 			 * evitar que accidentalmente alguna sentencia modifique algún dato miembro de la clase.
-		 * @pre El coeficiente debe de tener al menos un valor introducido.
-		 * @post Devolveremos el valor del coeficiente indicado por el indicador [i].
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		float getCoeficiente(int i) const;
-		/**
-		 * @brief Devolvemos el valor que tenemos dentro del miembro grado. Lo definimos const para evitar que accidentalmente alguna sentencia modifique 			 * algún dato miembro de la clase.
-		 * @pre El grado del polinomo NO puede ser negativo.
-		 * @post Devolveremos el valor del miembro grado.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		int getGrado() const;
-		/**
-		 * @brief Devolvemos el valor que tenemos dentro del miembro max_grado. Lo definimos const para evitar que accidentalmente alguna sentencia 			 * modifique algún dato miembro de la clase.
-		 * @pre El grado del polinomo NO puede ser negativo.
-		 * @post Devolveremos el valor del miembro max_grado.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		int getMax_Grado() const;
-		/**
-		 * @brief Imprimimos por pantalla el polinomio hasta el valor de max_grado.
-		 * @post Imprimimos por pantalla el Polinomio.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void printPolinomio();
-		/**
-		 * @brief Método que se encarga de pedir los coeficientes al usuario para introducirlos en el vector automáticamente.
-		 * @post Se insertarán los datos del usuario en el vector.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void DatosPolinomio();
-		/**
-		 * @brief Método que se encarga de pedir el grado y los coeficientes al usuario para introducirlos en el vector.
-		 * @post Se insertarán los datos del usuario en el vector.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void DatosPolinomio2();
-		/**
-		 * @brief Método de testing nº0: 
-		 * Imprime por pantalla el contenido por defecto tras la creación de un polinomio
-		 * @post Mostrarmos el vector por pantalla.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void Testing_0();
-		/**
-		 * @brief Método de testing nº1: 
-		 * Inserta un monomio de grado menor al actual.
-		 * @post Mostrarmos el vector por pantalla con un monomio menor al actual.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void Testing_1();
-		/**
-		 * @brief Método de testing nº2: 
-		 * Inserta un monomio de grado negativo.
-		 * @post Provocará un error por el filtro y se abortará la ejecución porque el grado no puede ser negativo.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void Testing_2();
-		/**
-		 * @brief Método de testing nº3: 
-		 * Inserta un monomio de grado mayor al actual, pero que sea menor que max_grado.
-		 * @post Se insertará correctamente el valor introducido y se muestra por pantalla.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void Testing_3();
-		/**
-		 * @brief Método de testing nº4: 
-		 * Inserta un monomio de grado mayor al actual, y que sea mayor que max_grado.
-		 * @post Se insertará correctamente el valor introducido usando el  método resize automáticamente y se muestra por pantalla.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void Testing_4();
-		/**
-		 * @brief Método de testing nº5: 
-		 * Inserta un monomio de grado igual al actual y cuyo coeficiente sea 0.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 * @post 
-		 */
-		void Testing_5();
-		/**
-		 * @brief Método de testing nº5.1: 
-		 * Si todos los coeficientes anteriores también son 0.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 * @post 
-		 */
-		void Testing_5_1();
-		/**
-		 * @brief Método de testing automatizado. 
-		 * Realiza todos los test automáticamente.
-		 * @post Se mostrarán los testing desde el 0 hasta el 5.1.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void TestingAutom();
-		/**
-		 * @brief Método que te dejará seleccionar que tipo de testing quieres utilizar. 
-		 * Muestra un menú para saleccionar si quieres usar cualquier caso de testing ya programado.
-		 * @post Se mostrará un menú donde el FRONT END puede elegir los testing que desee desde el 0 hasta el 5.1 y el testing automático.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void MenuTesting();
-		/**
-		 * @brief Método que suma dos polinomio. Pasando uno por referencia. El resultado se almacena en el polinomio llamante.(en este caso p1)
-		 * @pre Debe te tener creado los dos polinomios.
-		 * @post Sumará el resultado de los dos polinomios y los alamacenará en el polinomio llamante (en este caso p1).
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void sumPolinomio(Polinomio &p2);
-		/**
-		 * @brief Método que suma dos polinomio. Pasando los dos por referencia. El resultado se almacena en el polinomio llamante.(en este caso p1)
-		 * @pre Debe te tener creado los dos polinomios.
-		 * @post Sumará el resultado de los dos polinomios y los alamacenará en el polinomio llamante (en este caso p1).
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		void sumPolinomiov2(Polinomio &p2,Polinomio &p3);
-		/**
-		 * @brief Método que suma dos polinomio. Pasando uno por referencia. El resultado se almacena en el polinomio auxiliar (creado en el mismo método) 			 * que devolveremos con un return.
-		 * @pre Debe te tener creado los dos polinomios.
-		 * @post Sumará el resultado de los dos polinomios y los alamacenará en el polinomio llamante (en este caso p1).
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		Polinomio sumPolinomiov3(const Polinomio &p2);
-		/**
-		 * @brief Método que suma dos polinomios.Pasando el puntero de uno por parámetros. El resultado del polinomio se devuelve como puntero.		  
-		 * @pre Debemos de tener creado los polinomio con memória dinámica.
-		 * @post Devolverá el resultado de la suma de los polinomios de memória dinámica.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		Polinomio* sumPolinomiov4(const Polinomio *p2);
-		/**
-		 * @brief Sobrecarga del operador +.
-		 * @post Se utiliza para sumar datos de un polinomio a otro utilizando simplemente este operador.
-		 * Ejemplo --> res = p1 + p2.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		Polinomio operator+(const Polinomio &p2);
-		/**
-		 * @brief Sobrecarga del operador =. 
-		 * @post Se utiliza para asignar datos de un polinomio a otro utilizando simplemente este operador.
-		 * Ejemplo -->  p1 = p2.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		 void operator=(const Polinomio &p);
-		 /**
-		 * @brief Sobrecarga del operador <<. 
-		 * @post Se utiliza para poder imprimir un polinomio utilizando simplemente este operador.
-		 * Ejemplo --> cout << p1.
-		 * @author Carlos Fdez
-		 * @version 1.0
-		 */
-		friend ostream& operator<<(ostream &flujo, const Polinomio &p);
-		/**
-		 * @brief Sobrecarga del operador << por punteros. 
-		 * @post Se utiliza para poder imprimir un polinomio utilizando simplemente este operador.
-		 * Ejemplo --> cout << p1.
-		 * @author Carlos Fdez
-		 * @version 2.0
-		 */
-		friend ostream& operator<<(ostream &flujo, Polinomio* p);
-		/**
-		 * @brief Sobrecarga del operador >>. 
-		 * @post Se utiliza para introducir datos en un polinomio utilizando simplemente este operador.
-		 * Ejemplo --> cin >> p1.
-		 */
-		friend istream& operator>>(std::istream &flujo, Polinomio &p);
-		
-};
 
 ///////////////////////////////				DEBUG					////////////////////////////////
 
@@ -390,7 +36,7 @@ bool Polinomio::getDEBUG(){
 ///////////////////////////////				POLINOMIO				///////////////////////////////
 Polinomio::Polinomio(){
 	
-	setDEBUG(false);
+	setDEBUG(true);
 
 	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    CREANDO POLINOMIO    **** " << DEFAULT << endl;
@@ -430,7 +76,7 @@ Polinomio::Polinomio(){
 }
 Polinomio::Polinomio(int max){
 
-	setDEBUG(false);
+	setDEBUG(true);
 
 	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n ****    CREANDO POLINOMIO CON MAX GRADO    **** " << DEFAULT << endl;
@@ -469,7 +115,7 @@ Polinomio::Polinomio(int max){
 }
 Polinomio::Polinomio(const Polinomio &p1){
 
-	setDEBUG(false);
+	setDEBUG(true);
 
 	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n ****    CREANDO COPIA DEL POLINOMIO    **** " << DEFAULT << endl;
@@ -514,7 +160,7 @@ Polinomio::Polinomio(const Polinomio &p1){
 }
 Polinomio::~Polinomio(){
 	
-	setDEBUG(false);
+	setDEBUG(true);
 
 	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n ****    BORRANDO POLINOMIO    **** " << DEFAULT << endl;
@@ -793,9 +439,6 @@ void Polinomio::sumPolinomio(Polinomio &p2){
 		for(int i = 0; i <= p2.getGrado(); i++){
 			this->setCoeficientev3(i,this->getCoeficiente(i) + p2.getCoeficiente(i));
 		}	
-			/*for(int i = p2.getGrado()+1; i <= this->getGrado();i++){
-					this->coef[i] = this->coef[i];
-			}*/
 
 	}else if(this->getGrado() < p2.getGrado()){
 		for(int i = 0; i <= this->getGrado(); i++){
@@ -1081,6 +724,7 @@ void Polinomio::DatosPolinomio2(){
 		cout << YELLOW << "***" << DEFAULT << endl;
 	}
 }
+
 ///////////////////////////////				TESTING				///////////////////////////////
 /**
  * @brief Se mostrarán por pantalla las opciones de testing que el FRONT END quiera usar.
@@ -1295,202 +939,4 @@ int GradoPolinomio(int max){
 	}
 
 	return max;
-}
-///////////////////////////////				MODO VISTA				///////////////////////////////
-
-/*void Vista::printMenu(){
-
-	cout << BLUE <<"/***************************************"<< endl;
-		cout << "****	     CLASE VISTA	    ****" << endl;
-		cout << "****************************************/ /*" << DEFAULT;*/
-	/*cout << PURPLE <<  "\nAquí le mostramos las opciones disponibles para realizar en la clase vista : " << DEFAULT;
-	cout << PURPLE <<  "\n[1] " << DEFAULT << " Crear Polinomio. ";
-	cout << PURPLE <<  "\n[2] " << DEFAULT << " Borrar Polinomio. ";
-	cout << PURPLE <<  "\n[3] " << DEFAULT << " Salir. " << endl;*/
-
-//}
-/*void Vista::MenuTesting(){
-
-	//Declaración de variables.
-	int opcion=0;
-	bool creado = false;
-	
-	//Filtro para que el usuario no se salga de las opciones.
-	while(opcion!=3){
-		//Mostramos menú anteriormente realizado.
-		printMenu();
-		
-		//Pedimos al usuario que escoga una opción de las mostradas previamente.
-		cout << "\nEliga usted el programa que desea ejecutar: " << endl;
-		cin >> opcion;
-
-			switch (opcion){
-
-				case 1:
-					if(creado==false){
-						//crearPolinomio();
-						creado=true;
-					}else{
-						cout << RED << "No existe todavía ningún Polinomio, por favor elige otra opción." << DEFAULT << endl;
-						}
-				break;
-
-				case 2:
-					if(creado==true){
-						//eliminarPolinomio();
-					}else{
-						cout << ERROR << "Recuerde que si no CREA un Polinomio no puede eliminarlo. " << DEFAULT << endl;
-						}
-				break;
-				
-				case 3:
-					cout << PURPLE << "----------SALIENDO----------\n" ;
-					cout << "\nGracias por usar el modo Vista del POLINOMIO " << endl;
-					cout << "\n © Carlos Fdez " << DEFAULT << endl;
-				break;
-				
-				default:
-					cout << PURPLE << "Lo siento, la opción seleccionada no es correcta. " << DEFAULT << endl;
-					cout << PURPLE << "Por favor seleccione otra o pulse 3 para salir. \n" << DEFAULT << endl;
-			}
-	}
-}*/
-/*Vista::crearPolinomio(){
-	
-	Polinomio p;
-
-}
-Vista::eliminarPolinomio(){
-	
-	~Polinomio p;
-
-}*/
-int main(){
-
-	//Declaración de variable que asignaremos para crear el polinomio de un tamaño inicial.
-	/*int max = 0;
-	max = GradoPolinomio(max);	// Módulo que se encarga de pedir al usuario el grado máximo del polinomio que desea crear.
-	bool TESTING = false;		// Variable booleana que activa y desactiva el modo Testing.
-	
-	/****		Creación de Polinomios		****/
-	Polinomio p1;		// Creación de un Polinomio.
-	//Polinomio p1 (max);	// Creación de un Polinomio de max_grado = max (variable introducida por el usuario).
-	//Polinomio p2 (p1);	// Creamos una copia del polinomio
-	//Polinomio p3 (p1);	// Creamos una copia del polinomio
-	//Polinomio res;
-
-	/****		Modo DEBUG		****/
-	p1.setDEBUG(false);
-
-	/****		Datos introducidos por el usuario	****/
-	//p1.DatosPolinomio();	// Pedimos Datos al usuario rellenando de menor grado a mayor todo el Polinomio.(sólo pedimos el valor)
-	//p1.DatosPolinomio2();	// Pedimos Datos al usuario. (coeficiente y valor)
-
-	/****		Datos introducidos por el programador FrontEnd en p1	****/
-	/*p1.setCoeficientev3(7,35);
-	p1.setCoeficientev3(0,6);
-	p1.setCoeficientev3(1,16);
-	p1.setCoeficientev3(10,25);
-
-	/****		Imprimir Polinomio p1		****/
-	//p1.printPolinomio();
-
-	/****		Datos introducidos por el programador FrontEnd en p2	****/
-	/*p2.setCoeficientev3(9,7);
-	p2.setCoeficientev3(4,20);
-	p2.setCoeficientev3(6,30);
-	p2.setCoeficientev3(10,50);
-	
-	/*Testing*/
-	/*p1.setCoeficientev3(1,5);
-	p2.setCoeficientev3(4,35);
-	
-		/****		MENÚ TESTING Polinomio p1		****/		
-	/*if(TESTING == true){
-		p1.MenuTesting();	// Menú donde puedes seleccionar el testing que desees tanto unitario como automático.
-	}*/
-
-
-	/****		SUMAR V1		****/
-	/*Polinomio p2;	// Creamos una copia del polinomio
-	
-	p1.setCoeficientev3(4,5);
-	p2.setCoeficientev3(1,35);
-	
-	p1.sumPolinomio(p2);
-	
-	/****		SUMAR V2		****/
-	/*Polinomio p2 (p1);	// Creamos una copia del polinomio
-	Polinomio p3;
-	
-	p2.setCoeficientev3(10,5);
-	p3.setCoeficientev3(4,35);
-	
-	p1.sumPolinomiov2(p2,p3);
-	
-	/****		SUMAR V3		****/
-	/*Polinomio p2 (p1);	// Creamos una copia del polinomio
-	
-	p1.setCoeficientev3(1,5);
-	p2.setCoeficientev3(4,35);
-	
-	Polinomio res = p1.sumPolinomiov3(p2);
-	res.printPolinomio();
-	
-	/****		SUMAR V4		****/
-	/*Polinomio *p2;
-	Polinomio *res = new Polinomio();
-	
-
-	res = p1.sumPolinomiov4(p2);
-	res->printPolinomio();	
-	
-	delete res;
-	res = 0;
-	
-	/****		SOBRECARGA OPERADOR +		****/
-	/*Polinomio p2 (p1);	// Creamos una copia del polinomio
-	
-	p1.setCoeficientev3(10,5);
-	p2.setCoeficientev3(4,35);
-	
-	Polinomio res = p2 + p1;
-	res.printPolinomio();
-	
-	/****		SOBRECARGA OPERADOR =		****/
-	/*Polinomio p2 (p1);	// Creamos una copia del polinomio
-	
-	p1.setCoeficientev3(10,5);
-	p1.printPolinomio();
-	p2.setCoeficientev3(4,35);
-	p2.printPolinomio();
-	p1=p2;
-	
-	p1.printPolinomio();
-	
-	/****		SOBRECARGA OPERADOR <<		****/
-	/*p1.setCoeficientev3(1,5);
-	p1.setCoeficientev3(5,25);
-	p1.setCoeficientev3(3,15);
-	
-	cout << p1;
-
-	/****		SOBRECARGA OPERADOR <<		****/
-	/*p1.setCoeficientev3(1,5);
-	p1.setCoeficientev3(5,25);
-	p1.setCoeficientev3(3,15);*/
-	
-	//cin >> p1;
-	
-	//cout << p1;
-	
-	/****		SOBRECARGA OPERADOR <<		****/
-	
-	
-	
-	/****		SOBRECARGA OPERADOR << por punteros		****/
-	//Vista v1;	
-	//v1.MenuTesting();
-
-
 }

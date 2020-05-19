@@ -5,7 +5,7 @@ Polinomio 3º Trimestre.
 
 	 2) Polinomio (1ª Parte): setCoeficienteV1 (sin aumentar memoria y detectando cambio de grado al aumentar).
 
-	 3) Polinomio (1ª Parte): setCoeficienteV2 (aumentando memoria y detectando cambio de grado al aumentar, y cuando nos asignen a cero el monomio, que discuta y 			asigne correctamente el grado actual).
+	 3) Polinomio (1ª Parte): setCoeficienteV2 (aumentando memoria y detectando cambio de grado al aumentar, y cuando nos asignen a cero el monomio, que discuta y asigne correctamente el grado actual).
 
 	 4) Testing Unitario de setCoeficienteV2 (probando ejemplos en el main que verifiquen que todos los casos funcionan).
 		url: https://docs.google.com/spreadsheets/d/1LvWWBG2tmQ6yfvxqFcatRJoi10pSChsYd0adlVYTVTM/edit#gid=0
@@ -41,4 +41,7 @@ Polinomio 3º Trimestre.
 
 		2) AVANZADO: método crearPolinomioUsuario() y eliminarPolinomioUsuario() con un vector dinámico de Polinomios.
 
+	15) División y compilación en distintos ficheros para distintos objetos.
+
+	16) Implementar una Clase VISTA que contenga y maneje un Vector Dinámico de Polinomios, para permitir al usuario final crear una serie de polinomios en tiempo de ejecución.
 
