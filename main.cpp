@@ -27,85 +27,214 @@ using namespace std;
 /*****************************************
 ** Definición de la clase Vista 	**
 *****************************************/
-class vista{
+class Vista{
 	private:
-		Polinomio* vector;
-		int util_v;
-		void insertarPolinomio();
+		Polinomio* vector[];
+		int DIM;
+		
 	public:
+		/**
+		 * @brief Se crea un modo Vista y reservamos memoria para el vector punteros a Polinomios.
+		 * @pre 
+		 * @post 
+		 * @author Carlos Fdez
+		 * @version 1.0
+		 */
+		Vista();
+		/**
+		 * @brief 
+		 * @pre 
+		 * @post 
+		 * @author Carlos Fdez
+		 * @version 1.0
+		 */
+		~Vista();
+		/**
+		 * @brief 
+		 * @pre 
+		 * @post 
+		 * @author Carlos Fdez
+		 * @version 1.0
+		 */
+		void setDIM(int i);
+		/**
+		 * @brief 
+		 * @pre 
+		 * @post 
+		 * @author Carlos Fdez
+		 * @version 1.0
+		 */
+		int getDIM();
+		/**
+		 * @brief 
+		 * @pre 
+		 * @post 
+		 * @author Carlos Fdez
+		 * @version 1.0
+		 */
+		void InsertarPolinomio();
+		/**
+		 * @brief 
+		 * @pre 
+		 * @post 
+		 * @author Carlos Fdez
+		 * @version 1.0
+		 */
+		void printMenu();
+		/**
+		 * @brief 
+		 * @pre 
+		 * @post 
+		 * @author Carlos Fdez
+		 * @version 1.0
+		 */
+		void menuVista();
+		
 		void crearPolinomioUsuario();
 		void borrarPolinomioUsuario();
-		void printMenu();
-		void MenuTesting();
+		/*void insertarPolinomioVector();*/
 
 };
 
 ///////////////////////////////				MODO VISTA				///////////////////////////////
+Vista::Vista(){
 
-void vista::printMenu(){
+	cout  << YELLOW << "\n  ****    CREANDO VISTA USUARIO    **** " << DEFAULT << endl;
+
+	//Inicializamos los miembros de modo Vista.
+	int DIM = 0;
+	
+	//Creamos el vector de dinámico de polinomios.
+	Polinomio** vector = 0;
+	vector = new Polinomio* [DIM+1];
+	
+	//Por lo tanto, tenemos que invocar manualmente el CONSTRUCTOR
+	for(int i=0; i < DIM; i++){
+		vector[i] = new Polinomio(); //creación de una burbuja y almacenaje en la posición i del vector.
+	}
+	
+	cout << GREEN << "La Vista de usuario se ha creado correctamente." << DEFAULT << endl;
+	cout  << PURPLE << "************************************** " << DEFAULT << endl;
+}
+Vista::~Vista(){
+
+	cout  << YELLOW << "\n  ****    ELIMINANDO VISTA USUARIO    **** " << DEFAULT << endl;
+
+	//Borrado tendré que hacerlo burbujita a burbujita y después el vector...
+	for(int i=0; i <= DIM; i++){
+		delete vector[i]; //aquí borro la burbujita
+	}
+	
+	//Borramos los miembros de modo Vista.
+	int DIM = 0;
+	
+	//Borramos el vector dinámico de polinomios.
+	//delete [] vector; //aquí borro el vector
+	//*vector= 0;
+	
+	cout << GREEN << "La Vista de usuario se ha borrado correctamente." << DEFAULT << endl;
+	cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	
+}
+///////////////////////////////				SET				///////////////////////////////
+void Vista::setDIM(int i){
+	
+	//Filtro para evitar que grado sea negativo. Si es menor que 0 muestra un mensaje y no inserta nada.
+	if(i >= 0){
+		if( i >= DIM){
+			this->DIM = i;
+		}
+	}else if (i < 0){
+		cerr << RED << "Error un vector de polinomos no puede tener una dimensión negativa." << DEFAULT << endl;
+		cerr << ERROR << "No se insertará ese monomio" << DEFAULT << endl;
+	}
+}
+int Vista::getDIM(){
+	return DIM;
+	
+}
+void Vista::crearPolinomioUsuario(){
+
+	Polinomio* p = 0;
+	p = new Polinomio();
+	
+	if (p == 0){
+		cerr << RED << "Error. No hay memoria suficiente. " << DEFAULT;
+		cerr << ERROR << "Se abortará la ejecución." << DEFAULT << endl;
+		exit(-1);
+	}
+	
+}
+
+
+void Vista::InsertarPolinomio(){
+
+
+
+}
+void Vista::borrarPolinomioUsuario(){
+	
+	cout  << YELLOW << "\n  ****    ELIMINANDO POLINOMIO USUARIO    **** " << DEFAULT << endl;
+	
+	cout << "Indique en que posición dónde se encuentra el polinomio que desea eliminar." << endl;
+	
+	//delete [] vector; //aquí borro el vector
+	//vector= 0;
+
+	cout << GREEN << "La Vista de usuario se ha borrado correctamente." << DEFAULT << endl;
+	cout  << PURPLE << "************************************** " << DEFAULT << endl;
+}
+/*void Vista::crearVectorPolinomioUsuario(){
+
+	Polinomio** vector = 0;
+	vector = new Polinomio* [10]; //crea un vector de 10 punteros a polinomio... OJO AQUÍ TODAVÍA NO SE HA CONSTRUIDO NINGÚN POLINOMIO.
+	
+	//Por lo tanto, tenemos que invocar manualmente el CONSTRUCTOR
+	for(int i=0; i < 10; i++){
+		vector[i] = new Polinomio(); //creación de una burbuja y almacenaje en la posición i del vector.
+	}
+
+}
+void Vista::insertarPolinomioVector(){
+
+	//uso del vector dinámico de punteros
+	for(int i=0; i < 10; i++){
+		vector[i].setCoeficientev3(2,7);
+		cout << vector[i];
+	}
+}
+void Vista::eliminarVectorPolinomioUsuario(){
+
+	//Borrado tendré que hacerlo burbujita a burbujita y después el vector...
+	for(int i=0; i < 10; i++){
+		delete vector[i]; //aquí borro la burbujita
+	}
+
+	delete [] vector; //aquí borro el vector
+	vector= 0;
+	
+
+}*/
+void Vista::printMenu(){
 
 	cout << BLUE <<"/***************************************"<< endl;
 		cout << "****	     CLASE VISTA	    ****" << endl;
 		cout << "****************************************/" << DEFAULT;
-	cout << PURPLE <<  "\nAquí le mostramos las opciones disponibles para realizar en la clase vista : " << DEFAULT;
+	cout << PURPLE <<  "\nAquí le mostramos las opciones disponibles para realizar en la clase Vista : " << DEFAULT;
 	cout << PURPLE <<  "\n[1] " << DEFAULT << " Crear Polinomio. ";
 	cout << PURPLE <<  "\n[2] " << DEFAULT << " Borrar Polinomio. ";
-	cout << PURPLE <<  "\n[3] " << DEFAULT << " Salir. " << endl;
+	cout << PURPLE <<  "\n[3] " << DEFAULT << " Insertar Polinomio. ";
+	cout << PURPLE <<  "\n[4] " << DEFAULT << " Salir. " << endl;
 
 }
-void vista::crearPolinomioUsuario(){
-
-	Polinomio p1();
-	
-	/*cout  << PURPLE << "\n  ****    CREANDO POLINOMIO    **** " << DEFAULT << endl;
-		
-	//Inicializamos los miembros del polinomio.
-	this->max_grado = 0;
-	this->grado = 0;
-	
-	Polinomio* pol = 0;
-	pol = new Polinomio();
-	//Filtro para que al crear un polinomio no sea de grado negativo, en caso de serlo abortará la ejecución.
-	if(this->max_grado >= 0){
-		//Creamos un vector dinámico de coeficientes.
-		this->coef = new float[max_grado+1];	//Reservo el valor de max_grado+1.
-
-		//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
-		if (this->coef == 0){
-			cerr << "Error. No hay memoria suficiente. Se abortará la ejecución " << endl;
-			cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
-			exit(-1);
-		}
-
-		//Rellenamos el vector de coeficientes a 0
-		for(int i=0; i <= max_grado; i++){
-			coef[i]= 0.0;
-		}
-
-	}else if (this->max_grado < 0){
-		cerr << "¡¡ERROR!! un polinomo no puede tener un grado negativo." << endl;
-		cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
-		exit(-1);
-	}
-
-	if(this->getDEBUG() == true){
-		cout << GREEN << "El polinomio se ha creado correctamente.\n" << DEFAULT ;
-		cout  << PURPLE << "************************************** " << DEFAULT << endl;
-	}*/
-	
-}
-void vista::borrarPolinomioUsuario(){
-
-	
-}
-void vista::MenuTesting(){
+void Vista::menuVista(){
 
 	//Declaración de variables.
 	int opcion=0;
-	bool creado = false;
+	bool creado = true;
 	
 	//Filtro para que el usuario no se salga de las opciones.
-	while(opcion!=3){
+	while(opcion!=4){
 		//Mostramos menú anteriormente realizado.
 		printMenu();
 		
@@ -116,9 +245,9 @@ void vista::MenuTesting(){
 			switch (opcion){
 
 				case 1:
-					if(creado==false){
+					if(creado==true){
 						crearPolinomioUsuario();
-						creado=true;
+						//creado=true;
 					}else{
 						cout << RED << "No existe todavía ningún Polinomio, por favor elige otra opción." << DEFAULT << endl;
 						}
@@ -126,15 +255,23 @@ void vista::MenuTesting(){
 
 				case 2:
 					if(creado==true){
-						//eliminarPolinomio();
+						borrarPolinomioUsuario();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA un Polinomio no puede eliminarlo. " << DEFAULT << endl;
 						}
 				break;
 				
 				case 3:
+					if(creado==true){
+						//eliminarPolinomio();
+					}else{
+						cout << ERROR << "Recuerde que si no CREA un Polinomio no puede eliminarlo. " << DEFAULT << endl;
+						}
+				break;
+				
+				case 4:
 					cout << PURPLE << "----------SALIENDO----------\n" ;
-					cout << "\nGracias por usar el modo vista del POLINOMIO " << endl;
+					cout << "\nGracias por usar el modo Vista del POLINOMIO " << endl;
 					cout << "\n © Carlos Fdez " << DEFAULT << endl;
 				break;
 				
@@ -267,12 +404,12 @@ int main(){
 	//cout << 
 	
 	
-	/****		SOBRECARGA OPERADOR << por punteros		****/
-	vista v1;	
-	v1.MenuTesting();
+	/************		MENU VISTA		************/
+	Vista v1;
+	v1.menuVista();
 
     //MANEJO DE POLINOMIOS ESTÁTICOS (tanto variables como vectores)
-    Polinomio p1; //esto es estático, está desde el principio hasta el final de la ejecuación del programa. LA GESTIÓN DEL MOMENTO EN EL QUE SE CREA y SE DESTRUYE LA REALIZA EL SO.
+/*    Polinomio p1; //esto es estático, está desde el principio hasta el final de la ejecuación del programa. LA GESTIÓN DEL MOMENTO EN EL QUE SE CREA y SE DESTRUYE LA REALIZA EL SO.
     
     Polinomio vector[10]; //esto es estático, está desde el principio hasta el final de la ejecuación del programa. LA GESTIÓN DEL MOMENTO EN EL QUE SE CREA y SE DESTRUYE LA REALIZA EL SO.
     
@@ -280,10 +417,14 @@ int main(){
         vector[i].setCoeficientev3(2,3);
         cout << vector[i];
     }
-    
+*/    
     //MANEJO DE POLINOMIOS ESTÁTICOS (tanto variables como vectores)
+    
+    
+    
+    
     //CREACIÓN DE UN POLINOMIO DINÁMICO
-   Polinomio* pol_ptr = 0;
+  /* Polinomio* pol_ptr = 0;
     pol_ptr = new Polinomio(); //consturimos un polinomio dinámico, guardamos el puntero, y la memoria se crea a partir de este justo momento. LA GESTIÓN DEL MOMENTO EN EL QUE SE CREA y SE DESTRUYE LA REALIZA EL PROGRAMADOR;
     if (pol_ptr == 0){
         cerr << "Error. Se aborta..." << endl;
@@ -291,10 +432,10 @@ int main(){
     }
     
     delete pol_ptr;
-    pol_ptr = 0;
+    pol_ptr = 0;*/
     
     //CREAR UN VECTOR DINÁMICO DE POLINOMIOS
-    Polinomio* vector_din = 0;
+ /*   Polinomio* vector_din = 0;
     vector_din = new Polinomio[10]; //aquí se invoca al constructor automáticamente
     if (vector_din == 0){
          cout << vector_din << "Error. Se aborta no hay memoria para el vector..." << endl;
@@ -305,27 +446,27 @@ int main(){
         cout << vector_din[i];
     }
     //Borramos el vector de objetos
-    delete [] vector_din;
+    delete [] vector_din;*/
     
     
     //CREAR UN VECTOR DINÁMICO DE PUNTEROS A POLINOMIOS
-    Polinomio** vector_din_punt = 0;
+/*   Polinomio** vector_din_punt = 0;
     vector_din_punt = new Polinomio* [10]; //crea un vector de 10 punteros a polinomio... OJO AQUÍ TODAVÍA NO SE HA CONSTRUIDO NINGÚN POLINOMIO (burbuja/panojito).
     //Por lo tanto, tenemos que invocar manualmente el CONSTRUCTOR
     for(int i=0; i < 10; i++){
         vector_din_punt[i] = new Polinomio(); //creación de una burbuja y almacenaje en la posición i del vector.
-    }
+    }*/
     //uso del vector dinámico de punteros
-      for(int i=0; i < 10; i++){
+    /*  for(int i=0; i < 10; i++){
           vector_din_punt[i]->setCoeficientev3(2,7);
           cout << *(vector_din_punt[i]); //accedo mediante burbuja (sobrecarga 1)
           cout << vector_din_punt[i]; //accedo a mediante puntero (sobrecarga 2)
-      }
+      }*/
     //Borrado tendré que hacerlo burbujita a burbujita y después el vector...
-    for(int i=0; i < 10; i++){
+  /*  for(int i=0; i < 10; i++){
         delete vector_din_punt[i]; //aquí borro la burbujita
     }
     delete [] vector_din_punt; //aquí borro el vector
-    vector_din_punt = 0;
+    vector_din_punt = 0;*/
     
 }

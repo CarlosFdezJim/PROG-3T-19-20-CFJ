@@ -84,7 +84,7 @@ class Polinomio{
 		 * @author Carlos Fdez
 		 * @version 1.0
 		 */
-		Polinomio( int max);
+		Polinomio(int max);
 		/**
 		 * @brief Crea una copia exacta del polinomio que le pasamos por referencia.
 		 * @pre El grado del polinomo NO puede ser negativo.
