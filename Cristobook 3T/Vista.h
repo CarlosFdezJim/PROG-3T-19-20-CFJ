@@ -1,0 +1,58 @@
+//
+//	librería Vista.h
+//
+//  Created by Carlos Fdez
+//  https://github.com/CarlosFdezJim/PROG-3T-19-20-CFJ
+//
+//
+
+#include <iostream>
+#include <stdlib.h>
+#include <string.h>
+using namespace std;
+
+class Vista{
+
+	private:
+		bool DEBUG;
+		//TablaUsuarios t;
+	public:
+		/**
+		* @brief Método para crear la vista del Usuario.
+		* @post 
+		* @author Carlos Fdez.
+		* @version 1.0
+		*/
+		Vista();
+		/**
+		* @brief 
+		* @pre 
+		* @post Liberaremos la memoria creada al crear TablaUsuarios.
+		* @author Carlos Fdez.
+		* @version 1.0
+		*/
+		~Vista();
+		/**
+		* @brief Muestra una vista del menú donde el usuario podrá elegir que opción seleccionar.
+		* @pre Deberemos de tener bien creado un módulo printMenu dónde seleccionaremos tendremos las opciones dadas al usuario.
+		* @post Mostraremos por pantalla una vista de todas las opciones disponibles en el menú.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void menuVista();
+		/**
+		* @brief Método que cambia el valor de la variable booleana DEBUG.
+		* @param bool DEBUG 	//Por defecto será true al no poder darle valor.
+		* @post Introduciremos en la variable booleana DEBUG un valor true/false para activar y desactivar el modo DEBUG.
+		* @author Carlos Fdez.
+		* @version 1.0
+		*/
+		void setDEBUG(bool DEBUG);
+		/**
+		* @brief Método que devuelve el valor de la variable booleana DEBUG.
+		* @post Devolveremos el valor que tenga introducido la variable booleana DEBUG.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		bool getDEBUG();
+};
