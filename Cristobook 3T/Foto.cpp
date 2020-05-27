@@ -22,10 +22,12 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
+
+#include "Foto.h"
 using namespace std;
 
 
-Foto* crearFoto(){
+Foto* Foto::crearFoto(){
 
 	//Reservamos un nuevo espacio de memoria para la Foto y lo inicializamos.
 	Foto *f=0;
@@ -46,7 +48,7 @@ Foto* crearFoto(){
 	return f;
 	
 }
-void borrarFoto(Foto *f){
+void Foto::borrarFoto(Foto *f){
 
 	//Ponemos a cero/null todos los datos que tiene la Foto
 	f->ruta = "";
@@ -60,94 +62,28 @@ void borrarFoto(Foto *f){
 	f = 0;
 	
 }
-void setRuta(Foto *f, string ruta){
+void Foto::setRuta(Foto *f, string ruta){
 	f->ruta = ruta;
 }
-void setTipo(Foto *f, string tipo){
+void Foto::setTipo(Foto *f, string tipo){
 	f->tipo = tipo;
 }
-void setTamanio (Foto *f, unsigned long int tamanio){
+void Foto::setTamanio (Foto *f, unsigned long int tamanio){
     f->tamanio = tamanio;
 }
-/**
- * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable int llamada v_fotos.
- * @param Usuario *u		//Puntero de tipo Usuario.
- * @param Foto *f		//Puntero de tipo Foto.
- * @post Se almacenará en la variable estructurada Usuario la cantidad de fotos que puede almacenar del usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void setV_Fotos(Usuario *u, Foto *f){
-	    u->v_fotos = f;
-}
-/**
- * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable int llamada DIM_vfotos.
- * @param Usuario *u		//Puntero de tipo Usuario.
- * @param int DIM_vfotos	//Dimensión de fotos que puede almacenar el usuario.
- * @post Se almacenará en la variable estructurada Usuario la cantidad de fotos que puede almacenar el usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void setDIM_vfotos(Usuario *u, int DIM_vfotos){
-    u->DIM_vfotos = DIM_vfotos;   
-}
-/**
- * @brief Devuelve el puntero Ruta de una variable estructurada de tipo Foto.
- * @param Foto *f		//Puntero de tipo foto.
- * @version 1.0
- * @author Carlos Fdez.
- */
-string getRuta(Foto *f){
+string Foto::getRuta(Foto *f){
     return f->ruta;
 }
-/**
- * @brief Devuelve el puntero Tipo de una variable estructurada de tipo Foto.
- * @param Foto *f		//Puntero de tipo foto.
- * @version 1.0
- * @author Carlos Fdez.
- */
-string getTipo(Foto *f){
+string Foto::getTipo(Foto *f){
     return f->tipo;
 }
-/**
- * @brief Devuelve el Tamanio de una variable estructurada de tipo Foto.
- * @param Foto *f		//Puntero de tipo foto.
- * @pre Está filtrada al usar unsigned int para no introducir números negativos.
- * @post Nos devuelve la variable edad de un tipo estructurado de alumno.
- * @version 1.0
- * @author Carlos Fdez.
- */
-int long unsigned getTamanio (Foto *f){
+int long unsigned Foto::getTamanio (Foto *f){
     return f->tamanio;
 }
-/**
- * @brief Devuelve una posición del vector de fotos de un Usuario concreto.
- * @param Usuario *u		//Puntero de tipo Usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-Foto getv_fotos(Usuario *u){
-	return u->v_fotos[u->totalFotosUsuario];
-}
-/**
- * @brief Devuelve el puntero DIM_vfotos de una variable estructurada de tipo Usuario.
- * @param Usuario *u		//Puntero de tipo Usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-int getDIM_vfotos(Usuario *u){
-	return u->DIM_vfotos;
-}
+
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @brief Módulo que me muestra las fotos tengo en el vector de fotos.
- * @param Foto *v_fotos
- * @pre El vector de fotos tiene que estar creado y tener por lo menos una foto.
- * @post Se mostrará el vector de fotos al usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void printVectorFotos(Foto *v_fotos, Usuario *u ){
+
+void Foto::printVectorFotos(Foto *v_fotos, Usuario *u ){
 
 		if(getTotalFotosUsuario(u) != 0){
 			for(int i=0; i < getTotalFotosUsuario(u); i++){
@@ -202,7 +138,7 @@ void printFotosUsuario(TablaUsuarios &tu){
  * @version 1.0
  * @author Carlos Fdez.
  */
-void ValoresFoto(Foto *f){
+void Foto::ValoresFoto(Foto *f){
 
 	cout << BLUE << "* * * * * * * * * * * * * * * * * * * " << DEFAULT << endl;
 	cout << YELLOW << "Por favor ingresa la ruta de la foto. " << DEFAULT << endl;
@@ -225,14 +161,7 @@ void ValoresFoto(Foto *f){
 	}else 
 		setTamanio(f,405000);
 }
-/**
- * @brief Imprime por pantalla la ruta de la foto junto a su tipo y el tamaño que ocupa la foto.
- * @param Foto *f
- * @post Imprimiremos la ruta de la foto por pantalla.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void printFoto(Foto *f){
+void Foto::printFoto(Foto *f){
 
 	//Imprimimos toda la foto inluyendo Ruta,Tipo y Tamanio.
 	cout << BLUE << "Ruta : " << DEFAULT << getRuta(f) << "." << getTipo(f) << endl;
@@ -261,50 +190,7 @@ void insertarFotoUsuario(Usuario *u, Foto *f){
 	
 	setTotalFotosUsuario(u,getTotalFotosUsuario(u)+1);
 }
-
-/**
- * @brief Módulo que inserta una foto en el vector de fotos de cada usuario.
- * @param TablaUsuarios tu (E/S)
- * @pre El usuario debe de estar insertado correctamente.
- * @post Se insertará una foto al usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void insertarFoto(TablaUsuarios &tu){
-
-	string login = "";
-	bool usado = false;
-	int posicion=0;
-	int cont = 0;
-	
-	
-	cout << "Introduce su Login del usuario al que quieres introducir la fotografía : " << endl;
-	cin >> login;
-	
-	//Comprobamos si el login existe o no.
-	for(int i = 0;i < tu.TotalTuplas;i++){
-		comprobacionLogin(login,tu.punteroapuntero[i],usado);
-		if(usado == true && cont != 1){
-			posicion=i;
-			cont++;	
-		}
-	}
-	//Si existe el login --> usado == true y reservamos memória dinámica para la foto y el usuario y creamos sus puntero inicializandolo a 0;
-	if(usado == true){
-		Foto *f=0;
-		f=crearFoto();
-		Usuario *u = 0;
-		
-		u = tu.punteroapuntero[posicion];
-		ValoresFoto(f);
-		resizeAumentarFoto(tu.punteroapuntero[posicion],u->v_fotos);
-		setTotalFotosUsuario(tu.punteroapuntero[posicion],getTotalFotosUsuario(u)+1);
-		tu.punteroapuntero[posicion]->v_fotos[getTotalFotosUsuario(u)-1] = *f;
-	}else{
-		cerr << RED << "Lo sentimos, el Login introducido no está en nuestra base de datos." << DEFAULT << endl;
-		}
-}
-void resizeAumentarFoto(Usuario *u,Foto *v_fotos){
+void Foto::resizeAumentarFoto(Usuario *u,Foto *v_fotos){
 	
 	int DIM = u->totalFotosUsuario+1;
 
@@ -323,15 +209,7 @@ void resizeAumentarFoto(Usuario *u,Foto *v_fotos){
 	delete [] v_fotos;
 	
 }
-/**
- * @brief Este módulo se encarga de disminuir en uno la dimensión y las útiles de nuestro vector cuando lo llamemos.
- * @param Usuario *u
- * @param Foto *v_fotos
- * @post La dimensión del vector decrecerá en una posición.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void resizeDisFoto(Usuario *u,Foto *v_fotos){
+void Foto::resizeDisFoto(Usuario *u,Foto *v_fotos){
 	
 	int DIM = u->totalFotosUsuario-1;
 

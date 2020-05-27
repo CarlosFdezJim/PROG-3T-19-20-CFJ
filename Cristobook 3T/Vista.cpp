@@ -1,8 +1,8 @@
 //
 //	Vista.cpp
 //
-//  Created by Carlos Fdez
-//  https://github.com/CarlosFdezJim/PROG-3T-19-20-CFJ
+//	Created by Carlos Fdez
+//	https://github.com/CarlosFdezJim/PROG-3T-19-20-CFJ
 //
 //
 
@@ -21,13 +21,18 @@
 //**************************************//
 #include <iostream>
 #include <stdlib.h>
-#include <string.h>
 
-#include "TablaUsuarios.h"
 #include "Vista.h"
-
 using namespace std;
 
+///////////////////////////////				DEBUG					////////////////////////////////
+
+void Vista::setDEBUG(bool DEBUG){
+	this->DEBUG = DEBUG;
+}
+bool Vista::getDEBUG(){
+	return this->DEBUG;
+}
 
 ///////////////////////////////				VISTA					////////////////////////////////
 
@@ -38,47 +43,51 @@ Vista::Vista(){
 	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    CREANDO VISTA    **** " << DEFAULT << endl;
 	}
-
-	//Inicializamos los miembros de vista.
-	this->TotalTuplas = 10;
-
+	
+	//Inicializamos las totaltuplas para poder crear la TablaUsuarios
+	tu->setTotalTuplas(10);
+	
 	//Filtro para que las tuplas del vector no sea negativo, en caso de serlo abortará la ejecución.
-	if(this->TotalTuplas >= 0){
-		//Creamos un vector de punteros de Usuarios.
-		punteroapuntero = new Usuario**[TotalTuplas+1];	//Reservo el valor de TotalTuplas+1.
+	if(tu->getTotalTuplas() >= 0){
 
 		//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
-		if (this->TablaUsuarios == 0){
+		if (tu->getTotalTuplas() == 0){
 			cerr << "Error. No hay memoria suficiente. Se abortará la ejecución " << endl;
 			cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
 			exit(-1);
 		}
 
-		//Rellenamos el vector de coeficientes a 0
-		/*for(int i=0; i <= TotalTuplas; i++){
-			coef[i]= 0.0;
-		}*/
-
-	}else if (this->TotalTuplas < 0){
+	}else if (tu->getTotalTuplas() < 0){
 		cerr << "¡¡ERROR!! una TablaUsuarios no puede tener una dimensión negativo." << endl;
 		cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
 		exit(-1);
 	}
 
 	if(this->getDEBUG() == true){
-		cout << GREEN << "La TablaUsuarios se ha creado correctamente.\n" << DEFAULT ;
+		cout << GREEN << "El modo Vista se ha creado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}
-
-
-
 
 }
 Vista::~Vista(){
 
+	setDEBUG(true);
 
+	if(this->getDEBUG() == true){
+		cout  << PURPLE << "\n  ****    DESTRUYENDO VISTA    **** " << DEFAULT << endl;
+	}
+	
 
+	this->setDEBUG(true);
+	tu->setTotalTuplas(0);
+	
+	tu = 0;
+	delete [] tu;
 
+	if(this->getDEBUG() == true){
+		cout << GREEN << "El modo Vista se ha eliminado correctamente.\n" << DEFAULT ;
+		cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	}
 
 
 }
@@ -95,21 +104,21 @@ void printMenu(){
 	cout << BLUE <<"/***************************************"<< endl;
 		cout << "****	     CLASE VISTA	    ****" << endl;
 		cout << "****************************************/" << DEFAULT;
-	cout << PURPLE <<  "\nAquí le mostramos las opciones disponibles para realizar en la clase Vista : " << DEFAULT;
-	cout << PURPLE <<  "\n[  1 ] " << DEFAULT << " Modo DEBUG. ";
-	cout << PURPLE <<  "\n[  2 ] " << DEFAULT << " Testing Automático. ";
-	cout << PURPLE <<  "\n[  3 ] " << DEFAULT << " Crear Tabla Usuarios. ";
-	cout << PURPLE <<  "\n[  4 ] " << DEFAULT << " Eliminar Tabla Usuarios. ";
-	cout << PURPLE <<  "\n[  5 ] " << DEFAULT << " Imprimir Tabla Usuarios. ";
-	cout << PURPLE <<  "\n[  6 ] " << DEFAULT << " Insertar Usuario en Tabla Usuarios. ";
-	cout << PURPLE <<  "\n[  7 ] " << DEFAULT << " Eliminar Usuario en Tabla Usuarios. ";
-	cout << PURPLE <<  "\n[  8 ] " << DEFAULT << " Buscar Usuario por Login en Tabla Usuarios. ";
-	cout << PURPLE <<  "\n[  9 ] " << DEFAULT << " Ordenar Tabla Usuarios. ";
-	cout << PURPLE <<  "\n[ 10 ] " << DEFAULT << " Añadir Fotografía a Usuario. ";
-	cout << PURPLE <<  "\n[ 11 ] " << DEFAULT << " Eliminar Fotografía de un Usuario. ";
-	cout << PURPLE <<  "\n[ 12 ] " << DEFAULT << " Imprimir Fotografía de un Usuario. ";
-	cout << PURPLE <<  "\n[ 13 ] " << DEFAULT << " EXTRA. ";
-	cout << PURPLE <<  "\n[ 14 ] " << DEFAULT << " Salir. " << endl;
+	cout << BLUE <<  "\nAquí le mostramos las opciones disponibles para realizar en la clase Vista : " << DEFAULT;
+	cout << BLUE <<  "\n[  1 ] " << DEFAULT << " Modo DEBUG. ";
+	cout << BLUE <<  "\n[  2 ] " << DEFAULT << " Testing Automático. ";
+	cout << BLUE <<  "\n[  3 ] " << DEFAULT << " Crear Tabla Usuarios. ";
+	cout << BLUE <<  "\n[  4 ] " << DEFAULT << " Eliminar Tabla Usuarios. ";
+	cout << BLUE <<  "\n[  5 ] " << DEFAULT << " Imprimir Tabla Usuarios. ";
+	cout << BLUE <<  "\n[  6 ] " << DEFAULT << " Insertar Usuario en Tabla Usuarios. ";
+	cout << BLUE <<  "\n[  7 ] " << DEFAULT << " Eliminar Usuario en Tabla Usuarios. ";
+	cout << BLUE <<  "\n[  8 ] " << DEFAULT << " Buscar Usuario por Login en Tabla Usuarios. ";
+	cout << BLUE <<  "\n[  9 ] " << DEFAULT << " Ordenar Tabla Usuarios. ";
+	cout << BLUE <<  "\n[ 10 ] " << DEFAULT << " Añadir Fotografía a Usuario. ";
+	cout << BLUE <<  "\n[ 11 ] " << DEFAULT << " Eliminar Fotografía de un Usuario. ";
+	cout << BLUE <<  "\n[ 12 ] " << DEFAULT << " Imprimir Fotografía de un Usuario. ";
+	cout << BLUE <<  "\n[ 13 ] " << DEFAULT << " EXTRA. ";
+	cout << BLUE <<  "\n[ 14 ] " << DEFAULT << " Salir. " << endl;
 
 }
 void Vista::menuVista(){
@@ -143,7 +152,7 @@ void Vista::menuVista(){
 					//Crear tabla Usuario
 					if(creado==false){
 						creado=true;
-						//TablaUsuario();
+						//tu->TablaUsuarios();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -152,7 +161,7 @@ void Vista::menuVista(){
 				case 4:
 					//Eliminar TablaUsuarios
 					if(creado==true){
-						//~TablaUsuarios();
+						tu->~TablaUsuarios();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -253,13 +262,4 @@ void Vista::menuVista(){
 					cout << PURPLE << "Por favor seleccione otra o pulse 14 para salir. \n" << DEFAULT << endl;
 			}
 	}
-}
-
-///////////////////////////////				DEBUG					////////////////////////////////
-
-void Vista::setDEBUG(bool DEBUG){
-	this->DEBUG = DEBUG;
-}
-bool Vista::getDEBUG(){
-	return this->DEBUG;
 }

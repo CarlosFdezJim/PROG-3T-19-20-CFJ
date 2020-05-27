@@ -10,8 +10,8 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
-//#include "Vista.h"
-//#include "TablaUsuarios.h"
+
+//#include "Usuario.h"
 using namespace std;
 
 class Foto{
@@ -76,8 +76,54 @@ class Foto{
 		 * @author Carlos Fdez.
 		 */
 		void setV_Fotos(Usuario *u, Foto *f);
-		//-----------------------------//
+		/**
+		 * @brief Devuelve el puntero Ruta de una variable estructurada de tipo Foto.
+		 * @param Foto *f		//Puntero de tipo foto.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
 		string getRuta(Foto *f);
+		/**
+		 * @brief Devuelve el puntero Tipo de una variable estructurada de tipo Foto.
+		 * @param Foto *f		//Puntero de tipo foto.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
 		string getTipo(Foto *f);
+		/**
+		 * @brief Devuelve el Tamanio de una variable estructurada de tipo Foto.
+		 * @param Foto *f		//Puntero de tipo foto.
+		 * @pre Está filtrada al usar unsigned int para no introducir números negativos.
+		 * @post Nos devuelve la variable edad de un tipo estructurado de alumno.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */		
 		int long unsigned getTamanio (Foto *f);
+		/**
+		 * @brief Módulo que me muestra las fotos tengo en el vector de fotos.
+		 * @param Foto *v_fotos
+		 * @pre El vector de fotos tiene que estar creado y tener por lo menos una foto.
+		 * @post Se mostrará el vector de fotos al usuario.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
+		void Foto::printVectorFotos(Foto *v_fotos, Usuario *u );
+		/**
+		 * @brief Imprime por pantalla la ruta de la foto junto a su tipo y el tamaño que ocupa la foto.
+		 * @param Foto *f
+		 * @post Imprimiremos la ruta de la foto por pantalla.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
+		void Foto::printFoto(Foto *f);
+		/**
+		 * @brief Este módulo se encarga de disminuir en uno la dimensión y las útiles de nuestro vector cuando lo llamemos.
+		 * @param Usuario *u
+		 * @param Foto *v_fotos
+		 * @post La dimensión del vector decrecerá en una posición.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
+		void Foto::resizeDisFoto(Usuario *u,Foto *v_fotos);
+		void resizeAumentarFoto(Usuario *u,Foto *v_fotos);
 };

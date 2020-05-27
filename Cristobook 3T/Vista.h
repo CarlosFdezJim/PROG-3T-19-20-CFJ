@@ -1,25 +1,27 @@
 //
-//	librería Vista.h
+//	Librería Vista.h
 //
-//  Created by Carlos Fdez
-//  https://github.com/CarlosFdezJim/PROG-3T-19-20-CFJ
+//	Created by Carlos Fdez
+//	https://github.com/CarlosFdezJim/PROG-3T-19-20-CFJ
 //
 //
 
 #include <iostream>
 #include <stdlib.h>
 #include <string.h>
+
+#include "TablaUsuarios.h"
 using namespace std;
 
 class Vista{
 
 	private:
 		bool DEBUG;
-		//TablaUsuarios t;
+		TablaUsuarios *tu;
 	public:
 		/**
 		* @brief Método para crear la vista del Usuario.
-		* @post 
+		* @post Crearemos los atributos
 		* @author Carlos Fdez.
 		* @version 1.0
 		*/

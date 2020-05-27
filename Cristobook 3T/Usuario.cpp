@@ -23,21 +23,14 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "TablaUsuarios.h"
-#include "Vista.h"
+#include "Usuario.h"
 using namespace std;
 
+///////////////////////////////				 USUARIO					////////////////////////////////
 
+Usuario::Usuario(){
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @brief Se reservará un espacio de memoria para crear un nuevo Usuario y sus miembros, siempre y cuando haya memoria suficiente.
- * @post Se reservará un espacio de memoria para la Usuario.
- * @pre Debe de teber memoria suficiente para crear un Usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-Usuario* crearUsuario(){
+	cout  << PURPLE << "\n  ****    CREANDO USUARIOS    **** " << DEFAULT << endl;
 
 	//Reservamos un nuevo espacio de memoria para el usuario y lo inicializamos.
 	Usuario *u = 0;
@@ -48,12 +41,12 @@ Usuario* crearUsuario(){
 	u->nombre = "";
 	u->apellido = "";
 	u->perfil_usuario = "";
-	u->v_fotos=0;
+	//u->v_fotos=0;
 	u->DIM_vfotos=0;
 	u->totalFotosUsuario=0;
 	
 	//Reservamos un nuevo espacio de memoria para el vector de fotos que lleva dentro el usuario.
-	u->v_fotos = new Foto[u->DIM_vfotos];
+	//u->v_fotos = new Foto[u->DIM_vfotos];
 
 	//Si no hay memoria suficiente para crear el Usuario se aborta la ejecución y se sale del programa.
 	if (u == 0){
@@ -61,165 +54,275 @@ Usuario* crearUsuario(){
 		exit(-1);
 	}
 	
-	//Si no hay memoria suficiente para crear el vector de fotos se aborta la ejecución y se sale del programa.
+	/*Si no hay memoria suficiente para crear el vector de fotos se aborta la ejecución y se sale del programa.
 	if (u->v_fotos == 0){
 		cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
 		exit(-1);
-	}
+	}*/
+
+	cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
+	cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	
 	//Devuelvo la dirección que referenciaba al fragmento de memoria(puntero).
-	return u;
+	//return u;
 
 }
-/**
- * @brief Módulo que borrará el espacio de memoria reservado a un Usuario, borrando primero los datos del usuario y después borramos los punteros.
- * @param Usuario *u		//Puntero de tipo Usuario.
- * @post Se liberará un espacio de memoria al borrar a un usuario.
- * @pre Se deberá de tener al menos un usuario insertado.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void borrarUsuario(Usuario *u){
+Usuario::~Usuario(){
+
+	cout  << PURPLE << "\n  ****    BORRAR USUARIOS    **** " << DEFAULT << endl;
 
 	//Ponemos los datos del usuario a Null/-1 antes de eliminar el usuario.
-	u->login = "";
-	u->nombre = "";
-	u->apellido = "";
-	u->perfil_usuario = "";	
-	
-	u->DIM_vfotos = 0;
-	u->totalFotosUsuario = 0;
+	this->login = "";
+	this->nombre = "";
+	this->apellido = "";
+	this->perfil_usuario = "";	
+	this->DIM_vfotos = 0;
+	this->totalFotosUsuario = 0;
 
 	//borro el fragmento de memoria
-	delete [] u->v_fotos;
-	delete u;
+	//delete [] u->v_fotos;
+	//delete u;
 	
 	//elimino la dirección que referenciaba al fragmento de memoria(puntero).
-	u = 0;
+	//u = 0;
+	
+	cout << GREEN << "El Usuario se ha borrado correctamente.\n" << DEFAULT ;
+	cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	
 }
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+///////////////////////////////				 SET					////////////////////////////////
+/*
+void Usuario::setLogin(string login){
+	this->login = login;
+}
+void Usuario::setNombre(string nombre){
+	this->nombre = nombre;
+}
+void Usuario::setApellido(string apellido){
+	this->apellido = apellido;   
+}
+void Usuario::setPerfilUsuario(string perfil_usuario){ 
+	this->perfil_usuario = perfil_usuario;
+}
+void Usuario::setTotalFotosUsuario(int totalFotosUsuario){
+	this->totalFotosUsuario = totalFotosUsuario;   
+}
+/*void Usuario::setV_Fotos(Usuario *u, Foto *f){
+	this->v_fotos = f;
+}
+void Usuario::setDIM_vfotos(Usuario *u, int DIM_vfotos){
+    u->DIM_vfotos = DIM_vfotos;   
+}
+*/
+///////////////////////////////				 GET					////////////////////////////////
+/*
+string Usuario::getLogin(){
+    return this->login;
+}
+string Usuario::getNombre(){
+    return this->nombre;
+}
+string Usuario::getApellido(){
+    return this->apellido;
+}
+string Usuario::getPerfilUsuario(){
+    return this->perfil_usuario;
+}
+Foto Usuario::getv_fotos(){
+	return this->v_fotos[u->totalFotosUsuario];
+}
+int Usuario::getDIM_vfotos(){
+	return this->DIM_vfotos;
+}
+int Usuario::getTotalFotosUsuario(){
+    return this->totalFotosUsuario;
+}
+*/
+///////////////////////////////				 OTHER					////////////////////////////////
 /**
- * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable string llamada login.
- * @param Usuario *u		//Puntero de tipo Usuario.
- * @param string login		//Login del usuario.
- * @post Se almacenará en la variable estructurada Usuario el login del usuario.
- * @version 1.0
+ * @brief Módulo que se encarga de almacenar en la Tabla de Usuarios algunos usuarios predefinidos.
+ * @param TablaUsuarios tu (E/S)
+ * @pre Deberemos tener bien hechos los Set para que no fallen al insertar los usuarios predefinidos.
+ * @post Los usuarios serán introducidos en la Tabla de Usuarios.
+ * @version 2.2
  * @author Carlos Fdez.
  */
-void setLogin(Usuario *u, string login){
-	u->login = login;
-}
-/**
- * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable string llamada nombre.
- * @param Usuario *u		//Puntero de tipo Usuario.
- * @param string nombre		//Nombre del usuario.
- * @post Se almacenará en la variable estructurada Usuario el nombre del usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void setNombre(Usuario *u, string nombre){
-    u->nombre = nombre;
-}
-/**
- * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable string llamada apellido.
- * @param Usuario *u		//Puntero de tipo Usuario.
- * @param string apellido	//Apellido del usuario.
- * @post Se almacenará en la variable estructurada Usuario el apellido del usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void setApellido(Usuario *u, string apellido){
-    u->apellido = apellido;   
-}
-/**
- * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable string llamada perfil_usuario que almacenará el nombre del juego al que el usuario quiere jugar.
- * @param Usuario *u			//Puntero de tipo Usuario.
- * @param string perfil_usuario		//Nombre del juego al que juega el usuario.
- * @post Se almacenará en la variable estructurada Usuario el juego favorito del usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void setPerfilUsuario(Usuario *u, string perfil_usuario){ 
-    u->perfil_usuario = perfil_usuario;
-}
-/**
- * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable int llamada totalFotosUsuario.
- * @param Usuario *u		//Puntero de tipo Usuario.
- * @param int totalFotosUsuario	//Total de fotos que almacena actualmente el usuario.
- * @post Se almacenará en la variable estructurada Usuario el total de fotos que tiene actualmente el usuario del usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void setTotalFotosUsuario(Usuario *u, int totalFotosUsuario){
-    u->totalFotosUsuario = totalFotosUsuario;   
-}
-/**
- * @brief Devuelve el puntero Login de una variable estructurada de tipo Usuario.
- * @param Usuario *u		//Puntero de tipo Usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-string getLogin(Usuario *u){
-    return u->login;
-}
-/**
- * @brief Devuelve el puntero Nombre de una variable estructurada de tipo Usuario.
- * @param Usuario *u		//Puntero de tipo Usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-string getNombre(Usuario *u){
-    return u->nombre;
-}
-/**
- * @brief Devuelve el puntero Apellido de una variable estructurada de tipo Usuario.
- * @param Usuario *u		//Puntero de tipo Usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-string getApellido(Usuario *u){
-    return u->apellido;
-}
-/**
- * @brief Devuelve el puntero Perfil_Usuario de una variable estructurada de tipo Usuario.
- * @param Usuario *u		//Puntero de tipo Usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-string getPerfilUsuario(Usuario *u){
-    return u->perfil_usuario;
-}
+/*
+void UsuariosPredefinidos(TablaUsuarios &tu){
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-/**
- * @brief Devuelve el puntero totalFotosUsuario de una variable estructurada de tipo Usuario.
- * @param Usuario *u		//Puntero de tipo Usuario.
- * @version 1.0
- * @author Carlos Fdez.
- */
-int getTotalFotosUsuario(Usuario *u){
-    return u->totalFotosUsuario;
-}
+	Foto *f = 0;
+	f=crearFoto();
+	
+	Usuario *u = 0;
+	u=crearUsuario();
+	
+	//Usuarios predefinidos.
+	Usuario *Carlos=0;
+	Usuario *Jaime=0;
+	Usuario *Cristian=0;
+	Usuario *Adrian=0;
+	Usuario *Jesus=0;
+	Usuario *Pablo=0;
+	Usuario *Ana=0;
+		
+	/***************************************
+	**************	CARLOS	****************
+	****************************************/
+/*	Carlos = new Usuario();
+	setLogin("@CarlosCristoRey");
+	setNombre("Carlos");
+	setApellido("Fernández");
+	setPerfilUsuario("FIFA");
+	insertarUsuarioTablaUsuarios(tu);
+	//Foto1
+	setRuta(f, "/home/Carlos/Escritorio/Imagenes/Españita");
+	setTipo(f,"jpeg");
+	setTamanio(f,49350);
+	insertarFotoUsuario(Carlos, f);
+	//Foto2
+	setRuta(f, "/home/Carlos/Escritorio/Imagenes/esto_es_ESPANIAAAAAA");
+	setTipo(f,"gif");
+	setTamanio(f,6050);
+	insertarFotoUsuario(Carlos, f);
 
-/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	
+	/***************************************
+	**************	JAIME	****************
+	****************************************/	
+/*	Jaime = new Usuario();
+	setLogin("@JaimeCristoRey");
+	setNombre("Jaime");
+	setApellido("Cabezas");
+	setPerfilUsuario(Jaime, "Minecraft");
+	insertarUsuarioTablaUsuarios(tu);
+	//Foto1
+	setRuta(f, "/home/Jaime/Escritorio/Imagenes/Skone");
+	setTipo(f,"jpeg");
+	setTamanio(f,49350);
+	insertarFotoUsuario(Jaime, f);
+	//Foto2
+	setRuta(f, "/home/Jaime/Escritorio/Imagenes/Force");
+	setTipo(f,"jpeg");
+	setTamanio(f,49350);
+	insertarFotoUsuario(f);		
 
-/**
- * @brief Imprime por pantalla el contenido de una variable estructurada de tipo Usuario.
- * @param Usuario *u
- * @post Imprimir un Usuario seleccionado.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void printUsuario(Usuario *u){
+	
+	/***************************************
+	********	CRISTIAN	********
+	****************************************/
+/*	Cristian = new Usuario();
+	setLogin("@CristianCristoRey");
+	setNombre("Cristian");
+	setApellido("Campos");
+	setPerfilUsuario("Footbal Manager");
+	insertarUsuarioTablaUsuarios(tu);
+	//Foto1
+	setRuta(f, "/home/Cristian/Escritorio/Imagenes/fackposlisia");
+	setTipo(f,"jpeg");
+	setTamanio(f,49350);
+	insertarFotoUsuario(Cristian, f);
+	//Foto2
+	setRuta(f, "/home/Cristian/Escritorio/Imagenes/LoKo_ReShUlOn");
+	setTipo("jpeg");
+	setTamanio(49350);
+	insertarFotoUsuario(f);
+
+	
+	/***************************************
+	**************	ADRIAN	****************
+	****************************************/
+/*	Adrian =  new Usuario();
+	setLogin("@AdrianCristoRey");
+	setNombre("Adrián");
+	setApellido("Castillo");
+	setPerfilUsuario("Counter Strike");
+	insertarUsuarioTablaUsuarios(tu);
+	//Foto1
+	/*setRuta(f, "/home/Adrian/Escritorio/Imagenes/polvora");
+	setTipo(f,"gif");
+	setTamanio(f,6050);
+	insertarFotoUsuario(Adrian, f);
+	//Foto2
+	setRuta(f, "/home/Adrian/Escritorio/Imagenes/Calamar");
+	setTipo(f,"bmp");
+	setTamanio(f,125910);
+	insertarFotoUsuario(Adrian, f);
+
+	
+	/***************************************
+	**************	JESUS	****************
+	****************************************/
+/*	Jesus = new Usuario();
+	setLogin("@JesusCristoRey");
+	setNombre("Jesús");
+	setApellido("Rey");
+	setPerfilUsuario("GTA V");
+	insertarUsuarioTablaUsuarios(tu);
+	//Foto1
+	/*setRuta(f, "/home/Jesus/Escritorio/Imagenes/Escaleras");
+	setTipo(f,"gif");
+	setTamanio(f,6050);
+	insertarFotoUsuario(Jesus, f);
+	//Foto2
+	setRuta(f, "/home/Jesus/Escritorio/Imagenes/Motosytoeso/susuki_compae");
+	setTipo(f,"jpeg");
+	setTamanio(f,6050);
+	insertarFotoUsuario(Jesus, f);
+
+	
+	/***************************************
+	**************	PABLO	****************
+	****************************************/
+/*	Pablo = new Usuario();
+	setLogin("@PabloCristoRey");
+	setNombre("Pablo");
+	setApellido("García");
+	setPerfilUsuario("Counter Strike");
+	insertarUsuarioTablaUsuarios(Pablo,tu);
+	//Foto1
+	/*setRuta(f, "/home/Pablo/Escritorio/Imagenes/gente_seria");
+	setTipo(f,"jpeg");
+	setTamanio(f,6050);
+	insertarFotoUsuario(Pablo, f);
+	//Foto2
+	setRuta(f, "/home/Pablo/Escritorio/Imagenes/mas_gente_seria_4k");
+	setTipo(f,"jpeg");
+	setTamanio(f,6050);
+	insertarFotoUsuario(Pablo, f);
+
+	
+	/***************************************
+	**************	  ANA	****************
+	****************************************/
+/*	Ana = new Usuario();
+	setLogin("@AnaCristoRey");
+	setNombre("Ana");
+	setApellido("Tallón");
+	setPerfilUsuario("Animal Crossing");
+	insertarUsuarioTablaUsuarios(Ana,tu);
+	//Foto1
+	/*setRuta(f, "/home/Ana/Escritorio/Imagenes/Amorsito");
+	setTipo(f,"jpeg");
+	setTamanio(f,6050);
+	insertarFotoUsuario(Ana, f);
+	//Foto2
+	setRuta(f, "/home/Ana/Escritorio/Imagenes/Aguacates");
+	setTipo(f,"png");
+	setTamanio(f,8710);
+	insertarFotoUsuario(Ana, f);
+	
+}*/
+///////////////////////////////				 PRINT					////////////////////////////////
+/*
+void Usuario::printUsuario(Usuario *u){
 
 	//Imprimimos el usuario con todos sus miembros.
 	cout << YELLOW << "****************************************" << endl;
-	cout << YELLOW <<  "Login: " << DEFAULT << getLogin(u) << endl;
-	cout << YELLOW << "Nombre: " << DEFAULT <<  getNombre(u) << endl;
-	cout << YELLOW << "Apellido: " << DEFAULT <<  getApellido(u) << endl;
-	cout << YELLOW << "Perfil de usuarios: " << DEFAULT <<  getPerfilUsuario(u) << endl;
+	cout << YELLOW <<  "Login: " << DEFAULT << getLogin() << endl;
+	cout << YELLOW << "Nombre: " << DEFAULT <<  getNombre() << endl;
+	cout << YELLOW << "Apellido: " << DEFAULT <<  getApellido() << endl;
+	cout << YELLOW << "Perfil de usuarios: " << DEFAULT <<  getPerfilUsuario() << endl;
 	//cout << YELLOW << "--------------------------" << DEFAULT << endl;
 	
 	//Imprimimos el vector de fotos 
@@ -233,7 +336,7 @@ void printUsuario(Usuario *u){
 		cout << YELLOW << "Este usuario no tiene fotos. " << DEFAULT << endl;
 
 }
-
+*/
 
 /**
  * @brief Módulo que se encarga de borrar la foto del usuario y ordenar el vector de fotos
@@ -243,7 +346,7 @@ void printUsuario(Usuario *u){
  * @version 1.0
  * @author Carlos Fdez.
  */
-void eliminarFotoUsuario(TablaUsuarios &tu){
+/*void eliminarFotoUsuario(TablaUsuarios &tu){
 
 	//Declaración de variables locales.
 	string login = "";
@@ -278,15 +381,7 @@ void eliminarFotoUsuario(TablaUsuarios &tu){
 		cerr << RED << "Lo sentimos, el Login introducido no está en nuestra base de datos." << DEFAULT << endl;
 	}
 }
-/**
- * @brief Este módulo se va a encargar de borrar el usuario seleccionado de la tabla.
- * @param TablaUsuarios tu
- * @pre La tabla de usuarios deberá estar creada.
- * @post Se elimnará el usuario selecionado.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void eliminarUsuarioTablaUsuarios(TablaUsuarios &tu){
+void Usuario::eliminarUsuarioTablaUsuarios(TablaUsuarios &tu){
 
 	//Declaración de variables locales.
 	string login = "";
@@ -331,16 +426,7 @@ void eliminarUsuarioTablaUsuarios(TablaUsuarios &tu){
 		cout << ERROR << "El Login que usted ha elegido no se encuentra en nuestra tabla de usuarios. " << DEFAULT << endl;
 		}
 }
-
-/**
- * @brief Este módulo ingresa un usuario en la TablaUsuarios
- * @param TablaUsuarios tu (E/S)
- * @pre La tabla ha tenido que ser creada previamente.
- * @post El usuario aparecerá en la TablaUsuarios.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void insertarUsuarioNuevo(TablaUsuarios &tu){
+void Usuario::insertarUsuarioNuevo(TablaUsuarios &tu){
 
 	string login = "";
 	bool usado = false;	
@@ -368,16 +454,7 @@ void insertarUsuarioNuevo(TablaUsuarios &tu){
 		cout << RED << "El Login introducido ya está en uso." << DEFAULT << endl;
 		}
 }
-/**
- * @brief En éste módulo insertaremos los usuarios predefinidos en una TablaUsuarios que hemos creado previamente.
- * @param Usuario *u
- * @param TablaUsuarios &tu
- * @pre Deberemos haber creado la tabla de usuarios previamente.
- * @post Insertaremos en la tabla de usuarios los usuarios que querámos.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void insertarUsuarioTablaUsuarios(Usuario *u, TablaUsuarios &tu){
+void Usuario::insertarUsuarioTablaUsuarios(Usuario *u, TablaUsuarios &tu){
 
 	//Resize decrease.
 	resizeAumentarPorPunteros(tu,tu.punteroapuntero);
@@ -385,15 +462,7 @@ void insertarUsuarioTablaUsuarios(Usuario *u, TablaUsuarios &tu){
 	//Insert user in vector
 	tu.punteroapuntero[tu.TotalTuplas-1] = u;
 }
-/**
- * @brief Aumenta la dimensión del vector de uno en uno.
- * @param TablaUsuarios tu (E/S)
- * @param Usuario **v
- * @post Aumentaremos en uno la dimensión de nuestro vector.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void resizeAumentarPorPunteros(TablaUsuarios &tu, Usuario **v){
+void Usuario::resizeAumentarPorPunteros(TablaUsuarios &tu, Usuario **v){
 	
 	int DIM = tu.TotalTuplas+1;
 
@@ -415,7 +484,7 @@ void resizeAumentarPorPunteros(TablaUsuarios &tu, Usuario **v){
 	//cout << "DEBUG: La DIM valen: " << DIM << endl;
 	
 }
-Usuario** resizeDisminuirPorPunteros(TablaUsuarios &tu, Usuario **u){
+Usuario** Usuario::resizeDisminuirPorPunteros(TablaUsuarios &tu, Usuario **u){
 	
 	int DIM = tu.TotalTuplas-1;
 	Usuario **vectorNuevo = 0;
@@ -438,4 +507,37 @@ Usuario** resizeDisminuirPorPunteros(TablaUsuarios &tu, Usuario **u){
 	return vectorNuevo;
 	
 }
+void Usuario::insertarFoto(TablaUsuarios &tu){
 
+	string login = "";
+	bool usado = false;
+	int posicion=0;
+	int cont = 0;
+	
+	
+	cout << "Introduce su Login del usuario al que quieres introducir la fotografía : " << endl;
+	cin >> login;
+	
+	//Comprobamos si el login existe o no.
+	for(int i = 0;i < tu.TotalTuplas;i++){
+		comprobacionLogin(login,tu.punteroapuntero[i],usado);
+		if(usado == true && cont != 1){
+			posicion=i;
+			cont++;	
+		}
+	}
+	//Si existe el login --> usado == true y reservamos memória dinámica para la foto y el usuario y creamos sus puntero inicializandolo a 0;
+	if(usado == true){
+		Foto *f=0;
+		f=crearFoto();
+		Usuario *u = 0;
+		
+		u = tu.punteroapuntero[posicion];
+		ValoresFoto(f);
+		resizeAumentarFoto(tu.punteroapuntero[posicion],u->v_fotos);
+		setTotalFotosUsuario(tu.punteroapuntero[posicion],getTotalFotosUsuario(u)+1);
+		tu.punteroapuntero[posicion]->v_fotos[getTotalFotosUsuario(u)-1] = *f;
+	}else{
+		cerr << RED << "Lo sentimos, el Login introducido no está en nuestra base de datos." << DEFAULT << endl;
+		}
+}*/

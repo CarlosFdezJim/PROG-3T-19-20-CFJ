@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "Vista.h"
+#include "Usuario.h"
 using namespace std;
 
 class TablaUsuarios{
@@ -50,6 +50,23 @@ class TablaUsuarios{
 		 * @author Carlos Fdez.
 		 */
 		void ordenarTablaUsuarios();
+
+		/**
+		 * @brief Este módulo se encarga de almacenar en el puntero de tipo TablaUsuario una variable int llamada TotalTuplas.
+		 * @param TablaUsuarios tu (E/S)
+		 * @param int TotalTuplas.
+		 * @post Se alamacenará en la variable estructurada TablaUsuarios el tota de tuplas que tiene la tabla.(Las útiles del vector de usuarios llamado 			 * 	PunteroAPuntero).
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
+		void setTotalTuplas(int TotalTuplas);
+		/**
+		 * @brief Devuelve el puntero totalFotosUsuario de una variable estructurada de tipo Usuario.
+		 * @param TablaUsuarios tu (E/S)
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
+		int getTotalTuplas();
 		/**
 		 * @brief Módulo que se encarga de liberar toda la memoria dinñamica que hemos utilizado en nuestro programa.
 		 * @param TablaUsuario tu (E/S)
@@ -58,9 +75,4 @@ class TablaUsuarios{
 		 * @author Carlos Fdez.
 		 */
 		void Salir();
-		
-		
-		
-		void setTotalTuplas(int TotalTuplas);
-		int getTotalTuplas();
 };
