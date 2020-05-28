@@ -11,7 +11,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-//#include "Usuario.h"
 using namespace std;
 
 class Foto{
@@ -29,7 +28,7 @@ class Foto{
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		Foto* crearFoto();
+		Foto();
 		/**
 		 * @brief Módulo que borrará el espacio de memoria reservado a Foto, borrando primero los miembros y después borramos el punteros.
 		 * @param Foto *f		//Puntero de tipo foto.
@@ -38,7 +37,7 @@ class Foto{
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		void borrarFoto(Foto *f);
+		~Foto();
 		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Foto en una variable string llamada ruta.
 		 * @param Foto *f		//Puntero de tipo foto.
@@ -47,7 +46,7 @@ class Foto{
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		void setRuta(Foto *f, string ruta);
+		void setRuta(string ruta);
 		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Foto una variable string llamada tipo.
 		 * @param Foto *f		//Puntero de tipo foto.
@@ -56,7 +55,7 @@ class Foto{
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		void setTipo(Foto *f, string tipo);
+		void setTipo(string tipo);
 		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Foto una variable de tipo long int llamada tamanio.
 		 * @param Foto *f		//Puntero de tipo foto.
@@ -66,7 +65,7 @@ class Foto{
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		void setTamanio (Foto *f, unsigned long int tamanio);
+		void setTamanio(unsigned long int tamanio);
 		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable int llamada v_fotos.
 		 * @param Usuario *u		//Puntero de tipo Usuario.
@@ -75,21 +74,21 @@ class Foto{
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		void setV_Fotos(Usuario *u, Foto *f);
+		void setV_Fotos();
 		/**
 		 * @brief Devuelve el puntero Ruta de una variable estructurada de tipo Foto.
 		 * @param Foto *f		//Puntero de tipo foto.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		string getRuta(Foto *f);
+		string getRuta();
 		/**
 		 * @brief Devuelve el puntero Tipo de una variable estructurada de tipo Foto.
 		 * @param Foto *f		//Puntero de tipo foto.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		string getTipo(Foto *f);
+		string getTipo();
 		/**
 		 * @brief Devuelve el Tamanio de una variable estructurada de tipo Foto.
 		 * @param Foto *f		//Puntero de tipo foto.
@@ -98,16 +97,7 @@ class Foto{
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */		
-		int long unsigned getTamanio (Foto *f);
-		/**
-		 * @brief Módulo que me muestra las fotos tengo en el vector de fotos.
-		 * @param Foto *v_fotos
-		 * @pre El vector de fotos tiene que estar creado y tener por lo menos una foto.
-		 * @post Se mostrará el vector de fotos al usuario.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */
-		void Foto::printVectorFotos(Foto *v_fotos, Usuario *u );
+		int long unsigned getTamanio();
 		/**
 		 * @brief Imprime por pantalla la ruta de la foto junto a su tipo y el tamaño que ocupa la foto.
 		 * @param Foto *f
@@ -115,15 +105,16 @@ class Foto{
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		void Foto::printFoto(Foto *f);
+		void printFoto();
 		/**
-		 * @brief Este módulo se encarga de disminuir en uno la dimensión y las útiles de nuestro vector cuando lo llamemos.
-		 * @param Usuario *u
-		 * @param Foto *v_fotos
-		 * @post La dimensión del vector decrecerá en una posición.
+		 * @brief Módulo que se encarga de imprimir el vector de fotografías de un usuario.
+		 * @param TablaUsuarios tu
+		 * @pre El usuario debe de estar instertado.
+		 * @post Se muestran por pantalla las fotografías de ese usuario
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		void Foto::resizeDisFoto(Usuario *u,Foto *v_fotos);
-		void resizeAumentarFoto(Usuario *u,Foto *v_fotos);
+		 void printFotosUsuario();
+		 
+		 
 };

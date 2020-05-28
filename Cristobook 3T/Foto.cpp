@@ -26,17 +26,18 @@
 #include "Foto.h"
 using namespace std;
 
+///////////////////////////////				 USUARIO					////////////////////////////////
 
-Foto* Foto::crearFoto(){
+Foto::Foto(){
 
+	cout  << PURPLE << "\n  ****    CREANDO FOTO    **** " << DEFAULT << endl;
 	//Reservamos un nuevo espacio de memoria para la Foto y lo inicializamos.
-	Foto *f=0;
-	f = new Foto;
+	Foto *f= new Foto;
 	
 	//Inicializamos el contenido del Usuario.	
-	f->ruta = "";
-	f->tipo = "";
-	f->tamanio = 0;
+	this->ruta = "";
+	this->tipo = "";
+	this->tamanio = 0;
 	
 	//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
 	if (f == 0){
@@ -44,64 +45,64 @@ Foto* Foto::crearFoto(){
 		exit(-1);
 	}
 	
-	//Devuelvo la dirección que referenciaba al fragmento de memoria(puntero).
-	return f;
-	
+	cout << GREEN << "La Foto se ha creado correctamente.\n" << DEFAULT ;
+	cout  << PURPLE << "************************************** " << DEFAULT << endl;
 }
-void Foto::borrarFoto(Foto *f){
+Foto::~Foto(){
+
+	cout  << PURPLE << "\n  ****    BORRANDO FOTO    **** " << DEFAULT << endl;
 
 	//Ponemos a cero/null todos los datos que tiene la Foto
-	f->ruta = "";
-	f->tipo = "";
-	f->tamanio = 0;
+	this->ruta = "NULL";
+	this->tipo = "NULL";
+	this->tamanio = -1;
 
 	//borro el fragmento de memoria
-	delete f;
+	//delete f;
 
 	//elimino la dirección que referenciaba al fragmento de memoria(puntero).
-	f = 0;
-	
+	//f = 0;
+		
+	cout << GREEN << "La foto se ha borrado correctamente.\n" << DEFAULT ;
+	cout  << PURPLE << "************************************** " << DEFAULT << endl;
 }
-void Foto::setRuta(Foto *f, string ruta){
-	f->ruta = ruta;
+
+///////////////////////////////				 SET					////////////////////////////////
+
+void Foto::setRuta(string ruta){
+	this->ruta = ruta;
 }
-void Foto::setTipo(Foto *f, string tipo){
-	f->tipo = tipo;
+void Foto::setTipo(string tipo){
+	this->tipo = tipo;
 }
-void Foto::setTamanio (Foto *f, unsigned long int tamanio){
-    f->tamanio = tamanio;
+void Foto::setTamanio(unsigned long int tamanio){
+	this->tamanio = tamanio;
 }
-string Foto::getRuta(Foto *f){
-    return f->ruta;
+
+///////////////////////////////				 GET					////////////////////////////////
+
+string Foto::getRuta(){
+	return this->ruta;
 }
-string Foto::getTipo(Foto *f){
-    return f->tipo;
+string Foto::getTipo(){
+	return this->tipo;
 }
-int long unsigned Foto::getTamanio (Foto *f){
-    return f->tamanio;
+int long unsigned Foto::getTamanio (){
+	return this->tamanio;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void Foto::printVectorFotos(Foto *v_fotos, Usuario *u ){
+void Foto::printFoto(){
 
-		if(getTotalFotosUsuario(u) != 0){
-			for(int i=0; i < getTotalFotosUsuario(u); i++){
-				printFoto(&v_fotos[i]);
-				cout << PURPLE << "----------------" << DEFAULT << endl;
-			}
-		}else
-			cerr << RED << "Lo sentimos, no hay fotos insertadas." << DEFAULT << endl;
+	//Imprimimos toda la foto inluyendo Ruta,Tipo y Tamanio.
+	cout << BLUE << "Ruta : " << DEFAULT << this->getRuta() << "." << this->getTipo() << endl;
+	cout << BLUE << "Tipo : " << DEFAULT << this->getTipo()  << endl;
+	cout << BLUE << "Tamaño : " << DEFAULT << this->getTamanio() << " bytes." << endl;
+	cout << PURPLE << "----------------" << DEFAULT << endl;
+	
 }
-/**
- * @brief Módulo que se encarga de imprimir el vector de fotografías de un usuario.
- * @param TablaUsuarios tu
- * @pre El usuario debe de estar instertado.
- * @post Se muestran por pantalla las fotografías de ese usuario
- * @version 1.0
- * @author Carlos Fdez.
- */
-void printFotosUsuario(TablaUsuarios &tu){
+/*void Foto::printFotosUsuario(){
 
 	string login = "";
 	bool usado = true;
@@ -113,7 +114,7 @@ void printFotosUsuario(TablaUsuarios &tu){
 	cin >> login;
 	
 	//Comprobamos si el login existe o no.
-	for(int i = 0;i < tu.TotalTuplas;i++){
+	for(int i = 0;i < tu->TotalTuplas;i++){
 		comprobacionLogin(login,tu.punteroapuntero[i],usado);
 		if(usado == true && cont != 1){
 			posicion=i;
@@ -125,11 +126,11 @@ void printFotosUsuario(TablaUsuarios &tu){
 	//Si existe el login
 	if(usado == true){
 		//cout << "DEBUG: Posición: " << posicion << endl;
-		printVectorFotos(tu.punteroapuntero[posicion]->v_fotos, tu.punteroapuntero[posicion]);
+		this->printVectorFotos(tu->punteroapuntero[posicion]->v_fotos, tu->punteroapuntero[posicion]);
 		
 	}else
 		cerr << RED << "Lo sentimos, el Login introducido no está en nuestra base de datos." << DEFAULT << endl;
-}
+}*/
 /**
  * @brief Este módulo se encarga de pedir los valores predeterminados al usuario y distingirá entre varias opciones para asignarle un tamaño a la foto.
  * @param Foto *f
@@ -138,7 +139,7 @@ void printFotosUsuario(TablaUsuarios &tu){
  * @version 1.0
  * @author Carlos Fdez.
  */
-void Foto::ValoresFoto(Foto *f){
+/*void Foto::ValoresFoto(Foto *f){
 
 	cout << BLUE << "* * * * * * * * * * * * * * * * * * * " << DEFAULT << endl;
 	cout << YELLOW << "Por favor ingresa la ruta de la foto. " << DEFAULT << endl;
@@ -160,16 +161,8 @@ void Foto::ValoresFoto(Foto *f){
 		setTamanio(f,6050);
 	}else 
 		setTamanio(f,405000);
-}
-void Foto::printFoto(Foto *f){
+}*/
 
-	//Imprimimos toda la foto inluyendo Ruta,Tipo y Tamanio.
-	cout << BLUE << "Ruta : " << DEFAULT << getRuta(f) << "." << getTipo(f) << endl;
-	cout << BLUE << "Tipo : " << DEFAULT << getTipo(f)  << endl;
-	cout << BLUE << "Tamaño : " << DEFAULT << getTamanio(f) << " bytes." << endl;
-	cout << PURPLE << "----------------" << DEFAULT << endl;
-	
-}
 
 /**
  * @brief Este módulo se usa para introducir las fotos del usuario predefinido.
@@ -180,7 +173,7 @@ void Foto::printFoto(Foto *f){
  * @version 1.0
  * @author Carlos Fdez.
  */
-void insertarFotoUsuario(Usuario *u, Foto *f){
+/*void insertarFotoUsuario(Usuario *u, Foto *f){
 	
 	//Aumentamos en uno nuestro vector.
 	resizeAumentarFoto(u,u->v_fotos);
@@ -189,45 +182,4 @@ void insertarFotoUsuario(Usuario *u, Foto *f){
 	u->v_fotos[getTotalFotosUsuario(u)] = *f;
 	
 	setTotalFotosUsuario(u,getTotalFotosUsuario(u)+1);
-}
-void Foto::resizeAumentarFoto(Usuario *u,Foto *v_fotos){
-	
-	int DIM = u->totalFotosUsuario+1;
-
-	Foto *vectorNuevo = 0;
-	
-	vectorNuevo = new Foto[DIM];
-
-	if (vectorNuevo == 0){
-		cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
-		exit(-1);
-	}
-	for(int i = 0;i < u->totalFotosUsuario;i++){
-		vectorNuevo[i]=v_fotos[i];
-	}
-	u->v_fotos = vectorNuevo;
-	delete [] v_fotos;
-	
-}
-void Foto::resizeDisFoto(Usuario *u,Foto *v_fotos){
-	
-	int DIM = u->totalFotosUsuario-1;
-
-	Foto *vectorNuevo = 0;
-	
-	vectorNuevo = new Foto[DIM];
-
-	if (vectorNuevo == 0){
-		cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
-		exit(-1);
-	}
-	
-	for(int i = 0;i < DIM;i++){
-		vectorNuevo[i]=v_fotos[i];
-	}
-	
-	u->v_fotos = vectorNuevo;
-	
-	delete [] v_fotos;
-		
-}
+}*/

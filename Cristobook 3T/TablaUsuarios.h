@@ -68,6 +68,22 @@ class TablaUsuarios{
 		 */
 		int getTotalTuplas();
 		/**
+		 * @brief Módulo que se encarga de almacenar en la Tabla de Usuarios algunos usuarios predefinidos.
+		 * @pre Deberemos tener bien hechos los Set para que no fallen al insertar los usuarios predefinidos.
+		 * @post Los usuarios serán introducidos en la Tabla de Usuarios.
+		 * @version 2.2
+		 * @author Carlos Fdez.
+		 */
+		void UsuariosPredefinidos();
+		/**
+		* @brief
+		* @pre
+		* @post
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void printTablaUsuarios();
+		/**
 		 * @brief Módulo que se encarga de liberar toda la memoria dinñamica que hemos utilizado en nuestro programa.
 		 * @param TablaUsuario tu (E/S)
 		 * @post El programa no dejará ningún dato en el limbo, porque todo será borrado y puesto a 0/NULL

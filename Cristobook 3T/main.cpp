@@ -32,5 +32,6 @@ int main(){
 	
 	Vista v;
 	v.menuVista();
-	cout << ERROR << " *********************** " << DEFAULT << endl;
+
+
 }

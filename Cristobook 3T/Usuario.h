@@ -10,7 +10,7 @@
 #include <stdlib.h>
 #include <string.h>
 
-//#include "Foto.h"
+#include "Foto.h"
 using namespace std;
 
 class Usuario{
@@ -21,7 +21,7 @@ class Usuario{
 		string nombre;		//Nombre del usuario
 		string apellido;	//Apellido del usuario
 		string perfil_usuario;	//Perfil del Usuario. Administrador o Usuario Normal.
-		//Foto* v_fotos;		//Vector Dinámico de Burbujas.
+		Foto* v_fotos;		//Vector Dinámico de Burbujas.
 		int DIM_vfotos;		//Dimensión del vector.
 		int totalFotosUsuario;	//utiles del vector
 	
@@ -92,7 +92,7 @@ class Usuario{
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		//void setV_Fotos(Usuario *u, Foto *f);
+		void setV_Fotos(Foto *f);
 		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable int llamada DIM_vfotos.
 		 * @param Usuario *u		//Puntero de tipo Usuario.
@@ -101,7 +101,7 @@ class Usuario{
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */		
-		//void setDIM_vfotos(Usuario *u, int DIM_vfotos);
+		void setDIM_vfotos(int DIM_vfotos);
 		/**
 		 * @brief Devuelve el puntero Login de una variable estructurada de tipo Usuario.
 		 * @param Usuario *u		//Puntero de tipo Usuario.
@@ -134,7 +134,7 @@ class Usuario{
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */		
-		//Foto getv_fotos();
+		Foto getv_fotos(int i);
 		/**
 		 * @brief Devuelve el puntero DIM_vfotos de una variable estructurada de tipo Usuario.
 		 * @version 1.0
@@ -146,14 +146,23 @@ class Usuario{
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */		
-		//int getTotalFotosUsuario();
+		int getTotalFotosUsuario();
 		/**
 		 * @brief Imprime por pantalla el contenido de una variable estructurada de tipo Usuario.
 		 * @post Imprimir un Usuario seleccionado.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		//void printUsuario();
+		void printUsuario();
+		/**
+		 * @brief Módulo que me muestra las fotos tengo en el vector de fotos.
+		 * @param Foto *v_fotos
+		 * @pre El vector de fotos tiene que estar creado y tener por lo menos una foto.
+		 * @post Se mostrará el vector de fotos al usuario.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
+		void printVectorFotos();
 		/**
 		 * @brief Módulo que inserta una foto en el vector de fotos de cada usuario.
 		 * @param TablaUsuarios tu (E/S)
@@ -162,6 +171,7 @@ class Usuario{
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
+		 
 		//void insertarFoto(TablaUsuarios &tu);
 		//Usuario** resizeDisminuirPorPunteros(TablaUsuarios &tu, Usuario **u);
 		/**
@@ -175,14 +185,12 @@ class Usuario{
 		//void Usuario::resizeAumentarPorPunteros(TablaUsuarios &tu, Usuario **v);
 		/**
 		 * @brief En éste módulo insertaremos los usuarios predefinidos en una TablaUsuarios que hemos creado previamente.
-		 * @param Usuario *u
-		 * @param TablaUsuarios &tu
 		 * @pre Deberemos haber creado la tabla de usuarios previamente.
 		 * @post Insertaremos en la tabla de usuarios los usuarios que querámos.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		//void Usuario::insertarUsuarioTablaUsuarios(Usuario *u, TablaUsuarios &tu);
+		//void insertarUsuarioTablaUsuarios(TablaUsuarios *tu);
 		/**
 		 * @brief Este módulo ingresa un usuario en la TablaUsuarios
 		 * @param TablaUsuarios tu (E/S)

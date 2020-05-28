@@ -30,61 +30,62 @@ using namespace std;
 
 Usuario::Usuario(){
 
-	cout  << PURPLE << "\n  ****    CREANDO USUARIOS    **** " << DEFAULT << endl;
+	//if(this->getDEBUG() == true){
+		cout  << PURPLE << "\n  ****    CREANDO USUARIOS    **** " << DEFAULT << endl;
+	//}
+		//Reservamos un nuevo espacio de memoria para el usuario y lo inicializamos.
+		Usuario *u = new Usuario;
 
-	//Reservamos un nuevo espacio de memoria para el usuario y lo inicializamos.
-	Usuario *u = 0;
-	u = new Usuario;
-	
-	//Inicializamos el contenido del Usuario.
-	u->login = "";
-	u->nombre = "";
-	u->apellido = "";
-	u->perfil_usuario = "";
-	//u->v_fotos=0;
-	u->DIM_vfotos=0;
-	u->totalFotosUsuario=0;
-	
-	//Reservamos un nuevo espacio de memoria para el vector de fotos que lleva dentro el usuario.
-	//u->v_fotos = new Foto[u->DIM_vfotos];
+		//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
+		if (u == 0){
+			cerr << "Error. No hay memoria suficiente para crear una foto nueva. Se abortará la ejecución" << endl;
+			exit(-1);
+		}
 
-	//Si no hay memoria suficiente para crear el Usuario se aborta la ejecución y se sale del programa.
-	if (u == 0){
-		cerr << "Error. No hay memoria suficiente para crear un nuevo Usuario. Se abortará la ejecución" << endl;
-		exit(-1);
-	}
-	
-	/*Si no hay memoria suficiente para crear el vector de fotos se aborta la ejecución y se sale del programa.
-	if (u->v_fotos == 0){
-		cerr << "Error. No hay memoria suficiente. Se abortará la ejecución" << endl;
-		exit(-1);
-	}*/
+		//Rellenamos el vector de Fotos del Usuario.
+		/*for( int i=0; i < this->getTotalFotosUsuario();i++){
+			this->v_fotos[i] = new Foto;
+		}*/
 
-	cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
-	cout  << PURPLE << "************************************** " << DEFAULT << endl;
+		//Inicializamos el contenido del Usuario.
+		this->login = "";
+		this->nombre = "";
+		this->apellido = "";
+		this->perfil_usuario = "";	
+		this->DIM_vfotos = 0;
+		this->totalFotosUsuario = 0;
+		
 	
-	//Devuelvo la dirección que referenciaba al fragmento de memoria(puntero).
-	//return u;
+	//if(this->getDEBUG() == true){
+		cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
+		cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	//}
 
 }
 Usuario::~Usuario(){
 
-	cout  << PURPLE << "\n  ****    BORRAR USUARIOS    **** " << DEFAULT << endl;
-
-	//Ponemos los datos del usuario a Null/-1 antes de eliminar el usuario.
-	this->login = "";
-	this->nombre = "";
-	this->apellido = "";
-	this->perfil_usuario = "";	
-	this->DIM_vfotos = 0;
-	this->totalFotosUsuario = 0;
-
-	//borro el fragmento de memoria
-	//delete [] u->v_fotos;
-	//delete u;
+	//if(this->getDEBUG() == true){
+		cout  << PURPLE << "\n  ****    BORRAR USUARIOS    **** " << DEFAULT << endl;
+	//}
 	
-	//elimino la dirección que referenciaba al fragmento de memoria(puntero).
-	//u = 0;
+		//Borramos el vector de Fotos del Usuario.
+		/*for( int i=0; i < this->getTotalFotosUsuario();i++){
+			delete v_fotos[i];
+		}*/
+
+		//Ponemos los datos del usuario a Null/-1 antes de eliminar el usuario.
+		this->login = "NULL";
+		this->nombre = "NULL";
+		this->apellido = "NULL";
+		this->perfil_usuario = "NULL";	
+		this->DIM_vfotos = -1;
+		this->totalFotosUsuario = -1;
+
+		//borro el fragmento de memoria
+		//delete [] u->v_fotos;
+	
+		//elimino la dirección que referenciaba al fragmento de memoria(puntero).
+		//this->u = 0;
 	
 	cout << GREEN << "El Usuario se ha borrado correctamente.\n" << DEFAULT ;
 	cout  << PURPLE << "************************************** " << DEFAULT << endl;
@@ -92,7 +93,7 @@ Usuario::~Usuario(){
 }
 
 ///////////////////////////////				 SET					////////////////////////////////
-/*
+
 void Usuario::setLogin(string login){
 	this->login = login;
 }
@@ -107,16 +108,16 @@ void Usuario::setPerfilUsuario(string perfil_usuario){
 }
 void Usuario::setTotalFotosUsuario(int totalFotosUsuario){
 	this->totalFotosUsuario = totalFotosUsuario;   
-}
-/*void Usuario::setV_Fotos(Usuario *u, Foto *f){
+}/*
+void Usuario::setV_Fotos(Foto *f){
 	this->v_fotos = f;
+}*/
+void Usuario::setDIM_vfotos(int DIM_vfotos){
+	this->DIM_vfotos = DIM_vfotos;   
 }
-void Usuario::setDIM_vfotos(Usuario *u, int DIM_vfotos){
-    u->DIM_vfotos = DIM_vfotos;   
-}
-*/
+
 ///////////////////////////////				 GET					////////////////////////////////
-/*
+
 string Usuario::getLogin(){
     return this->login;
 }
@@ -129,214 +130,58 @@ string Usuario::getApellido(){
 string Usuario::getPerfilUsuario(){
     return this->perfil_usuario;
 }
-Foto Usuario::getv_fotos(){
-	return this->v_fotos[u->totalFotosUsuario];
-}
+Foto Usuario::getv_fotos(int i){
+	return this->v_fotos[i];
+}/*
 int Usuario::getDIM_vfotos(){
 	return this->DIM_vfotos;
-}
-int Usuario::getTotalFotosUsuario(){
-    return this->totalFotosUsuario;
-}
-*/
-///////////////////////////////				 OTHER					////////////////////////////////
-/**
- * @brief Módulo que se encarga de almacenar en la Tabla de Usuarios algunos usuarios predefinidos.
- * @param TablaUsuarios tu (E/S)
- * @pre Deberemos tener bien hechos los Set para que no fallen al insertar los usuarios predefinidos.
- * @post Los usuarios serán introducidos en la Tabla de Usuarios.
- * @version 2.2
- * @author Carlos Fdez.
- */
-/*
-void UsuariosPredefinidos(TablaUsuarios &tu){
-
-	Foto *f = 0;
-	f=crearFoto();
-	
-	Usuario *u = 0;
-	u=crearUsuario();
-	
-	//Usuarios predefinidos.
-	Usuario *Carlos=0;
-	Usuario *Jaime=0;
-	Usuario *Cristian=0;
-	Usuario *Adrian=0;
-	Usuario *Jesus=0;
-	Usuario *Pablo=0;
-	Usuario *Ana=0;
-		
-	/***************************************
-	**************	CARLOS	****************
-	****************************************/
-/*	Carlos = new Usuario();
-	setLogin("@CarlosCristoRey");
-	setNombre("Carlos");
-	setApellido("Fernández");
-	setPerfilUsuario("FIFA");
-	insertarUsuarioTablaUsuarios(tu);
-	//Foto1
-	setRuta(f, "/home/Carlos/Escritorio/Imagenes/Españita");
-	setTipo(f,"jpeg");
-	setTamanio(f,49350);
-	insertarFotoUsuario(Carlos, f);
-	//Foto2
-	setRuta(f, "/home/Carlos/Escritorio/Imagenes/esto_es_ESPANIAAAAAA");
-	setTipo(f,"gif");
-	setTamanio(f,6050);
-	insertarFotoUsuario(Carlos, f);
-
-	
-	/***************************************
-	**************	JAIME	****************
-	****************************************/	
-/*	Jaime = new Usuario();
-	setLogin("@JaimeCristoRey");
-	setNombre("Jaime");
-	setApellido("Cabezas");
-	setPerfilUsuario(Jaime, "Minecraft");
-	insertarUsuarioTablaUsuarios(tu);
-	//Foto1
-	setRuta(f, "/home/Jaime/Escritorio/Imagenes/Skone");
-	setTipo(f,"jpeg");
-	setTamanio(f,49350);
-	insertarFotoUsuario(Jaime, f);
-	//Foto2
-	setRuta(f, "/home/Jaime/Escritorio/Imagenes/Force");
-	setTipo(f,"jpeg");
-	setTamanio(f,49350);
-	insertarFotoUsuario(f);		
-
-	
-	/***************************************
-	********	CRISTIAN	********
-	****************************************/
-/*	Cristian = new Usuario();
-	setLogin("@CristianCristoRey");
-	setNombre("Cristian");
-	setApellido("Campos");
-	setPerfilUsuario("Footbal Manager");
-	insertarUsuarioTablaUsuarios(tu);
-	//Foto1
-	setRuta(f, "/home/Cristian/Escritorio/Imagenes/fackposlisia");
-	setTipo(f,"jpeg");
-	setTamanio(f,49350);
-	insertarFotoUsuario(Cristian, f);
-	//Foto2
-	setRuta(f, "/home/Cristian/Escritorio/Imagenes/LoKo_ReShUlOn");
-	setTipo("jpeg");
-	setTamanio(49350);
-	insertarFotoUsuario(f);
-
-	
-	/***************************************
-	**************	ADRIAN	****************
-	****************************************/
-/*	Adrian =  new Usuario();
-	setLogin("@AdrianCristoRey");
-	setNombre("Adrián");
-	setApellido("Castillo");
-	setPerfilUsuario("Counter Strike");
-	insertarUsuarioTablaUsuarios(tu);
-	//Foto1
-	/*setRuta(f, "/home/Adrian/Escritorio/Imagenes/polvora");
-	setTipo(f,"gif");
-	setTamanio(f,6050);
-	insertarFotoUsuario(Adrian, f);
-	//Foto2
-	setRuta(f, "/home/Adrian/Escritorio/Imagenes/Calamar");
-	setTipo(f,"bmp");
-	setTamanio(f,125910);
-	insertarFotoUsuario(Adrian, f);
-
-	
-	/***************************************
-	**************	JESUS	****************
-	****************************************/
-/*	Jesus = new Usuario();
-	setLogin("@JesusCristoRey");
-	setNombre("Jesús");
-	setApellido("Rey");
-	setPerfilUsuario("GTA V");
-	insertarUsuarioTablaUsuarios(tu);
-	//Foto1
-	/*setRuta(f, "/home/Jesus/Escritorio/Imagenes/Escaleras");
-	setTipo(f,"gif");
-	setTamanio(f,6050);
-	insertarFotoUsuario(Jesus, f);
-	//Foto2
-	setRuta(f, "/home/Jesus/Escritorio/Imagenes/Motosytoeso/susuki_compae");
-	setTipo(f,"jpeg");
-	setTamanio(f,6050);
-	insertarFotoUsuario(Jesus, f);
-
-	
-	/***************************************
-	**************	PABLO	****************
-	****************************************/
-/*	Pablo = new Usuario();
-	setLogin("@PabloCristoRey");
-	setNombre("Pablo");
-	setApellido("García");
-	setPerfilUsuario("Counter Strike");
-	insertarUsuarioTablaUsuarios(Pablo,tu);
-	//Foto1
-	/*setRuta(f, "/home/Pablo/Escritorio/Imagenes/gente_seria");
-	setTipo(f,"jpeg");
-	setTamanio(f,6050);
-	insertarFotoUsuario(Pablo, f);
-	//Foto2
-	setRuta(f, "/home/Pablo/Escritorio/Imagenes/mas_gente_seria_4k");
-	setTipo(f,"jpeg");
-	setTamanio(f,6050);
-	insertarFotoUsuario(Pablo, f);
-
-	
-	/***************************************
-	**************	  ANA	****************
-	****************************************/
-/*	Ana = new Usuario();
-	setLogin("@AnaCristoRey");
-	setNombre("Ana");
-	setApellido("Tallón");
-	setPerfilUsuario("Animal Crossing");
-	insertarUsuarioTablaUsuarios(Ana,tu);
-	//Foto1
-	/*setRuta(f, "/home/Ana/Escritorio/Imagenes/Amorsito");
-	setTipo(f,"jpeg");
-	setTamanio(f,6050);
-	insertarFotoUsuario(Ana, f);
-	//Foto2
-	setRuta(f, "/home/Ana/Escritorio/Imagenes/Aguacates");
-	setTipo(f,"png");
-	setTamanio(f,8710);
-	insertarFotoUsuario(Ana, f);
-	
 }*/
+int Usuario::getTotalFotosUsuario(){
+	return this->totalFotosUsuario;
+}
+
 ///////////////////////////////				 PRINT					////////////////////////////////
-/*
-void Usuario::printUsuario(Usuario *u){
+
+void Usuario::printUsuario(){
 
 	//Imprimimos el usuario con todos sus miembros.
 	cout << YELLOW << "****************************************" << endl;
-	cout << YELLOW <<  "Login: " << DEFAULT << getLogin() << endl;
-	cout << YELLOW << "Nombre: " << DEFAULT <<  getNombre() << endl;
-	cout << YELLOW << "Apellido: " << DEFAULT <<  getApellido() << endl;
-	cout << YELLOW << "Perfil de usuarios: " << DEFAULT <<  getPerfilUsuario() << endl;
-	//cout << YELLOW << "--------------------------" << DEFAULT << endl;
+	cout << YELLOW <<  "Login: " << DEFAULT << this->getLogin() << endl;
+	cout << YELLOW << "Nombre: " << DEFAULT <<  this->getNombre() << endl;
+	cout << YELLOW << "Apellido: " << DEFAULT <<  this->getApellido() << endl;
+	cout << YELLOW << "Perfil de usuarios: " << DEFAULT <<  this->getPerfilUsuario() << endl;
+	cout << YELLOW << "--------------------------" << DEFAULT << endl;
 	
 	//Imprimimos el vector de fotos 
-	if(getTotalFotosUsuario(u) != 0){
+	/*if(getTotalFotosUsuario(u) != 0){
 		cout << PURPLE << "----------------" << DEFAULT << endl;
 		for(int i= 0; i < getTotalFotosUsuario(u);i++){
 			cout << BLUE << "Foto número : " << DEFAULT << i << endl;
 			printFoto(&u->v_fotos[i]);
 		}
 	}else
-		cout << YELLOW << "Este usuario no tiene fotos. " << DEFAULT << endl;
+		cout << YELLOW << "Este usuario no tiene fotos. " << DEFAULT << endl;*/
 
 }
-*/
+/*void Usuario::insertarUsuarioTablaUsuarios(){
+
+	//Resize decrease.
+	//resizeAumentarPorPunteros(tu,tu.punteroapuntero);
+	
+	//Insert user in vector
+	//tu->punteroapuntero[tu->TotalTuplas-1] = u;
+	tu->punteroapuntero[tu->TotalTuplas+1] = *u;	//Mientras no tenga resize
+}
+/*void Usuario::printVectorFotos(){
+
+		if(this->getTotalFotosUsuario() != 0){
+			for(int i=0; i < this->getTotalFotosUsuario(); i++){
+				f->printFoto();
+				cout << PURPLE << "----------------" << DEFAULT << endl;
+			}
+		}else
+			cerr << RED << "Lo sentimos, no hay fotos insertadas." << DEFAULT << endl;
+}*/
 
 /**
  * @brief Módulo que se encarga de borrar la foto del usuario y ordenar el vector de fotos
@@ -453,16 +298,9 @@ void Usuario::insertarUsuarioNuevo(TablaUsuarios &tu){
 	}else{
 		cout << RED << "El Login introducido ya está en uso." << DEFAULT << endl;
 		}
-}
-void Usuario::insertarUsuarioTablaUsuarios(Usuario *u, TablaUsuarios &tu){
+}*/
 
-	//Resize decrease.
-	resizeAumentarPorPunteros(tu,tu.punteroapuntero);
-	
-	//Insert user in vector
-	tu.punteroapuntero[tu.TotalTuplas-1] = u;
-}
-void Usuario::resizeAumentarPorPunteros(TablaUsuarios &tu, Usuario **v){
+/*void Usuario::resizeAumentarPorPunteros(TablaUsuarios &tu, Usuario **v){
 	
 	int DIM = tu.TotalTuplas+1;
 

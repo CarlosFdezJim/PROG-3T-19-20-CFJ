@@ -57,4 +57,12 @@ class Vista{
 		* @version 1.0
 		*/
 		bool getDEBUG();
+		/**
+		* @brief Método que cambia el estado de la variable booleana DEBUG paraa activar o desactivar el DEBUG.
+		* @pre Tendremos que tener bien hecho los set y get de la variable booleana DEBUG.
+		* @post Cambiamos el valor de la variable boolenana DEBUG.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void modoDEBUG(bool DEBUG);
 };

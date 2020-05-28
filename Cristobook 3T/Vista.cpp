@@ -33,35 +33,36 @@ void Vista::setDEBUG(bool DEBUG){
 bool Vista::getDEBUG(){
 	return this->DEBUG;
 }
+void Vista::modoDEBUG(bool DEBUG){
 
+	if(this->getDEBUG()==false){
+		this->setDEBUG(true);
+		cout << ERROR << "MODO DEBUG ACTIVADO" << DEFAULT << endl;
+	}else{
+		this->setDEBUG(false);
+		cout << ERROR << "MODO DEBUG DESACTIVADO" << DEFAULT << endl;
+	}
+}
 ///////////////////////////////				VISTA					////////////////////////////////
 
 Vista::Vista(){
 
-	setDEBUG(true);
+	//this->setDEBUG(true);
 
 	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    CREANDO VISTA    **** " << DEFAULT << endl;
 	}
 	
-	//Inicializamos las totaltuplas para poder crear la TablaUsuarios
-	tu->setTotalTuplas(10);
+		//Inicializamos las totaltuplas para poder crear la TablaUsuarios
+		this->tu = new TablaUsuarios;
 	
-	//Filtro para que las tuplas del vector no sea negativo, en caso de serlo abortará la ejecución.
-	if(tu->getTotalTuplas() >= 0){
-
-		//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
-		if (tu->getTotalTuplas() == 0){
-			cerr << "Error. No hay memoria suficiente. Se abortará la ejecución " << endl;
+	
+		//Filtro para que las tuplas del vector no sea negativo, en caso de serlo abortará la ejecución.
+		if (tu->getTotalTuplas() < 0){
+			cerr << "¡¡ERROR!! llas tuplas no pueden ser negativas." << endl;
 			cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
 			exit(-1);
 		}
-
-	}else if (tu->getTotalTuplas() < 0){
-		cerr << "¡¡ERROR!! una TablaUsuarios no puede tener una dimensión negativo." << endl;
-		cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
-		exit(-1);
-	}
 
 	if(this->getDEBUG() == true){
 		cout << GREEN << "El modo Vista se ha creado correctamente.\n" << DEFAULT ;
@@ -71,27 +72,24 @@ Vista::Vista(){
 }
 Vista::~Vista(){
 
-	setDEBUG(true);
-
 	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    DESTRUYENDO VISTA    **** " << DEFAULT << endl;
 	}
-	
+		//Borramos los datos de los miembros del polinomio.
+		tu->setTotalTuplas(0);
 
-	this->setDEBUG(true);
-	tu->setTotalTuplas(0);
-	
-	tu = 0;
-	delete [] tu;
+		//Borramos el contenido.
+		delete tu;
+		
+		//Borramos el valor del puntero.
+		tu = 0;
 
 	if(this->getDEBUG() == true){
 		cout << GREEN << "El modo Vista se ha eliminado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}
 
-
 }
-
 ///////////////////////////////				MENU					////////////////////////////////
 
 /**
@@ -140,21 +138,23 @@ void Vista::menuVista(){
 
 				case 1:	
 					//Activar/ Desactivar MODO DEBUG
-						//setDebug(true);
+					modoDEBUG(getDEBUG());
 				break;
 
 				case 2:
 					// Ejecutar Testing Automático.
-					// TestingAutomático();
+					// TestingAutomatico();
 				break;
 				
 				case 3:
 					//Crear tabla Usuario
 					if(creado==false){
+						//TablaUsuarios();
+						tu->UsuariosPredefinidos();
+						cout << ERROR << "********************" << DEFAULT << endl;
 						creado=true;
-						//tu->TablaUsuarios();
 					}else{
-						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
+						cout << ERROR << "Recuerde que ya hay CREADA una TablaUsuarios. " << DEFAULT << endl;
 						}
 				break;
 				
@@ -162,6 +162,7 @@ void Vista::menuVista(){
 					//Eliminar TablaUsuarios
 					if(creado==true){
 						tu->~TablaUsuarios();
+						creado=false;
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -170,9 +171,9 @@ void Vista::menuVista(){
 				case 5:
 					//Imprimir TablaUsuarios
 					if(creado==true){
-						//printTablaUsuarios();
+						tu->printTablaUsuarios();
 					}else{
-						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
+						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede imprimirla. " << DEFAULT << endl;
 						}
 				break;
 				
@@ -181,7 +182,7 @@ void Vista::menuVista(){
 					if(creado==true){
 						//InsertUsuariosTablaUsuarios();
 					}else{
-						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
+						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede insertar ningún Usuario. " << DEFAULT << endl;
 						}
 				break;
 				
@@ -190,7 +191,7 @@ void Vista::menuVista(){
 					if(creado==true){
 						//eliminarUsuarioTablaUsuarios();
 					}else{
-						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
+						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminar ningún usuario. " << DEFAULT << endl;
 						}
 				break;
 				
@@ -252,8 +253,9 @@ void Vista::menuVista(){
 				
 				case 14:
 					//Salir
-					cout << PURPLE << "----------SALIENDO----------\n" ;
-					cout << "\nGracias por usar el modo Vista del POLINOMIO " << endl;
+					cout << PURPLE << "\n ----------SALIENDO---------- " ;
+					cout << "\nGracias por usar CRISTOBOOK " << endl;
+					cout << "\n CRISTO REINA" << endl;
 					cout << "\n © Carlos Fdez " << DEFAULT << endl;
 				break;
 				
