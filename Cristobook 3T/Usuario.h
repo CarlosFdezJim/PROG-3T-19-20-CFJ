@@ -15,15 +15,13 @@ using namespace std;
 
 class Usuario{
 
-	private:
+	protected:
 	
 		string login;		//Debe ser único.
 		string nombre;		//Nombre del usuario
 		string apellido;	//Apellido del usuario
 		string perfil_usuario;	//Perfil del Usuario. Administrador o Usuario Normal.
-		Foto* v_fotos;		//Vector Dinámico de Burbujas.
-		int DIM_vfotos;		//Dimensión del vector.
-		int totalFotosUsuario;	//utiles del vector
+		
 	
 	public:
 		/**
@@ -153,7 +151,7 @@ class Usuario{
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		void printUsuario();
+		virtual void printUsuario();
 		/**
 		 * @brief Módulo que me muestra las fotos tengo en el vector de fotos.
 		 * @param Foto *v_fotos
@@ -173,16 +171,6 @@ class Usuario{
 		 */
 		 
 		//void insertarFoto(TablaUsuarios &tu);
-		//Usuario** resizeDisminuirPorPunteros(TablaUsuarios &tu, Usuario **u);
-		/**
-		 * @brief Aumenta la dimensión del vector de uno en uno.
-		 * @param TablaUsuarios tu (E/S)
-		 * @param Usuario **v
-		 * @post Aumentaremos en uno la dimensión de nuestro vector.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */
-		//void Usuario::resizeAumentarPorPunteros(TablaUsuarios &tu, Usuario **v);
 		/**
 		 * @brief En éste módulo insertaremos los usuarios predefinidos en una TablaUsuarios que hemos creado previamente.
 		 * @pre Deberemos haber creado la tabla de usuarios previamente.
@@ -218,4 +206,33 @@ class Usuario{
 		 * @author Carlos Fdez.
 		 */
 		//void eliminarFotoUsuario(TablaUsuarios &tu);
+};
+class Admin: public Usuario{
+
+	protected:
+	
+		int consultas;
+		
+	public:
+		Admin();
+		//Admin(string login, string nombre; string apellido, string perfil_usuario);
+		~Admin();
+		
+		void printUsuario();
+
+
+};
+class Normal: public Usuario{
+
+	protected:
+		
+		Foto* v_fotos;		//Vector Dinámico de Burbujas.
+		int DIM_vfotos;		//Dimensión del vector.
+		int totalFotosUsuario;	//utiles del vector
+	public:
+		Normal();
+		//Normal(string login, string nombre; string apellido, string perfil_usuario);
+		~Normal();
+		void printUsuario();
+
 };

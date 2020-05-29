@@ -33,5 +33,4 @@ int main(){
 	Vista v;
 	v.menuVista();
 
-
 }

@@ -17,6 +17,7 @@ class TablaUsuarios{
 
 	private:
 	
+		bool DEBUG;
 		Usuario** punteroapuntero;	//Vector Dinámico de Punteros a Burbuja.
 		int TotalTuplas;		//La reserva siempre es exacta y al tamaño, la dimensión, siempre coincide con las útiles.
 
@@ -74,7 +75,7 @@ class TablaUsuarios{
 		 * @version 2.2
 		 * @author Carlos Fdez.
 		 */
-		void UsuariosPredefinidos();
+		void usuariosPredefinidos();
 		/**
 		* @brief
 		* @pre
@@ -83,6 +84,21 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void printTablaUsuarios();
+		/**
+		* @brief Método que se usa para insertar a los usuario en la TablaUsuarios.
+		* @pre Debes tener creado los usuarios.¡OJO!Este método sólamente sirve para añadir los usuarios ya creados, para introducir un usuario nuevo, hay 			* 	otro método creado.
+		* @post Se insertarán los usuarios ya creados previamente.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void insertarUsuarioTablaUsuarios(Usuario *u);
+		/**
+		* @brief Método que se usa para hacer crecer o decrecer el vector. 
+		* @post Tendrémos un vector de mayor/menos dimensión.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void resize(int DIM);
 		/**
 		 * @brief Módulo que se encarga de liberar toda la memoria dinñamica que hemos utilizado en nuestro programa.
 		 * @param TablaUsuario tu (E/S)

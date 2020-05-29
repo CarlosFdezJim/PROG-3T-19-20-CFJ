@@ -33,7 +33,7 @@ TablaUsuarios::TablaUsuarios(){
 		cout  << PURPLE << "\n  ****    CREANDO TABLAUSUARIOS    **** " << DEFAULT << endl;
 	//}
 		//Inicializamos el contenido de la TablaUsuarios.
-		this->TotalTuplas = 4;
+		this->TotalTuplas = 0;
 		
 		//Reservamos un nuevo espacio para el vector de punteros que tiene dentro la variable estructurada TablaUsuario
 		this->punteroapuntero = new Usuario*[this->TotalTuplas];
@@ -54,20 +54,20 @@ TablaUsuarios::~TablaUsuarios(){
 	//if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    ELIMANDO TABLAUSUARIOS    **** " << DEFAULT << endl;
 	//}	
-		
+		cout << ERROR << "DEBUG 1: " << this->getTotalTuplas()<< DEFAULT << endl;
 		//Eliminamos el vector de punteros a Usuarios.
-		/*for(int i=0; i <= this->getTotalTuplas(); i++){
+		for(int i=0; i <= this->getTotalTuplas(); i++){
 			delete punteroapuntero[i];
-		}*/
-
-	
+			this->getTotalTuplas()-1;
+		}
+		cout << ERROR << "DEBUG 2: " << this->getTotalTuplas()<< DEFAULT << endl;
 		//Ponemos los datos del usuario a Null/-1 antes de eliminar el usuario.
-		/*this->setTotalTuplas(-1);
-	
+		this->setTotalTuplas(-1);
+		cout << ERROR << "DEBUG 3: " << this->getTotalTuplas()<< DEFAULT << endl;	
 		//Borramos el vector dinámico de coeficientes.
-		/*delete [] punteroapuntero;
-		punteroapuntero = 0;*/
-
+		delete [] punteroapuntero;
+		punteroapuntero = 0;
+		cout << ERROR << "DEBUG 4: " << this->getTotalTuplas()<< DEFAULT << endl;
 	//if(this->getDEBUG() == true){
 		cout << GREEN << "La TablaUsuarios se ha eliminado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
@@ -80,194 +80,219 @@ int TablaUsuarios::getTotalTuplas(){
 	return this->TotalTuplas;
 }
 
-///////////////////////////////				 OTHER					////////////////////////////////
+///////////////////////////////				 PRINT					////////////////////////////////
 
-void TablaUsuarios::UsuariosPredefinidos(){
-
-	//Foto *f = new Foto();
-
-//	Usuario *u = new Usuario();
-	
-	//Usuarios predefinidos.
-/*	Usuario *Jaime=0;
-	Usuario *Cristian=0;
-	Usuario *Adrian=0;
-	Usuario *Jesus=0;
-	Usuario *Pablo=0;
-	Usuario *Ana=0;
-		
-	/***************************************
-	**************	CARLOS	****************
-	****************************************/
-	Usuario *u = new Usuario();
-	u->setLogin("@Carlos");
-	u->setNombre("Carlos");
-	u->setApellido("Fernández");
-	u->setPerfilUsuario("Admin");
-	this->punteroapuntero[0] = u;
-	
-/*	//Foto1
-	setRuta(f, "/home/Carlos/Escritorio/Imagenes/Españita");
-	setTipo(f,"jpeg");
-	setTamanio(f,49350);
-	insertarFotoUsuario(Carlos, f);
-	//Foto2
-	setRuta(f, "/home/Carlos/Escritorio/Imagenes/esto_es_ESPANIAAAAAA");
-	setTipo(f,"gif");
-	setTamanio(f,6050);
-	insertarFotoUsuario(Carlos, f);
-
-	
-	/***************************************
-	**************	JAIME	****************
-	****************************************/
-/*	Jaime = new Usuario();
-	Jaime->setLogin("@Jaime");
-	Jaime->setNombre("Jaime");
-	Jaime->setApellido("Cabezas");
-	Jaime->setPerfilUsuario("Normal");
-	Jaime->insertarUsuarioTablaUsuarios("Normal");
-	//Foto1
-	setRuta(f, "/home/Jaime/Escritorio/Imagenes/Skone");
-	setTipo(f,"jpeg");
-	setTamanio(f,49350);
-	insertarFotoUsuario(Jaime, f);
-	//Foto2
-	setRuta(f, "/home/Jaime/Escritorio/Imagenes/Force");
-	setTipo(f,"jpeg");
-	setTamanio(f,49350);
-	insertarFotoUsuario(f);		
-
-	
-	/***************************************
-	********	CRISTIAN	********
-	****************************************/
-/*	Cristian = new Usuario();
-	setLogin("@CristianCristoRey");
-	setNombre("Cristian");
-	setApellido("Campos");
-	setPerfilUsuario("Footbal Manager");
-	insertarUsuarioTablaUsuarios(tu);
-	//Foto1
-	setRuta(f, "/home/Cristian/Escritorio/Imagenes/fackposlisia");
-	setTipo(f,"jpeg");
-	setTamanio(f,49350);
-	insertarFotoUsuario(Cristian, f);
-	//Foto2
-	setRuta(f, "/home/Cristian/Escritorio/Imagenes/LoKo_ReShUlOn");
-	setTipo("jpeg");
-	setTamanio(49350);
-	insertarFotoUsuario(f);
-
-	
-	/***************************************
-	**************	ADRIAN	****************
-	****************************************/
-/*	Adrian =  new Usuario();
-	setLogin("@AdrianCristoRey");
-	setNombre("Adrián");
-	setApellido("Castillo");
-	setPerfilUsuario("Counter Strike");
-	insertarUsuarioTablaUsuarios(tu);
-	//Foto1
-	/*setRuta(f, "/home/Adrian/Escritorio/Imagenes/polvora");
-	setTipo(f,"gif");
-	setTamanio(f,6050);
-	insertarFotoUsuario(Adrian, f);
-	//Foto2
-	setRuta(f, "/home/Adrian/Escritorio/Imagenes/Calamar");
-	setTipo(f,"bmp");
-	setTamanio(f,125910);
-	insertarFotoUsuario(Adrian, f);
-
-	
-	/***************************************
-	**************	JESUS	****************
-	****************************************/
-/*	Jesus = new Usuario();
-	setLogin("@JesusCristoRey");
-	setNombre("Jesús");
-	setApellido("Rey");
-	setPerfilUsuario("GTA V");
-	insertarUsuarioTablaUsuarios(tu);
-	//Foto1
-	/*setRuta(f, "/home/Jesus/Escritorio/Imagenes/Escaleras");
-	setTipo(f,"gif");
-	setTamanio(f,6050);
-	insertarFotoUsuario(Jesus, f);
-	//Foto2
-	setRuta(f, "/home/Jesus/Escritorio/Imagenes/Motosytoeso/susuki_compae");
-	setTipo(f,"jpeg");
-	setTamanio(f,6050);
-	insertarFotoUsuario(Jesus, f);
-
-	
-	/***************************************
-	**************	PABLO	****************
-	****************************************/
-/*	Pablo = new Usuario();
-	setLogin("@PabloCristoRey");
-	setNombre("Pablo");
-	setApellido("García");
-	setPerfilUsuario("Counter Strike");
-	insertarUsuarioTablaUsuarios(Pablo,tu);
-	//Foto1
-	/*setRuta(f, "/home/Pablo/Escritorio/Imagenes/gente_seria");
-	setTipo(f,"jpeg");
-	setTamanio(f,6050);
-	insertarFotoUsuario(Pablo, f);
-	//Foto2
-	setRuta(f, "/home/Pablo/Escritorio/Imagenes/mas_gente_seria_4k");
-	setTipo(f,"jpeg");
-	setTamanio(f,6050);
-	insertarFotoUsuario(Pablo, f);
-
-	
-	/***************************************
-	**************	  ANA	****************
-	****************************************/
-/*	Ana = new Usuario();
-	setLogin("@AnaCristoRey");
-	setNombre("Ana");
-	setApellido("Tallón");
-	setPerfilUsuario("Animal Crossing");
-	insertarUsuarioTablaUsuarios(Ana,tu);
-	//Foto1
-	/*setRuta(f, "/home/Ana/Escritorio/Imagenes/Amorsito");
-	setTipo(f,"jpeg");
-	setTamanio(f,6050);
-	insertarFotoUsuario(Ana, f);
-	//Foto2
-	setRuta(f, "/home/Ana/Escritorio/Imagenes/Aguacates");
-	setTipo(f,"png");
-	setTamanio(f,8710);
-	insertarFotoUsuario(Ana, f);
-*/	
-}
 void TablaUsuarios::printTablaUsuarios(){
 
 	for(int i = 0; i < this->getTotalTuplas(); i++){
 		this->punteroapuntero[i]->printUsuario();
 	}
 }
-void TablaUsuarios::insertarUsuarioTablaUsuarios(){
 
-	if(this->getTotalUsuario() >= 0 ){
+///////////////////////////////				 OTHER					////////////////////////////////
+
+void TablaUsuarios::insertarUsuarioTablaUsuarios(Usuario *u){
 	
-	}else if(this->getTotalUsuario() >= 0){
+		this->resize(getTotalTuplas()+1);
+		this->punteroapuntero[this->getTotalTuplas()] = u;
+		this->setTotalTuplas(this->getTotalTuplas()+1);
+}
+void TablaUsuarios::resize(int DIM){
+
+cout << "Entra en resize" << endl;
 	
+	//Reservo memoria para el vector auxiliar con una DIM +1.
+	Usuario** aux = new Usuario*[DIM+1];
+	
+	//Compruebo que hay memoria suficiente.
+	if (aux == 0){
+		cerr << "Error. No hay memoria suficiente para crear un nuevo vector. Se abortará la ejecución" << endl;
+		exit(-1);
 	}
 
-	//this->resize();
-	//this->punteroapuntero[getTotalTuplas()]
+	if( DIM > this->getTotalTuplas()){
+cout << "Entra en resize aumenta" << endl;
+		//Copio el contenido de punteroapuntero[i] en aux[i].
+		for(int i = 0;i < this->getTotalTuplas();i++){
+			aux[i] = this->punteroapuntero[i];
+		}
+cout << "Sale en resize aumenta" << endl;
+	}else if (DIM < this->getTotalTuplas()){
+cout << "Entra en resize y disminuye" << endl;
+		//Copio el contenido de punteroapuntero[i] en aux[i].
+		for(int i = 0; i <= DIM; i++){
+			aux[i] = this->punteroapuntero[i];
+		}
+cout << "Sale en resize disminuye" << endl;
+	}
+	
+	//Eliminamos la memoria del vector coef.
+	delete [] punteroapuntero;
+
+	//Reasignamos el puntero de coeficientes.
+	punteroapuntero = aux;
+
+	//Actualizo el máximo grado y el grado.
+	//this->setTotalTuplas(DIM);
+cout << "Sale en resize " << endl;
 }
-void TablaUsuarios::resize(){
+void TablaUsuarios::usuariosPredefinidos(){
+		
+	/***************************************
+	**************	CARLOS	****************
+	****************************************/
+	Usuario *Carlos = new Usuario;
+	Carlos->setLogin("@Carlos");
+	Carlos->setNombre("Carlos");
+	Carlos->setApellido("Fernández");
+	Carlos->setPerfilUsuario("Admin");
+	this->insertarUsuarioTablaUsuarios(Carlos);
+			cout  << RED << "************************************** " << DEFAULT << endl;
+	//Foto1
+/*	Carlos->setRuta("/home/Carlos/Escritorio/Imagenes/Españita");
+	Carlos->setTipo("jpeg");
+	Carlos->setTamanio(49350);
+	this->insertarFotoUsuario(Carlos);
+	//Foto2
+	Carlos->setRuta("/home/Carlos/Escritorio/Imagenes/esto_es_ESPANIAAAAAA");
+	Carlos->setTipo("gif");
+	Carlos->setTamanio(6050);
+	this->insertarFotoUsuario(Carlos);
 
+	
+	/***************************************
+	**************	JAIME	****************
+	****************************************/
+	Usuario *Jaime = new Usuario;
+	Jaime->setLogin("@Jaime");
+	Jaime->setNombre("Jaime");
+	Jaime->setApellido("Cabezas");
+	Jaime->setPerfilUsuario("Normal");
+	this->insertarUsuarioTablaUsuarios(Jaime);
+			cout  << RED << "************************************** " << DEFAULT << endl;
+/*	//Foto1
+	Jaime->setRuta("/home/Jaime/Escritorio/Imagenes/Skone");
+	Jaime->setTipo("jpeg");
+	Jaime->setTamanio(49350);
+	this->insertarFotoUsuario(Jaime);
+	//Foto2
+	Jaime->setRuta("/home/Jaime/Escritorio/Imagenes/Force");
+	Jaime->setTipo("jpeg");
+	Jaime->setTamanio(49350);
+	this->insertarFotoUsuario(Jaime);	
 
+	
+	/***************************************
+	********	CRISTIAN	********
+	****************************************/
+	Usuario *Cristian = new Usuario;
+	Cristian->setLogin("@Cristian");
+	Cristian->setNombre("Cristian");
+	Cristian->setApellido("Campos");
+	Cristian->setPerfilUsuario("Administrador");
+	this->insertarUsuarioTablaUsuarios(Cristian);
+			cout  << RED << "************************************** " << DEFAULT << endl;
+/*	//Foto1
+	Cristian->setRuta(f, "/home/Cristian/Escritorio/Imagenes/fackposlisia");
+	Cristian->setTipo(f,"jpeg");
+	Cristian->setTamanio(f,49350);
+	this->insertarFotoUsuario(Cristian, f);
+	//Foto2
+	Cristian->setRuta(f, "/home/Cristian/Escritorio/Imagenes/LoKo_ReShUlOn");
+	Cristian->setTipo("jpeg");
+	Cristian->setTamanio(49350);
+	this->insertarFotoUsuario(Cristian);
 
+	
+	/***************************************
+	**************	ADRIAN	****************
+	****************************************/
+	Usuario *Adrian =  new Usuario;
+	Adrian->setLogin("@Adrian");
+	Adrian->setNombre("Adrián");
+	Adrian->setApellido("Castillo");
+	Adrian->setPerfilUsuario("Normal");
+	this->insertarUsuarioTablaUsuarios(Adrian);
+			cout  << RED << "************************************** " << DEFAULT << endl;
+/*	//Foto1
+	Adrian->setRuta("/home/Adrian/Escritorio/Imagenes/polvora");
+	Adrian->setTipo("gif");
+	Adrian->setTamanio(6050);
+	this->insertarFotoUsuario(Adrian);
+	//Foto2
+	Adrian->setRuta("/home/Adrian/Escritorio/Imagenes/Calamar");
+	Adrian->setTipo("bmp");
+	Adrian->setTamanio(125910);
+	this->insertarFotoUsuario(Adrian);
 
+	
+	/***************************************
+	**************	JESUS	****************
+	****************************************/
+	Usuario *David = new Usuario;
+	David->setLogin("@David");
+	David->setNombre("Antonio David");
+	David->setApellido("López");
+	David->setPerfilUsuario("Normal");
+	this->insertarUsuarioTablaUsuarios(David);
+			cout  << RED << "************************************** " << DEFAULT << endl;
+/*	//Foto1
+	David->setRuta("/home/David/Escritorio/Imagenes/Semana-Santa-19");
+	David->setTipo("gif");
+	David->setTamanio(6050);
+	this->insertarFotoUsuario(David);
+	//Foto2
+	David->setRuta("/home/Jesus/Escritorio/Imagenes/Wallpaper_Camarón_4K");
+	David->setTipo("jpeg");
+	David->setTamanio(6050);
+	this->insertarFotoUsuario(David);
 
+	
+	/***************************************
+	**************	PABLO	****************
+	****************************************/
+	Usuario *Pablo = new Usuario;
+	Pablo->setLogin("@Pablo");
+	Pablo->setNombre("Pablo");
+	Pablo->setApellido("García");
+	Pablo->setPerfilUsuario("Administrador");
+	this->insertarUsuarioTablaUsuarios(Pablo);
+			cout  << RED << "************************************** " << DEFAULT << endl;
+/*	//Foto1
+	Pablo->setRuta("/home/Pablo/Escritorio/Imagenes/gente_seria");
+	Pablo->setTipo("jpeg");
+	Pablo->setTamanio(6050);
+	insertarFotoUsuario(Pablo);
+	//Foto2
+	Pablo->setRuta("/home/Pablo/Escritorio/Imagenes/mas_gente_seria_4k");
+	Pablo->setTipo("jpeg");
+	Pablo->setTamanio(6050);
+	this->insertarFotoUsuario(Pablo);
+
+	
+	/***************************************
+	**************	  ANA	****************
+	****************************************/
+	Usuario *Ana = new Usuario;
+	Ana->setLogin("@Ana");
+	Ana->setNombre("Ana");
+	Ana->setApellido("Tallón");
+	Ana->setPerfilUsuario("Normal");
+	this->insertarUsuarioTablaUsuarios(Ana);
+			cout  << RED << "************************************** " << DEFAULT << endl;
+/*	//Foto1
+	Ana->setRuta("/home/Ana/Escritorio/Imagenes/Amorsito");
+	Ana->setTipo("jpeg");
+	Ana->setTamanio(6050);
+	Ana->insertarFotoUsuario(Ana);
+	//Foto2
+	Ana->setRuta("/home/Ana/Escritorio/Imagenes/Aguacatinhos");
+	Ana->setTipo("png");
+	Ana->setTamanio(8710);
+	insertarFotoUsuario(Ana);
+*/	
+	cout << RED << "DEBUG: Totaltuplas = " << this->getTotalTuplas() << DEFAULT << endl;
 }
 /*void TablaUsuarios::Salir(){
-
+	
 }*/

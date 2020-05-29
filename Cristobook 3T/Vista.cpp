@@ -149,9 +149,7 @@ void Vista::menuVista(){
 				case 3:
 					//Crear tabla Usuario
 					if(creado==false){
-						//TablaUsuarios();
-						tu->UsuariosPredefinidos();
-						cout << ERROR << "********************" << DEFAULT << endl;
+						tu->usuariosPredefinidos();
 						creado=true;
 					}else{
 						cout << ERROR << "Recuerde que ya hay CREADA una TablaUsuarios. " << DEFAULT << endl;
@@ -171,6 +169,7 @@ void Vista::menuVista(){
 				case 5:
 					//Imprimir TablaUsuarios
 					if(creado==true){
+						cout << GREEN << "Imprimiendo tabla... " << DEFAULT << endl;
 						tu->printTablaUsuarios();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede imprimirla. " << DEFAULT << endl;
@@ -181,6 +180,7 @@ void Vista::menuVista(){
 					//Insertar Usuarios en TablaUsuario.
 					if(creado==true){
 						//InsertUsuariosTablaUsuarios();
+						cout << GREEN << "Insertando Usuario de tabla... " << DEFAULT << endl;
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede insertar ningún Usuario. " << DEFAULT << endl;
 						}
@@ -190,6 +190,7 @@ void Vista::menuVista(){
 					//Eliminar Usuario en TablaUsuario.
 					if(creado==true){
 						//eliminarUsuarioTablaUsuarios();
+						cout << GREEN << "Eliminando Usuario de tabla... " << DEFAULT << endl;
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminar ningún usuario. " << DEFAULT << endl;
 						}
@@ -199,6 +200,7 @@ void Vista::menuVista(){
 					//Buscar Usuario por login (búsqueda secuencial)
 					if(creado==true){
 						//buscarUsuario();
+						cout << GREEN << "Buscanso Usuario... " << DEFAULT << endl;
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -210,6 +212,7 @@ void Vista::menuVista(){
 						//2) Login
 					if(creado==true){
 						//ordenarTablaUsuarios();
+						cout << GREEN << "Ordenando tabla... " << DEFAULT << endl;
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -219,6 +222,7 @@ void Vista::menuVista(){
 					//Añadir Fotografía en Usuario.
 					if(creado==true){
 						//InsertarFotoUsuario();
+						cout << GREEN << "Insertando fotografía... " << DEFAULT << endl;
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -227,7 +231,7 @@ void Vista::menuVista(){
 				case 11:
 					//Eliminar Fotografía de un Usuario.
 					if(creado==true){
-						//eliminarFotoUsuario();
+						cout << GREEN << "Eliminando fotografía... " << DEFAULT << endl;
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -236,7 +240,7 @@ void Vista::menuVista(){
 				case 12:
 					//Imprimir Fotografía de un Usuario.
 					if(creado==true){
-						
+						cout << GREEN << "Imprimiendo fotografía... " << DEFAULT << endl;
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -245,7 +249,7 @@ void Vista::menuVista(){
 				case 13:
 					//Busqueda fotografía en todos los usuarios(Sólo Admin).
 					if(creado==true){
-						
+						cout << "Buscando Fotografía de Usuario en tabla... " << DEFAULT << endl;
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -253,10 +257,10 @@ void Vista::menuVista(){
 				
 				case 14:
 					//Salir
-					cout << PURPLE << "\n ----------SALIENDO---------- " ;
-					cout << "\nGracias por usar CRISTOBOOK " << endl;
-					cout << "\n CRISTO REINA" << endl;
-					cout << "\n © Carlos Fdez " << DEFAULT << endl;
+					cout << PURPLE << "\n ----------SALIENDO---------- " << endl ;
+					cout << "\n Gracias por usar CRISTOBOOK ";
+					cout << "\n 	CRISTO REINA" << endl;
+					cout << "\n 	© Carlos Fdez " << DEFAULT << endl;
 				break;
 				
 				default:
