@@ -54,20 +54,23 @@ TablaUsuarios::~TablaUsuarios(){
 	//if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    ELIMANDO TABLAUSUARIOS    **** " << DEFAULT << endl;
 	//}	
-		cout << ERROR << "DEBUG 1: " << this->getTotalTuplas()<< DEFAULT << endl;
-		//Eliminamos el vector de punteros a Usuarios.
-		for(int i=0; i <= this->getTotalTuplas(); i++){
-			delete punteroapuntero[i];
-			this->getTotalTuplas()-1;
+		if (getTotalTuplas() > 0){
+			//Eliminamos el vector de punteros a Usuarios.
+			for(int i=0; i <= this->getTotalTuplas(); i++){
+				delete punteroapuntero[i];
+				this->getTotalTuplas()-1;
+			}
+		
+			//Ponemos los datos del usuario a 0 antes de eliminar el usuario.
+			this->setTotalTuplas(0);
+
+			//Borramos el vector dinámico de coeficientes.
+			delete [] punteroapuntero;
+			punteroapuntero = 0;
+		}else if (getTotalTuplas() <= 0){
+			cerr << RED << "No existe ninguna TablaUsuarios. " << endl;
+	
 		}
-		cout << ERROR << "DEBUG 2: " << this->getTotalTuplas()<< DEFAULT << endl;
-		//Ponemos los datos del usuario a Null/-1 antes de eliminar el usuario.
-		this->setTotalTuplas(-1);
-		cout << ERROR << "DEBUG 3: " << this->getTotalTuplas()<< DEFAULT << endl;	
-		//Borramos el vector dinámico de coeficientes.
-		delete [] punteroapuntero;
-		punteroapuntero = 0;
-		cout << ERROR << "DEBUG 4: " << this->getTotalTuplas()<< DEFAULT << endl;
 	//if(this->getDEBUG() == true){
 		cout << GREEN << "La TablaUsuarios se ha eliminado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
@@ -99,8 +102,6 @@ void TablaUsuarios::insertarUsuarioTablaUsuarios(Usuario *u){
 }
 void TablaUsuarios::resize(int DIM){
 
-cout << "Entra en resize" << endl;
-	
 	//Reservo memoria para el vector auxiliar con una DIM +1.
 	Usuario** aux = new Usuario*[DIM+1];
 	
@@ -111,19 +112,18 @@ cout << "Entra en resize" << endl;
 	}
 
 	if( DIM > this->getTotalTuplas()){
-cout << "Entra en resize aumenta" << endl;
+
 		//Copio el contenido de punteroapuntero[i] en aux[i].
 		for(int i = 0;i < this->getTotalTuplas();i++){
 			aux[i] = this->punteroapuntero[i];
 		}
-cout << "Sale en resize aumenta" << endl;
+
 	}else if (DIM < this->getTotalTuplas()){
-cout << "Entra en resize y disminuye" << endl;
+
 		//Copio el contenido de punteroapuntero[i] en aux[i].
 		for(int i = 0; i <= DIM; i++){
 			aux[i] = this->punteroapuntero[i];
 		}
-cout << "Sale en resize disminuye" << endl;
 	}
 	
 	//Eliminamos la memoria del vector coef.
@@ -132,9 +132,6 @@ cout << "Sale en resize disminuye" << endl;
 	//Reasignamos el puntero de coeficientes.
 	punteroapuntero = aux;
 
-	//Actualizo el máximo grado y el grado.
-	//this->setTotalTuplas(DIM);
-cout << "Sale en resize " << endl;
 }
 void TablaUsuarios::usuariosPredefinidos(){
 		

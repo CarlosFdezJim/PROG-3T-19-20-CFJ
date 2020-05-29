@@ -33,13 +33,20 @@ class Usuario{
 		 */
 		Usuario();
 		/**
+		* @brief Constructor por parámetros. Este contructor introduce automáticamente los parámetros en los datos del Usuario.
+		* @post Se reservará un espacio de memoria para la Usuario.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		Usuario(string login, string nombre, string apellido, string perfil_usuario);
+		/**
 		 * @brief Módulo que borrará el espacio de memoria reservado a un Usuario, borrando primero los datos del usuario y después borramos los punteros.
 		 * @post Se liberará un espacio de memoria al borrar a un usuario.
 		 * @pre Se deberá de tener al menos un usuario insertado.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		~Usuario();
+		virtual ~Usuario();
 		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable string llamada login.
 		 * @param string login		//Login del usuario.
@@ -74,33 +81,6 @@ class Usuario{
 		 */		
 		void setPerfilUsuario(string perfil_usuario);
 		/**
-		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable int llamada totalFotosUsuario.
-		 * @param Usuario *u		//Puntero de tipo Usuario.
-		 * @param int totalFotosUsuario	//Total de fotos que almacena actualmente el usuario.
-		 * @post Se almacenará en la variable estructurada Usuario el total de fotos que tiene actualmente el usuario del usuario.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */		
-		void setTotalFotosUsuario(int totalFotosUsuario);
-		/**
-		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable int llamada v_fotos.
-		 * @param Usuario *u		//Puntero de tipo Usuario.
-		 * @param Foto *f		//Puntero de tipo Foto.
-		 * @post Se almacenará en la variable estructurada Usuario la cantidad de fotos que puede almacenar del usuario.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */
-		void setV_Fotos(Foto *f);
-		/**
-		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable int llamada DIM_vfotos.
-		 * @param Usuario *u		//Puntero de tipo Usuario.
-		 * @param int DIM_vfotos	//Dimensión de fotos que puede almacenar el usuario.
-		 * @post Se almacenará en la variable estructurada Usuario la cantidad de fotos que puede almacenar el usuario.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */		
-		void setDIM_vfotos(int DIM_vfotos);
-		/**
 		 * @brief Devuelve el puntero Login de una variable estructurada de tipo Usuario.
 		 * @param Usuario *u		//Puntero de tipo Usuario.
 		 * @version 1.0
@@ -126,25 +106,6 @@ class Usuario{
 		 * @author Carlos Fdez.
 		 */
 		string getPerfilUsuario();
-		/**
-		 * @brief Devuelve una posición del vector de fotos de un Usuario concreto.
-		 * @param Usuario *u		//Puntero de tipo Usuario.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */		
-		Foto getv_fotos(int i);
-		/**
-		 * @brief Devuelve el puntero DIM_vfotos de una variable estructurada de tipo Usuario.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */		
-		//int getDIM_vfotos(¡);
-		/**
-		 * @brief Devuelve el puntero totalFotosUsuario de una variable estructurada de tipo Usuario.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */		
-		int getTotalFotosUsuario();
 		/**
 		 * @brief Imprime por pantalla el contenido de una variable estructurada de tipo Usuario.
 		 * @post Imprimir un Usuario seleccionado.
@@ -210,15 +171,49 @@ class Usuario{
 class Admin: public Usuario{
 
 	protected:
-	
+		
 		int consultas;
 		
 	public:
+		/**
+		* @brief
+		* @pre
+		* @post
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
 		Admin();
-		//Admin(string login, string nombre; string apellido, string perfil_usuario);
-		~Admin();
-		
-		void printUsuario();
+		/**
+		* @brief
+		* @pre
+		* @post
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		Admin(string login, string nombre, string apellido, string perfil_usuario);
+		/**
+		* @brief
+		* @pre
+		* @post
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		virtual ~Admin();
+		/**
+		* @brief
+		* @pre
+		* @post
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void eliminarUsuarioTablaUsuarios();
+		/**
+		* @brief Imprime los atributos propios de la clase Normal.
+		* @post Imprimiermos SÓLAMENTE los atributos propios.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		//virtual void printUsuario();
 
 
 };
@@ -226,13 +221,86 @@ class Normal: public Usuario{
 
 	protected:
 		
-		Foto* v_fotos;		//Vector Dinámico de Burbujas.
+		Foto* v_fotos;	//Vector Dinámico de Burbujas.
 		int DIM_vfotos;		//Dimensión del vector.
 		int totalFotosUsuario;	//utiles del vector
 	public:
+	
+		/**
+		* @brief Constructor de la clase Normal.
+		* @pre Debemos de tener creada la clase Usuario perfectamente.
+		* @post Crearemos una clase que hereda los atributos desde la clase padre(class Usuario).
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
 		Normal();
-		//Normal(string login, string nombre; string apellido, string perfil_usuario);
+		/**
+		* @brief Constructor de la clase Normal pasando los parámetros.
+		* @pre Debemos de tener creada la clase Usuario perfectamente.
+		* @post Crearemos una clase que hereda los atributos desde la clase padre(class Usuario).
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		Normal(string login, string nombre, string apellido, string perfil_usuario);
+		/**
+		* @brief Destructor de la clase Normal.
+		* @pre Debemos de tener creada la clase Usuario perfectamente.
+		* @post Crearemos una clase que hereda los atributos desde la clase padre(class Usuario).
+		* @author Carlos Fdez
+		* @version 2.0
+		*/
 		~Normal();
-		void printUsuario();
+		/**
+		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable int llamada totalFotosUsuario.
+		 * @param Usuario *u		//Puntero de tipo Usuario.
+		 * @param int totalFotosUsuario	//Total de fotos que almacena actualmente el usuario.
+		 * @post Se almacenará en la variable estructurada Usuario el total de fotos que tiene actualmente el usuario del usuario.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */		
+		void setTotalFotosUsuario(int totalFotosUsuario);
+		/**
+		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable int llamada v_fotos.
+		 * @param Usuario *u		//Puntero de tipo Usuario.
+		 * @param Foto *f		//Puntero de tipo Foto.
+		 * @post Se almacenará en la variable estructurada Usuario la cantidad de fotos que puede almacenar del usuario.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
+		void setV_Fotos(int i);
+		/**
+		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable int llamada DIM_vfotos.
+		 * @param int DIM_vfotos	//Dimensión de fotos que puede almacenar el usuario.
+		 * @post Se almacenará en la variable estructurada Usuario la cantidad de fotos que puede almacenar el usuario.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */		
+		void setDIM_vfotos(int DIM_vfotos);
+		/**
+		 * @brief Devuelve una posición del vector de fotos de un Usuario concreto.
+		 * @param int i
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */		
+		Foto getv_fotos(int i);
+		/**
+		 * @brief Devuelve el puntero DIM_vfotos de una variable estructurada de tipo Usuario.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */		
+		int getDIM_vfotos();
+		/**
+		 * @brief Devuelve el puntero totalFotosUsuario de una variable estructurada de tipo Usuario.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */		
+		int getTotalFotosUsuario();
+		/**
+		* @brief Imprime los atributos propios de la clase Normal.
+		* @post Imprimiermos SÓLAMENTE los atributos propios.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		//virtual void printUsuario();
 
 };

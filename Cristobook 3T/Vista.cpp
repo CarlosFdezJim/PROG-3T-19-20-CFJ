@@ -258,8 +258,7 @@ void Vista::menuVista(){
 				case 14:
 					//Salir
 					cout << PURPLE << "\n ----------SALIENDO---------- " << endl ;
-					cout << "\n Gracias por usar CRISTOBOOK ";
-					cout << "\n 	CRISTO REINA" << endl;
+					cout << " Gracias por usar CRISTOBOOK " << endl;
 					cout << "\n 	© Carlos Fdez " << DEFAULT << endl;
 				break;
 				

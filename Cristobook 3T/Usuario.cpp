@@ -33,30 +33,47 @@ Usuario::Usuario(){
 	//if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    CREANDO USUARIOS    **** " << DEFAULT << endl;
 	//}
-		//Reservamos un nuevo espacio de memoria para el usuario y lo inicializamos.
-		/*Usuario *u = new Usuario;
-
-		//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
-		if (u == 0){
-			cerr << "Error. No hay memoria suficiente para crear una foto nueva. Se abortará la ejecución" << endl;
-			exit(-1);
-		}*/
-
-		//Rellenamos el vector de Fotos del Usuario.
-		//for( int i=0; i < this->getTotalFotosUsuario();i++){
-		//	this->v_fotos[i] = new Foto;
-		//}
-
 		//Inicializamos el contenido del Usuario.
-		this->login = "";
-		this->nombre = "";
-		this->apellido = "";
-		this->perfil_usuario = "";	
+		this->login = "NULL";
+		this->nombre = "NULL";
+		this->apellido = "NULL";
+		this->perfil_usuario = "NULL";	
 	
 	//if(this->getDEBUG() == true){
 		cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	//}
+
+}
+Usuario::Usuario(string login, string nombre, string apellido, string perfil_usuario){
+
+	cout  << PURPLE << "\n  ****    CREANDO USUARIOS POR PARÁMETROS    **** " << DEFAULT << endl;
+
+	//Inicializamos el contenido del Usuario.
+	this->login = login;
+	this->nombre = nombre;
+	this->apellido = apellido;
+	this->perfil_usuario = perfil_usuario;	
+
+	cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
+	cout  << PURPLE << "************************************** " << DEFAULT << endl;
+
+}
+Admin::Admin(){
+
+	//Creo los miembro exclusivos del Administradorm el resto los hereda de Usuario.
+	int consultas = 0;
+
+}
+Normal::Normal(){
+
+	int DIM_vfotos = 0;
+	int totalFotosUsuario = 0;
+	
+	//Rellenamos el vector de Fotos del Usuario.
+	/*for( int i=0; i < this->getTotalFotosUsuario();i++){
+		Foto* v_fotos[i] = new Foto;
+	}*/
 
 }
 Usuario::~Usuario(){
@@ -65,28 +82,39 @@ Usuario::~Usuario(){
 		cout  << PURPLE << "\n  ****    BORRAR USUARIOS    **** " << DEFAULT << endl;
 	//}
 	
-		//Borramos el vector de Fotos del Usuario.
-		//for( int i=0; i < this->getTotalFotosUsuario();i++){
-		//	this->v_fotos[i] = delete f;
-		//}
-		
 		//Ponemos los datos del usuario a Null/-1 antes de eliminar el usuario.
 		this->login = "";
 		this->nombre = "";
 		this->apellido = "";
 		this->perfil_usuario = "";	
-
-		//borro el fragmento de memoria
-		//delete [] u->v_fotos;
-	
-		//elimino la dirección que referenciaba al fragmento de memoria(puntero).
-		//this->u = 0;
 	
 	cout << GREEN << "El Usuario se ha borrado correctamente.\n" << DEFAULT ;
 	cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	
 }
+Admin::~Admin(){
 
+	//Creo los miembro exclusivos del Administradorm el resto los hereda de Usuario.
+	int consultas = 0;
+
+}
+Normal::~Normal(){
+
+	int DIM_vfotos = 0;
+	int totalFotosUsuario = 0;
+	
+	//Borramos el vector de Fotos del Usuario.
+		//for( int i=0; i < this->getTotalFotosUsuario();i++){
+		//	this->v_fotos[i] = delete f;
+		//}
+		
+	//borro el fragmento de memoria
+	delete [] this->v_fotos;
+	
+	//elimino la dirección que referenciaba al fragmento de memoria(puntero).
+	//this->u = 0;
+
+}
 ///////////////////////////////				 SET					////////////////////////////////
 
 void Usuario::setLogin(string login){
@@ -100,16 +128,16 @@ void Usuario::setApellido(string apellido){
 }
 void Usuario::setPerfilUsuario(string perfil_usuario){ 
 	this->perfil_usuario = perfil_usuario;
-}/*
-void Usuario::setTotalFotosUsuario(int totalFotosUsuario){
+}
+void Normal::setTotalFotosUsuario(int totalFotosUsuario){
 	this->totalFotosUsuario = totalFotosUsuario;   
 }
-void Usuario::setV_Fotos(Foto *f){
-	this->v_fotos = f;
+void Normal::setV_Fotos(int i){
+	this->v_fotos[i];
 }
-void Usuario::setDIM_vfotos(int DIM_vfotos){
+void Normal::setDIM_vfotos(int DIM_vfotos){
 	this->DIM_vfotos = DIM_vfotos;   
-}*/
+}
 
 ///////////////////////////////				 GET					////////////////////////////////
 
@@ -124,16 +152,16 @@ string Usuario::getApellido(){
 }
 string Usuario::getPerfilUsuario(){
     return this->perfil_usuario;
-}/*
-Foto Usuario::getv_fotos(int i){
+}
+Foto Normal::getv_fotos(int i){
 	return this->v_fotos[i];
 }
-int Usuario::getDIM_vfotos(){
+int Normal::getDIM_vfotos(){
 	return this->DIM_vfotos;
 }
-int Usuario::getTotalFotosUsuario(){
+int Normal::getTotalFotosUsuario(){
 	return this->totalFotosUsuario;
-}*/
+}
 
 ///////////////////////////////				 PRINT					////////////////////////////////
 
@@ -158,24 +186,25 @@ void Usuario::printUsuario(){
 		cout << YELLOW << "Este usuario no tiene fotos. " << DEFAULT << endl;*/
 
 }
-/*void Usuario::eliminarUsuarioTablaUsuarios(TablaUsuarios &tu){
+void Admin::eliminarUsuarioTablaUsuarios(){
 
 	//Declaración de variables locales.
-	string login = "";
+	string Login = "";
 	bool usado = false;
 	unsigned int posicion = 0;
-	int cont = 0;	
-		
+	
+	//Imprimimos la tabla de Usuarios
+	for(int i = 0; i < tu->getTotalTuplas(); i++){
+		tu->punteroapuntero[i]->printUsuario();
+	}
 	//Pedimos al usuario el login (que es único en el sistema) para eliminarlo.
 	cout << "Selecione el usuario que desea eliminar, recuerde que tiene que introducir el login" << endl;
-	cin >> login;
+	cin >> Login;
 	
 	//Comprobar que el usuario existe.
-	for(int i = 0;i < tu.TotalTuplas;i++){
-		comprobacionLogin(login,tu.punteroapuntero[i],usado);
-		if(usado == true && cont != 1){
+	for(int i = 0;i < tu->getTotalTuplas();i++){
+		if(this->login == Login && usado=true){
 			posicion=i;
-			cont++;	
 		}
 	}
 	
@@ -183,47 +212,50 @@ void Usuario::printUsuario(){
 	if(usado == true){
 	
 		//Creamos un Usuario aux para hacer el intercambio.
-		Usuario* aux=0;
-		aux=crearUsuario();
+		Usuario* aux = new Usuario;
 		
 		//Realizamos el intercambio de posiciones.
-		aux = tu.punteroapuntero[posicion];
-		tu.punteroapuntero[posicion]=tu.punteroapuntero[tu.TotalTuplas-1];
-		tu.punteroapuntero[tu.TotalTuplas-1]= aux;
+		aux = tu->punteroapuntero[posicion];
+		tu->punteroapuntero[posicion] = tu->punteroapuntero[tu->getTotalTuplas()-1];
+		tu->punteroapuntero[tu->getTotalTuplas()-1] = aux;
 		
 		//Borramos usuario en la última posición
-		borrarUsuario(tu.punteroapuntero[tu.TotalTuplas-1]);
+		delete tu->punteroapuntero[tu->getTotalTuplas()-1];
+		//borrarUsuario(tu.punteroapuntero[getTotalTuplas()-1]);
 		
 		//Disminuimos el tamaño del vector.
-		tu.punteroapuntero = resizeDisminuirPorPunteros(tu,tu.punteroapuntero);
+		tu->resize(tu->getTotalTuplas()-1);
+		//this->punteroapuntero = resizeDisminuirPorPunteros(tu,t->punteroapuntero);
 		
 		//Imprimimos el vector de usuario para que el administrador vea que se ha borrado correctamente.
-		printTablaUsuarios(tu);
+		tu->printTablaUsuarios();
 	}else{
 		cout << ERROR << "El Login que usted ha elegido no se encuentra en nuestra tabla de usuarios. " << DEFAULT << endl;
 		}
-}*/
-/*void Usuario::insertarUsuarioNuevo(TablaUsuarios &tu){
+}
+/*void Admin::insertarUsuarioNuevo(){
 
-	string login = "";
+	string Login = "";
 	bool usado = false;	
 	
 	//Pedimos al usuario los datos.
 	cout << "Por favor ingrese los siguientes datos: " << endl;
 	cout << YELLOW << "Login : " << DEFAULT << endl;
-	cin >> login;
+	cin >> Login;
 	
 	//Comprobamos si el login existe o no.
 	for(int i = 0;i < tu.TotalTuplas;i++){
-		comprobacionLogin(login,tu.punteroapuntero[i],usado);	
+		if(this->login == Login){
+			posicion=i;
+			usado=true;
+		}	
 	}
 	
 	//Si el usuario no existe entramos en este if y creamos Usuario y lo insertamos en la TablaUsuarios.
 	if(usado != true){
 		
 		//Reservamos el espacio de memmoria al nuevo Usuario.
-		Usuario *u = 0;	
-		u = crearUsuario();
+		Usuario *u = new Usuario();
 		pedirDatosUsuario(u);
 		setLogin(u,login);
 		insertarUsuarioTablaUsuarios(u,tu);
