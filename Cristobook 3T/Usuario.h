@@ -21,7 +21,7 @@ class Usuario{
 		string nombre;		//Nombre del usuario
 		string apellido;	//Apellido del usuario
 		string perfil_usuario;	//Perfil del Usuario. Administrador o Usuario Normal.
-		
+		bool DEBUG;
 	
 	public:
 		/**
@@ -122,51 +122,6 @@ class Usuario{
 		 * @author Carlos Fdez.
 		 */
 		void printVectorFotos();
-		/**
-		 * @brief Módulo que inserta una foto en el vector de fotos de cada usuario.
-		 * @param TablaUsuarios tu (E/S)
-		 * @pre El usuario debe de estar insertado correctamente.
-		 * @post Se insertará una foto al usuario.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */
-		 
-		//void insertarFoto(TablaUsuarios &tu);
-		/**
-		 * @brief En éste módulo insertaremos los usuarios predefinidos en una TablaUsuarios que hemos creado previamente.
-		 * @pre Deberemos haber creado la tabla de usuarios previamente.
-		 * @post Insertaremos en la tabla de usuarios los usuarios que querámos.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */
-		//void insertarUsuarioTablaUsuarios(TablaUsuarios *tu);
-		/**
-		 * @brief Este módulo ingresa un usuario en la TablaUsuarios
-		 * @param TablaUsuarios tu (E/S)
-		 * @pre La tabla ha tenido que ser creada previamente.
-		 * @post El usuario aparecerá en la TablaUsuarios.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */
-		//void insertarUsuarioNuevo(TablaUsuarios &tu);
-		/**
-		 * @brief Este módulo se va a encargar de borrar el usuario seleccionado de la tabla.
-		 * @param TablaUsuarios tu
-		 * @pre La tabla de usuarios deberá estar creada.
-		 * @post Se elimnará el usuario selecionado.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */
-		//void eliminarUsuarioTablaUsuarios(TablaUsuarios &tu);
-		/**
-		 * @brief Módulo que se encarga de borrar la foto del usuario y ordenar el vector de fotos
-		 * @param TablaUsuarios tu (E/S)
-		 * @pre El usuario debe de tener al menos una foto introducida.
-		 * @post Al usuario seleccionado se le eliminará la foto de su vector de fotos.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */
-		//void eliminarFotoUsuario(TablaUsuarios &tu);
 };
 class Admin: public Usuario{
 
@@ -190,23 +145,8 @@ class Admin: public Usuario{
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		Admin(string login, string nombre, string apellido, string perfil_usuario);
-		/**
-		* @brief
-		* @pre
-		* @post
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
 		virtual ~Admin();
-		/**
-		* @brief
-		* @pre
-		* @post
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
-		void eliminarUsuarioTablaUsuarios();
+
 		/**
 		* @brief Imprime los atributos propios de la clase Normal.
 		* @post Imprimiermos SÓLAMENTE los atributos propios.
@@ -234,14 +174,6 @@ class Normal: public Usuario{
 		* @version 1.0
 		*/
 		Normal();
-		/**
-		* @brief Constructor de la clase Normal pasando los parámetros.
-		* @pre Debemos de tener creada la clase Usuario perfectamente.
-		* @post Crearemos una clase que hereda los atributos desde la clase padre(class Usuario).
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
-		Normal(string login, string nombre, string apellido, string perfil_usuario);
 		/**
 		* @brief Destructor de la clase Normal.
 		* @pre Debemos de tener creada la clase Usuario perfectamente.
@@ -302,5 +234,23 @@ class Normal: public Usuario{
 		* @version 1.0
 		*/
 		//virtual void printUsuario();
+		/**
+		 * @brief Este módulo se usa para introducir las fotos del usuario predefinido.
+		 * @param Foto *f
+		 * @pre El resize debe de funcionar correctamente.
+		 * @post El usuario tendrá las fotos insertadas en su perfil.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
+		void insertarFotoUsuario(Foto *f);
+		/**
+		* @brief
+		* @pre
+		* @post
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		 void resizeFoto(int DIM);
+		
 
 };

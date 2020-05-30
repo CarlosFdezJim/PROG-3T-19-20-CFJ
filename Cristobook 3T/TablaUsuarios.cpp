@@ -67,7 +67,7 @@ TablaUsuarios::~TablaUsuarios(){
 			//Borramos el vector dinámico de coeficientes.
 			delete [] punteroapuntero;
 			punteroapuntero = 0;
-		}else if (getTotalTuplas() <= 0){
+		}else if (getTotalTuplas() < 0){
 			cerr << RED << "No existe ninguna TablaUsuarios. " << endl;
 	
 		}
@@ -92,14 +92,8 @@ void TablaUsuarios::printTablaUsuarios(){
 	}
 }
 
-///////////////////////////////				 OTHER					////////////////////////////////
+///////////////////////////////				 RESIZE					////////////////////////////////
 
-void TablaUsuarios::insertarUsuarioTablaUsuarios(Usuario *u){
-	
-		this->resize(getTotalTuplas()+1);
-		this->punteroapuntero[this->getTotalTuplas()] = u;
-		this->setTotalTuplas(this->getTotalTuplas()+1);
-}
 void TablaUsuarios::resize(int DIM){
 
 	//Reservo memoria para el vector auxiliar con una DIM +1.
@@ -133,6 +127,238 @@ void TablaUsuarios::resize(int DIM){
 	punteroapuntero = aux;
 
 }
+
+///////////////////////////////				 OTHER					////////////////////////////////
+
+void TablaUsuarios::insertarUsuarioTablaUsuarios(Usuario *u){
+	
+	//Aumentamos la dimensión en una posición.
+	this->resize(getTotalTuplas()+1);
+	//Insertamos el usuario en la nueva posición-
+	this->punteroapuntero[this->getTotalTuplas()] = u;
+	//Actualizamos las TotalTuplas.
+	this->setTotalTuplas(this->getTotalTuplas()+1);
+}
+
+void comprobacionLogin(string Login,Usuario *u,bool &usado){
+
+	//Comprobamos si el login está introducido o no. Si lo está devolveremos usado = true;(Lo hacemos aparte porque lo usaremos en varios sitios).
+	if(Login == u->getLogin()){
+		usado = true;
+	}
+}
+void TablaUsuarios::eliminarUsuarioTablaUsuarios(){
+
+	//Declaración de variables locales.
+	string Login = "";
+	bool usado = false;
+	unsigned int posicion = 0;
+	int cont = 0;
+	Usuario *u;
+	
+	//Imprimimos la tabla de Usuarios
+	for(int i = 0; i < this->getTotalTuplas(); i++){
+		this->punteroapuntero[i]->printUsuario();
+	}
+	//Pedimos al usuario el login (que es único en el sistema) para eliminarlo.
+	cout << "Selecione el usuario que desea eliminar, recuerde que tiene que introducir el login" << endl;
+	cin >> Login;
+	
+	//Comprobar que el usuario existe.
+	for(int i = 0; i < this->getTotalTuplas();i++){
+		comprobacionLogin(Login,this->punteroapuntero[i],usado);
+		if(usado == true && cont != 1){
+			posicion=i;
+			cont++;	
+		}
+	}
+	
+	//Si usado==true, el usuario existe y podemos eliminarlo.
+	if(usado == true){
+		//Creamos un Usuario aux para hacer el intercambio.
+		Usuario* aux = new Usuario;
+		
+		//Realizamos el intercambio de posiciones.
+		aux = this->punteroapuntero[posicion];
+		this->punteroapuntero[posicion] = this->punteroapuntero[this->getTotalTuplas()-1];
+		this->punteroapuntero[this->getTotalTuplas()-1] = aux;
+		
+		//Borramos usuario en la última posición
+		delete this->punteroapuntero[this->getTotalTuplas()-1];
+		
+		//Disminuimos el tamaño del vector.
+		this->resize(this->getTotalTuplas()-1);
+		//this->punteroapuntero = resizeDisminuirPorPunteros(tu,t->punteroapuntero);
+		this->setTotalTuplas(this->getTotalTuplas()-1);
+		
+		//Imprimimos el vector de usuario para que el administrador vea que se ha borrado correctamente.
+		this->printTablaUsuarios();
+	}else{
+		cout << ERROR << "El Login que usted ha elegido no se encuentra en nuestra tabla de usuarios. " << DEFAULT << endl;
+		}
+}
+/**
+ * @brief Módulo que se encarga de pedir algunos datos al usuario. 
+ * @param Usuario *u
+ * @pre El módulo insertarUsuarioNuevo debe de estar introducido correctamente.
+ * @version 1.0
+ * @author Carlos Fdez.
+ */
+void pedirDatosUsuario(Usuario *u){
+	
+	string nombre = "";
+	string apellido = "";
+	string perfilUsuario = "";
+
+	cout << YELLOW << "Nombre: " << DEFAULT << endl;
+	cin >> nombre;
+	cout << YELLOW << "Apellido: " << DEFAULT << endl;
+	cin >> apellido;
+	cout << YELLOW << "Perfil de usuarios: " << DEFAULT  << endl;
+	cin >> perfilUsuario;
+	
+	u->setNombre(nombre);
+	u->setApellido(apellido);
+	u->setPerfilUsuario(perfilUsuario);
+
+}
+void TablaUsuarios::insertarUsuarioNuevo(){
+
+	string Login = "";
+	bool usado = false;
+		
+	
+	//Pedimos al usuario los datos.
+	cout << "Por favor ingrese los siguientes datos: " << endl;
+	cout << YELLOW << "Login : " << DEFAULT << endl;
+	cin >> Login;
+	
+	//Comprobar que el usuario existe.
+	for(int i = 0; i < this->getTotalTuplas();i++){
+		comprobacionLogin(Login,this->punteroapuntero[i],usado);
+		}
+	
+	//Si el usuario no existe entramos en este if y creamos Usuario y lo insertamos en la TablaUsuarios.
+	if(usado != true){
+		
+		//Reservamos el espacio de memmoria al nuevo Usuario.
+		Usuario *u = new Usuario;
+		u->setLogin(Login);
+		pedirDatosUsuario(u);
+		this->insertarUsuarioTablaUsuarios(u);
+	}else{
+		cout << RED << "El Login introducido ya está en uso." << DEFAULT << endl;
+		}
+}
+void TablaUsuarios::BuscarLogin(){
+
+	bool usado=false;
+	string Login = "";
+	unsigned int posicion=0;
+	int cont=0;
+
+	//Pedimos al administrador que indique el Login que quiere buscar.
+	cout << "Por favor introduzca el login del usuario que quiere conocer su posición. " << endl;
+	cin >> Login;
+	
+	//Comprobar que el usuario existe.
+	for(int i = 0; i < this->getTotalTuplas();i++){
+		comprobacionLogin(Login,this->punteroapuntero[i],usado);
+		if(usado == true && cont != 1){
+			posicion=i;
+			cont++;	
+		}
+	}
+	
+	//Si existe el usuario entramos en el if e imprimimos el Usuario, si no existe mostramos un mensaje por pantalla.
+	if(usado == true){
+		//Mostramos la posición dónde está el usuario.
+		cout << BLUE << "El usuario se encuentra en la posición: " << DEFAULT << posicion << endl;
+		this->punteroapuntero[posicion]->printUsuario();
+	}else{
+		cout << ERROR << "El Login que usted ha elegido no se encuentra en nuestra tabla de usuarios. " << DEFAULT << endl;
+	}
+}
+void TablaUsuarios::ordenamosLogin(){
+
+	Usuario *aux = 0;
+	
+	if (this->getTotalTuplas() > 1){
+		for(int i = 0;i < this->getTotalTuplas();i++){
+			for(int j= 0; j < this->getTotalTuplas();j++){
+				if(this->punteroapuntero[i]-> getLogin() < this->punteroapuntero[j]->getLogin() ){
+					aux = this->punteroapuntero[i];
+					this->punteroapuntero[i] = this->punteroapuntero[j];
+					this->punteroapuntero[j]= aux;
+				}
+			}
+		}
+	}else{
+		cout << RED << "Lo sentimos, todavía no podemos ordenar porque no hay los usuarios suficientes " << DEFAULT << endl;
+		}
+}
+void TablaUsuarios::ordenamosTotalFotosUsuario(){
+
+	Usuario *aux = 0;
+	
+	//Filtro desde uno porque al crear la tabla de usuarios se introducen 7 usuarios predefinidos por lo que TotalTuplas = 7.
+	if (this->getTotalTuplas() > 1){
+		for(int i = 0;i < this->getTotalTuplas();i++){
+			for(int j= 0; j < this->getTotalTuplas();j++){
+			//	if(this->punteroapuntero[i]-> getTotalFotosUsuario() < this->punteroapuntero[j]-> getTotalFotosUsuario() ){
+					aux = this->punteroapuntero[i];
+					this->punteroapuntero[i] = this->punteroapuntero[j];
+					this->punteroapuntero[j]= aux;
+				}
+			//}
+		}
+	}else{
+		cout << RED << "Lo sentimos, todavía no podemos ordenar porque no hay los usuarios suficientes " << DEFAULT << endl;
+		}
+}
+void TablaUsuarios::ordenarTablaUsuarios(){
+
+	//Declaración de variables
+	int opcion = 0;
+	int buscar = 0;
+	
+	//Submenú ordenar.
+	cout << BLUE << "\n******************************";
+	cout << "\n[1] Ordenar por Login ";
+	cout << "\n[2] Ordenar por el total fotos. ";
+	cout << "\n******************************" << DEFAULT << endl;
+	cout << "Seleccione el criterio por el que quiere ordenar: " << endl;
+	cin >> opcion;
+	
+	//Dependiendo de la opción que desee el usuario entrará en la opcion 1 o 2, en caso contrario mostraremos un mensaje de error.
+	if(opcion == 1){
+		cout  << " ****    ORDENANDO TABLA DE USUARIOS POR LOGIN    **** " << endl;
+		ordenamosLogin();
+		cout << GREEN << "La TablaUsuarios se ha ordenado correctamente." << DEFAULT << endl;
+		cout << GREEN << "Para Imprimir la Tabla pulse [1] sino presione [0]." << DEFAULT << endl;
+		cin >> buscar;
+			if(buscar == 1){
+				printTablaUsuarios();
+			}else if (buscar == 0){
+				cout << GREEN << "Muchas gracias." << DEFAULT << endl;
+			}
+	}
+	else if(opcion == 2){
+		cout  << " ****    ORDENANDO TABLA DE USUARIOS POR TOTAL FOTOS USUARIO    **** " << endl;
+		ordenamosTotalFotosUsuario();
+		cout << GREEN << "La TablaUsuarios se ha ordenado correctamente." << DEFAULT << endl;
+		cout << GREEN << "Para Imprimir la Tabla pulse [1] sino presione [0]." << DEFAULT << endl;
+		cin >> buscar;
+			if(buscar == 1){
+				printTablaUsuarios();
+			}else if (buscar == 0){
+				cout << GREEN << "Muchas gracias." << DEFAULT << endl;
+			}
+	}else{
+		cout << YELLOW << "\nLo siento, la opción seleccionada no ha sido añadida todavía. " << DEFAULT << endl;
+	}
+}
+
 void TablaUsuarios::usuariosPredefinidos(){
 		
 	/***************************************
@@ -144,17 +370,17 @@ void TablaUsuarios::usuariosPredefinidos(){
 	Carlos->setApellido("Fernández");
 	Carlos->setPerfilUsuario("Admin");
 	this->insertarUsuarioTablaUsuarios(Carlos);
-			cout  << RED << "************************************** " << DEFAULT << endl;
 	//Foto1
-/*	Carlos->setRuta("/home/Carlos/Escritorio/Imagenes/Españita");
-	Carlos->setTipo("jpeg");
-	Carlos->setTamanio(49350);
-	this->insertarFotoUsuario(Carlos);
-	//Foto2
-	Carlos->setRuta("/home/Carlos/Escritorio/Imagenes/esto_es_ESPANIAAAAAA");
-	Carlos->setTipo("gif");
-	Carlos->setTamanio(6050);
-	this->insertarFotoUsuario(Carlos);
+	Foto *f= new Foto;
+	f->setRuta("/home/Carlos/Escritorio/Imagenes/Españita");
+	f->setTipo("jpeg");
+	f->setTamanio(49350);
+	//Carlos->insertarFotoUsuario(f);
+/*	//Foto2
+	f->setRuta("/home/Carlos/Escritorio/Imagenes/esto_es_ESPANIAAAAAA");
+	f->setTipo("gif");
+	f->setTamanio(6050);
+	Normal::insertarFotoUsuario(f);
 
 	
 	/***************************************
@@ -166,7 +392,6 @@ void TablaUsuarios::usuariosPredefinidos(){
 	Jaime->setApellido("Cabezas");
 	Jaime->setPerfilUsuario("Normal");
 	this->insertarUsuarioTablaUsuarios(Jaime);
-			cout  << RED << "************************************** " << DEFAULT << endl;
 /*	//Foto1
 	Jaime->setRuta("/home/Jaime/Escritorio/Imagenes/Skone");
 	Jaime->setTipo("jpeg");
@@ -188,7 +413,6 @@ void TablaUsuarios::usuariosPredefinidos(){
 	Cristian->setApellido("Campos");
 	Cristian->setPerfilUsuario("Administrador");
 	this->insertarUsuarioTablaUsuarios(Cristian);
-			cout  << RED << "************************************** " << DEFAULT << endl;
 /*	//Foto1
 	Cristian->setRuta(f, "/home/Cristian/Escritorio/Imagenes/fackposlisia");
 	Cristian->setTipo(f,"jpeg");
@@ -210,7 +434,6 @@ void TablaUsuarios::usuariosPredefinidos(){
 	Adrian->setApellido("Castillo");
 	Adrian->setPerfilUsuario("Normal");
 	this->insertarUsuarioTablaUsuarios(Adrian);
-			cout  << RED << "************************************** " << DEFAULT << endl;
 /*	//Foto1
 	Adrian->setRuta("/home/Adrian/Escritorio/Imagenes/polvora");
 	Adrian->setTipo("gif");
@@ -232,7 +455,6 @@ void TablaUsuarios::usuariosPredefinidos(){
 	David->setApellido("López");
 	David->setPerfilUsuario("Normal");
 	this->insertarUsuarioTablaUsuarios(David);
-			cout  << RED << "************************************** " << DEFAULT << endl;
 /*	//Foto1
 	David->setRuta("/home/David/Escritorio/Imagenes/Semana-Santa-19");
 	David->setTipo("gif");
@@ -254,7 +476,6 @@ void TablaUsuarios::usuariosPredefinidos(){
 	Pablo->setApellido("García");
 	Pablo->setPerfilUsuario("Administrador");
 	this->insertarUsuarioTablaUsuarios(Pablo);
-			cout  << RED << "************************************** " << DEFAULT << endl;
 /*	//Foto1
 	Pablo->setRuta("/home/Pablo/Escritorio/Imagenes/gente_seria");
 	Pablo->setTipo("jpeg");
@@ -276,7 +497,6 @@ void TablaUsuarios::usuariosPredefinidos(){
 	Ana->setApellido("Tallón");
 	Ana->setPerfilUsuario("Normal");
 	this->insertarUsuarioTablaUsuarios(Ana);
-			cout  << RED << "************************************** " << DEFAULT << endl;
 /*	//Foto1
 	Ana->setRuta("/home/Ana/Escritorio/Imagenes/Amorsito");
 	Ana->setTipo("jpeg");
@@ -288,7 +508,6 @@ void TablaUsuarios::usuariosPredefinidos(){
 	Ana->setTamanio(8710);
 	insertarFotoUsuario(Ana);
 */	
-	cout << RED << "DEBUG: Totaltuplas = " << this->getTotalTuplas() << DEFAULT << endl;
 }
 /*void TablaUsuarios::Salir(){
 	

@@ -32,7 +32,7 @@ Foto::Foto(){
 
 	cout  << PURPLE << "\n  ****    CREANDO FOTO    **** " << DEFAULT << endl;
 	//Reservamos un nuevo espacio de memoria para la Foto y lo inicializamos.
-	Foto *f= new Foto;
+	Foto *f;
 	
 	//Inicializamos el contenido del Usuario.	
 	this->ruta = "";

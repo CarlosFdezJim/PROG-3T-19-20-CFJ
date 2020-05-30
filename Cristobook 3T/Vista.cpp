@@ -179,7 +179,7 @@ void Vista::menuVista(){
 				case 6:
 					//Insertar Usuarios en TablaUsuario.
 					if(creado==true){
-						//InsertUsuariosTablaUsuarios();
+						tu->insertarUsuarioNuevo();
 						cout << GREEN << "Insertando Usuario de tabla... " << DEFAULT << endl;
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede insertar ningún Usuario. " << DEFAULT << endl;
@@ -191,6 +191,7 @@ void Vista::menuVista(){
 					if(creado==true){
 						//eliminarUsuarioTablaUsuarios();
 						cout << GREEN << "Eliminando Usuario de tabla... " << DEFAULT << endl;
+						tu->eliminarUsuarioTablaUsuarios();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminar ningún usuario. " << DEFAULT << endl;
 						}
@@ -199,7 +200,7 @@ void Vista::menuVista(){
 				case 8:
 					//Buscar Usuario por login (búsqueda secuencial)
 					if(creado==true){
-						//buscarUsuario();
+						tu->BuscarLogin();
 						cout << GREEN << "Buscanso Usuario... " << DEFAULT << endl;
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
@@ -211,6 +212,7 @@ void Vista::menuVista(){
 						//1) totalFotosUsuarios
 						//2) Login
 					if(creado==true){
+						tu->ordenarTablaUsuarios();
 						//ordenarTablaUsuarios();
 						cout << GREEN << "Ordenando tabla... " << DEFAULT << endl;
 					}else{

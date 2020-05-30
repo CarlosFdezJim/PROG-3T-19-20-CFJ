@@ -43,16 +43,6 @@ class TablaUsuarios{
 		 */
 		~TablaUsuarios();
 		/**
-		 * @brief Este módulo se encarga de dar dos opciones para ordenar el menú o por Login o por totalFotosUsuario.
-		 * @param TablaUsuarios tu (E/S)
-		 * @pre El vector de usuarios debe de estar relleno  y tener al menos dos usuarios introducidos.
-		 * @post El vector quedará ordenado por según el criterio seleccionado.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */
-		void ordenarTablaUsuarios();
-
-		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo TablaUsuario una variable int llamada TotalTuplas.
 		 * @param TablaUsuarios tu (E/S)
 		 * @param int TotalTuplas.
@@ -99,6 +89,56 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void resize(int DIM);
+		/**
+		* @brief
+		* @pre
+		* @post
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void insertarUsuarioNuevo();
+		/**
+		* @brief
+		* @pre
+		* @post
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void eliminarUsuarioTablaUsuarios();
+		/**
+		 * @brief Módulo que se encarga de buscar usuario por Login
+		 * @pre Los usuarios deben de estar introducidos correctamente en el vector.
+		 * @post Nos dirá en que posición se encuentra el usuario.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
+		void BuscarLogin();
+		/**
+		 * @brief Este módulo se encarga de dar dos opciones para ordenar el menú o por Login o por totalFotosUsuario.
+		 * @param TablaUsuarios tu (E/S)
+		 * @pre El vector de usuarios debe de estar relleno  y tener al menos dos usuarios introducidos.
+		 * @post El vector quedará ordenado por según el criterio seleccionado.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
+		void ordenarTablaUsuarios();
+		/**
+		 * @brief Módulo que se encarga de ordenar el vector por Login
+		 * @pre El vector de usuarios debe de estar relleno  y tener al menos dos usuarios introducidos.
+		 * @post El vector quedará ordenado por Login
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
+		void ordenamosLogin();
+		/**
+		 * @brief Módulo que se encarga de ordenar el vector por totalFotosUsuario.
+		 * @param TablaUsuarios tu
+		 * @pre El vector de usuarios debe de estar relleno  y tener al menos dos usuarios introducidos.
+		 * @post El vector quedará ordenado por totalFotosUsuario.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
+		void ordenamosTotalFotosUsuario();
 		/**
 		 * @brief Módulo que se encarga de liberar toda la memoria dinñamica que hemos utilizado en nuestro programa.
 		 * @param TablaUsuario tu (E/S)

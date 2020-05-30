@@ -19,6 +19,7 @@ class Foto{
 		string ruta;			//ruta del archivo en el SO.
 		string tipo;			//Tipo de la foto(jpg, png).
 		unsigned long int tamanio;	//Se va a guardar en bytes.
+		bool DEBUG;
 	public:
 		
 		/**
@@ -99,6 +100,7 @@ class Foto{
 		 * @author Carlos Fdez.
 		 */
 		 void printFotosUsuario();
+		
 		 
 		 
 };
