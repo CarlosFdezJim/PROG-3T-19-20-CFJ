@@ -131,17 +131,13 @@ class Admin: public Usuario{
 		
 	public:
 		/**
-		* @brief
-		* @pre
-		* @post
+		* @brief Constructor de la clase Admin
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
 		Admin();
 		/**
-		* @brief
-		* @pre
-		* @post
+		* @brief Destructor de la clase Admin
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
@@ -233,7 +229,7 @@ class Normal: public Usuario{
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		//virtual void printUsuario();
+		virtual void printUsuario();
 		/**
 		 * @brief Este módulo se usa para introducir las fotos del usuario predefinido.
 		 * @param Foto *f
@@ -244,9 +240,7 @@ class Normal: public Usuario{
 		 */
 		void insertarFotoUsuario(Foto *f);
 		/**
-		* @brief
-		* @pre
-		* @post
+		* @brief Redimensiona el vector de fotos
 		* @author Carlos Fdez
 		* @version 1.0
 		*/

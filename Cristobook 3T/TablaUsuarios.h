@@ -67,9 +67,7 @@ class TablaUsuarios{
 		 */
 		void usuariosPredefinidos();
 		/**
-		* @brief
-		* @pre
-		* @post
+		* @brief Imprimiremos la tabla Usuarios
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
@@ -90,17 +88,15 @@ class TablaUsuarios{
 		*/
 		void resize(int DIM);
 		/**
-		* @brief
-		* @pre
-		* @post
+		* @brief Insertaremos un usuario en el vector de usuarios
+		* @pre Debemos de tener memoria suficiente para Insertarlo
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
 		void insertarUsuarioNuevo();
 		/**
-		* @brief
-		* @pre
-		* @post
+		* @brief Eliminamos un usuario de la tablaUsuarios
+		* @pre Deberemos de tener al menos un usuario introducido
 		* @author Carlos Fdez
 		* @version 1.0
 		*/

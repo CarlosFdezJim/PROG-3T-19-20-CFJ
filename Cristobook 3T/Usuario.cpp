@@ -124,26 +124,21 @@ void Normal::resizeFoto(int DIM){
 		exit(-1);
 	}
 
-	if( DIM > this->getTotalFotosUsuario()){
+	if( DIM >= this->getTotalFotosUsuario()){
 
 		//Copio el contenido de punteroapuntero[i] en aux[i].
 		for(int i = 0;i < this->getTotalFotosUsuario();i++){
 			aux[i] = this->v_fotos[i];
 		}
 
-	}else if (DIM < this->getTotalFotosUsuario()){
-
-		//Copio el contenido de punteroapuntero[i] en aux[i].
-		for(int i = 0; i <= DIM; i++){
-			aux[i] = this->v_fotos[i];
-		}
 	}
-	
 	//Eliminamos la memoria del vector coef.
 	delete [] v_fotos;
 
 	//Reasignamos el puntero de coeficientes.
 	v_fotos = aux;
+	//Actualizamos la dimension
+	this->setDIM_vfotos(this->getTotalFotosUsuario()+1);
 
 }
 ///////////////////////////////				 SET					////////////////////////////////
@@ -194,6 +189,7 @@ int Normal::getTotalFotosUsuario(){
 	return this->totalFotosUsuario;
 }
 
+
 ///////////////////////////////				 PRINT					////////////////////////////////
 
 void Usuario::printUsuario(){
@@ -206,22 +202,27 @@ void Usuario::printUsuario(){
 	cout << YELLOW << "Perfil de usuarios: " << DEFAULT <<  this->getPerfilUsuario() << endl;
 	cout << YELLOW << "--------------------------" << DEFAULT << endl;
 	
+
+}
+void Normal::printUsuario(){
+
+	this->Usuario::printUsuario();
 	//Imprimimos el vector de fotos 
 	if(this->getTotalFotosUsuario() != 0){
 		cout << PURPLE << "----------------" << DEFAULT << endl;
 		for(int i= 0; i < this->getTotalFotosUsuario();i++){
 			cout << BLUE << "Foto número : " << DEFAULT << i << endl;
-			f->printFoto();
+			this->v_fotos[i].printFoto();
 		}
 	}else
 		cout << YELLOW << "Este usuario no tiene fotos. " << DEFAULT << endl;
 
 }
 void Normal::insertarFotoUsuario(Foto *f){
-	
+
 	//Aumentamos en uno nuestro vector.
-	this->resizeFoto(this->getTotalFotosUsuario()+1);
-	
+	this->resizeFoto(this->getTotalFotosUsuario());
+
 	//Insertamos en elvector nuestra foto
 	this->v_fotos[this->getTotalFotosUsuario()] = *f;
 	

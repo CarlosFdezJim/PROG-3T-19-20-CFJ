@@ -360,155 +360,124 @@ void TablaUsuarios::ordenarTablaUsuarios(){
 }
 
 void TablaUsuarios::usuariosPredefinidos(){
+	
+	Foto *f = new Foto;
+	
 		
 	/***************************************
 	**************	CARLOS	****************
 	****************************************/
-	Usuario *Carlos = new Usuario;
+	Admin *Carlos = new Admin;
 	Carlos->setLogin("@Carlos");
 	Carlos->setNombre("Carlos");
 	Carlos->setApellido("Fernández");
 	Carlos->setPerfilUsuario("Admin");
 	this->insertarUsuarioTablaUsuarios(Carlos);
-	//Foto1
-	Foto *f= new Foto;
-	f->setRuta("/home/Carlos/Escritorio/Imagenes/Españita");
-	f->setTipo("jpeg");
-	f->setTamanio(49350);
-	//Carlos->insertarFotoUsuario(f);
-/*	//Foto2
-	f->setRuta("/home/Carlos/Escritorio/Imagenes/esto_es_ESPANIAAAAAA");
-	f->setTipo("gif");
-	f->setTamanio(6050);
-	Normal::insertarFotoUsuario(f);
 
 	
 	/***************************************
 	**************	JAIME	****************
 	****************************************/
-	Usuario *Jaime = new Usuario;
+	Normal *Jaime = new Normal;
 	Jaime->setLogin("@Jaime");
 	Jaime->setNombre("Jaime");
 	Jaime->setApellido("Cabezas");
 	Jaime->setPerfilUsuario("Normal");
 	this->insertarUsuarioTablaUsuarios(Jaime);
-/*	//Foto1
-	Jaime->setRuta("/home/Jaime/Escritorio/Imagenes/Skone");
-	Jaime->setTipo("jpeg");
-	Jaime->setTamanio(49350);
-	this->insertarFotoUsuario(Jaime);
+	//Foto1
+	f->setRuta("/home/Jaime/Escritorio/Imagenes/Skone");
+	f->setTipo("jpeg");
+	f->setTamanio(49350);
+	Jaime->insertarFotoUsuario(f);
 	//Foto2
-	Jaime->setRuta("/home/Jaime/Escritorio/Imagenes/Force");
-	Jaime->setTipo("jpeg");
-	Jaime->setTamanio(49350);
-	this->insertarFotoUsuario(Jaime);	
-
+	f->setRuta("/home/Jaime/Escritorio/Imagenes/Force");
+	f->setTipo("jpeg");
+	f->setTamanio(49350);
+	Jaime->insertarFotoUsuario(f);	
 	
 	/***************************************
 	********	CRISTIAN	********
 	****************************************/
-	Usuario *Cristian = new Usuario;
+	Admin *Cristian = new Admin;
 	Cristian->setLogin("@Cristian");
 	Cristian->setNombre("Cristian");
 	Cristian->setApellido("Campos");
-	Cristian->setPerfilUsuario("Administrador");
+	Cristian->setPerfilUsuario("Admin");
 	this->insertarUsuarioTablaUsuarios(Cristian);
-/*	//Foto1
-	Cristian->setRuta(f, "/home/Cristian/Escritorio/Imagenes/fackposlisia");
-	Cristian->setTipo(f,"jpeg");
-	Cristian->setTamanio(f,49350);
-	this->insertarFotoUsuario(Cristian, f);
-	//Foto2
-	Cristian->setRuta(f, "/home/Cristian/Escritorio/Imagenes/LoKo_ReShUlOn");
-	Cristian->setTipo("jpeg");
-	Cristian->setTamanio(49350);
-	this->insertarFotoUsuario(Cristian);
 
 	
 	/***************************************
 	**************	ADRIAN	****************
 	****************************************/
-	Usuario *Adrian =  new Usuario;
+	Normal *Adrian =  new Normal;
 	Adrian->setLogin("@Adrian");
 	Adrian->setNombre("Adrián");
 	Adrian->setApellido("Castillo");
 	Adrian->setPerfilUsuario("Normal");
 	this->insertarUsuarioTablaUsuarios(Adrian);
-/*	//Foto1
-	Adrian->setRuta("/home/Adrian/Escritorio/Imagenes/polvora");
-	Adrian->setTipo("gif");
-	Adrian->setTamanio(6050);
-	this->insertarFotoUsuario(Adrian);
+	//Foto1
+	f->setRuta("/home/Adrian/Escritorio/Imagenes/polvora");
+	f->setTipo("gif");
+	f->setTamanio(6050);
+	Adrian->insertarFotoUsuario(f);
 	//Foto2
-	Adrian->setRuta("/home/Adrian/Escritorio/Imagenes/Calamar");
-	Adrian->setTipo("bmp");
-	Adrian->setTamanio(125910);
-	this->insertarFotoUsuario(Adrian);
-
+	f->setRuta("/home/Adrian/Escritorio/Imagenes/Calamar");
+	f->setTipo("bmp");
+	f->setTamanio(125910);
+	Adrian->insertarFotoUsuario(f);
 	
 	/***************************************
-	**************	JESUS	****************
+	**************	DAVID	****************
 	****************************************/
-	Usuario *David = new Usuario;
+	Normal *David = new Normal;
 	David->setLogin("@David");
 	David->setNombre("Antonio David");
 	David->setApellido("López");
 	David->setPerfilUsuario("Normal");
 	this->insertarUsuarioTablaUsuarios(David);
-/*	//Foto1
-	David->setRuta("/home/David/Escritorio/Imagenes/Semana-Santa-19");
-	David->setTipo("gif");
-	David->setTamanio(6050);
-	this->insertarFotoUsuario(David);
+	//Foto1
+	f->setRuta("/home/David/Escritorio/Imagenes/Semana-Santa-19");
+	f->setTipo("gif");
+	f->setTamanio(6050);
+	David->insertarFotoUsuario(f);
 	//Foto2
-	David->setRuta("/home/Jesus/Escritorio/Imagenes/Wallpaper_Camarón_4K");
-	David->setTipo("jpeg");
-	David->setTamanio(6050);
-	this->insertarFotoUsuario(David);
+	f->setRuta("/home/David/Escritorio/Imagenes/Wallpaper_Camarón_4K");
+	f->setTipo("jpeg");
+	f->setTamanio(6050);
+	David->insertarFotoUsuario(f);
 
 	
 	/***************************************
 	**************	PABLO	****************
 	****************************************/
-	Usuario *Pablo = new Usuario;
+	Admin *Pablo = new Admin;
 	Pablo->setLogin("@Pablo");
 	Pablo->setNombre("Pablo");
 	Pablo->setApellido("García");
 	Pablo->setPerfilUsuario("Administrador");
 	this->insertarUsuarioTablaUsuarios(Pablo);
-/*	//Foto1
-	Pablo->setRuta("/home/Pablo/Escritorio/Imagenes/gente_seria");
-	Pablo->setTipo("jpeg");
-	Pablo->setTamanio(6050);
-	insertarFotoUsuario(Pablo);
-	//Foto2
-	Pablo->setRuta("/home/Pablo/Escritorio/Imagenes/mas_gente_seria_4k");
-	Pablo->setTipo("jpeg");
-	Pablo->setTamanio(6050);
-	this->insertarFotoUsuario(Pablo);
-
 	
 	/***************************************
 	**************	  ANA	****************
 	****************************************/
-	Usuario *Ana = new Usuario;
+	Normal *Ana = new Normal;
 	Ana->setLogin("@Ana");
 	Ana->setNombre("Ana");
 	Ana->setApellido("Tallón");
 	Ana->setPerfilUsuario("Normal");
 	this->insertarUsuarioTablaUsuarios(Ana);
-/*	//Foto1
-	Ana->setRuta("/home/Ana/Escritorio/Imagenes/Amorsito");
-	Ana->setTipo("jpeg");
-	Ana->setTamanio(6050);
-	Ana->insertarFotoUsuario(Ana);
+	//Foto1
+	f->setRuta("/home/Ana/Escritorio/Imagenes/Amorsito");
+	f->setTipo("jpeg");
+	f->setTamanio(6050);
+	Ana->insertarFotoUsuario(f);
 	//Foto2
-	Ana->setRuta("/home/Ana/Escritorio/Imagenes/Aguacatinhos");
-	Ana->setTipo("png");
-	Ana->setTamanio(8710);
-	insertarFotoUsuario(Ana);
-*/	
-}
-/*void TablaUsuarios::Salir(){
+	f->setRuta("/home/Ana/Escritorio/Imagenes/Aguacatinhos");
+	f->setTipo("png");
+	f->setTamanio(8710);
+	Ana->insertarFotoUsuario(f);
 	
-}*/
+}
+void TablaUsuarios::Salir(){
+	
+}
