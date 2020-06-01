@@ -22,6 +22,7 @@ class Usuario{
 		string apellido;	//Apellido del usuario
 		string perfil_usuario;	//Perfil del Usuario. Administrador o Usuario Normal.
 		bool DEBUG;
+
 	
 	public:
 		/**
@@ -160,6 +161,7 @@ class Normal: public Usuario{
 		Foto* v_fotos;	//Vector Dinámico de Burbujas.
 		int DIM_vfotos;		//Dimensión del vector.
 		int totalFotosUsuario;	//utiles del vector
+		int fotos_min;		//Mínimo de fotos de un usuario.
 	public:
 	
 		/**
@@ -244,7 +246,21 @@ class Normal: public Usuario{
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		 void resizeFoto(int DIM);
+		void resizeFoto(int DIM);
+		/**
+		* @brief Método que ingresa en el miembro fotos_min un valor.
+		* @post Tendremos el valor introducido en el miembro fitis_min.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void setFotosMin(int i);
+		/**
+		* @brief Método que devuelve el valor del miembro Fotos_min
+		* @post Devolveremos el valor de fotos_min.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		int getFotosMin();
 		
 
 };

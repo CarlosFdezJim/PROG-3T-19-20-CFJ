@@ -117,6 +117,7 @@ void printMenu(){
 	cout << BLUE <<  "\n[ 12 ] " << DEFAULT << " Imprimir Fotografía de un Usuario. ";
 	cout << BLUE <<  "\n[ 13 ] " << DEFAULT << " EXTRA. ";
 	cout << BLUE <<  "\n[ 14 ] " << DEFAULT << " Salir. " << endl;
+	cout << BLUE <<  "\n[ 15 ] " << DEFAULT << " Eliminar usuarios fotos min. " << endl;
 
 }
 void Vista::menuVista(){

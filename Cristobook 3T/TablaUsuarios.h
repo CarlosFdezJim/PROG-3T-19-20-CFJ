@@ -43,6 +43,14 @@ class TablaUsuarios{
 		 */
 		~TablaUsuarios();
 		/**
+		* @brief Método que se encarga de eliminar todos los usuarios que tengan menos fotos que fotos_min, para ello pediremos al usuario introduzcan un 			* 	número que será las fotos mínimas que debe de tener el usuario para no ser eliminado.
+		* @pre Deberemos de tener al menos introducidos más de un usuario, y además tener más de una foto cada usuario.
+		* @post Eliminaremos el usuario que tenga menos de "fotos_min"
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void eliminarUsuariosFotosMin();
+		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo TablaUsuario una variable int llamada TotalTuplas.
 		 * @param TablaUsuarios tu (E/S)
 		 * @param int TotalTuplas.

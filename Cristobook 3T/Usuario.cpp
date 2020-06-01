@@ -69,6 +69,7 @@ Normal::Normal():Usuario(){
 
 	int DIM_vfotos = 0;
 	int totalFotosUsuario = 0;
+	int fotos_min = 0;
 	
 }
 Usuario::~Usuario(){
@@ -164,6 +165,9 @@ void Normal::setV_Fotos(int i){
 void Normal::setDIM_vfotos(int DIM_vfotos){
 	this->DIM_vfotos = DIM_vfotos;   
 }
+void Normal::setFotosMin(int i){
+	this->fotos_min = i;
+}
 
 ///////////////////////////////				 GET					////////////////////////////////
 
@@ -188,7 +192,9 @@ int Normal::getDIM_vfotos(){
 int Normal::getTotalFotosUsuario(){
 	return this->totalFotosUsuario;
 }
-
+int Normal::getFotosMin(){
+	return this->fotos_min;
+}
 
 ///////////////////////////////				 PRINT					////////////////////////////////
 

@@ -197,6 +197,45 @@ void TablaUsuarios::eliminarUsuarioTablaUsuarios(){
 		cout << ERROR << "El Login que usted ha elegido no se encuentra en nuestra tabla de usuarios. " << DEFAULT << endl;
 		}
 }
+void TablaUsuarios::eliminarUsuariosFotosMin(){
+
+	int posicion = 0;
+	int min = 0;
+	Normal *n = new Normal;
+
+	//1) Imprimimos la TablaUsuarios.
+	this->printTablaUsuarios();
+	
+	//2)Pedimos al usuario el número de fotos mínimas que desea eliminar.
+	cout << BLUE << "\n Por favor indique el número de fotos mínimas que tiene que tener un usuario para eliminarlo: " << DEFAULT << endl;
+	cin >> min;
+	
+	n->setFotosMin(min);
+	
+	//3)Buscamos los usuarios que tengan al menos esas fotos.
+	for (int i = 0; i < this->getTotalTuplas(); i++){
+		if (this->punteroapuntero[i]->getTotalFotosUsuario() < n->getFotosMin()){
+			posicion=i;
+			Usuario *aux = new Usuario;
+		
+			//Realizamos el intercambio de posiciones.
+			aux = this->punteroapuntero[posicion];
+			this->punteroapuntero[posicion] = this->punteroapuntero[this->getTotalTuplas()-1];
+			this->punteroapuntero[this->getTotalTuplas()-1] = aux;
+			
+			//Borramos usuario en la última posición
+			delete this->punteroapuntero[this->getTotalTuplas()-1];
+
+			//Disminuimos el tamaño del vector.
+			this->resize(this->getTotalTuplas()-1);
+			this->setTotalTuplas(this->getTotalTuplas()-1);
+		}
+	}
+
+		//Imprimimos el vector de usuario para que el administrador vea que se ha borrado correctamente.
+			this->printTablaUsuarios();
+
+}
 /**
  * @brief Módulo que se encarga de pedir algunos datos al usuario. 
  * @param Usuario *u
