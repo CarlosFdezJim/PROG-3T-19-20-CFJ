@@ -26,9 +26,18 @@
 #include "Usuario.h"
 using namespace std;
 
+///////////////////////////////				DEBUG					////////////////////////////////
+
+void Usuario::setDEBUG(bool DEBUG){
+	this->DEBUG = DEBUG;
+}
+bool Usuario::getDEBUG(){
+	return this->DEBUG;
+}
+
 ///////////////////////////////				 USUARIO					////////////////////////////////
 
-/*Usuario::Usuario(){
+Usuario::Usuario(){
 
 	//if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    CREANDO USUARIOS    **** " << DEFAULT << endl;
@@ -39,15 +48,15 @@ using namespace std;
 		this->apellido = "NULL";
 		this->perfil_usuario = "NULL";	
 	
-	//if(this->getDEBUG() == true){
+	if(this->getDEBUG() == true){
 		cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
-	//}
+	}
 
-}*/
-Usuario::Usuario(){
+}
+Usuario::Usuario(string login, string nombre, string apellido, string perfil_usuario){
 
-	cout  << PURPLE << "\n  ****    CREANDO USUARIOS POR PARÁMETROS    **** " << DEFAULT << endl;
+	cout  << PURPLE << "\n ****    CREANDO USUARIOS POR PARÁMETROS    **** " << DEFAULT << endl;
 
 	//Inicializamos el contenido del Usuario.
 	this->login = login;
@@ -90,7 +99,7 @@ Usuario::~Usuario(){
 }
 Admin::~Admin(){
 
-	//Creo los miembro exclusivos del Administradorm el resto los hereda de Usuario.
+	//Creo los miembro exclusivos del Administrador el resto los hereda de Usuario.
 	int consultas = 0;
 
 }
@@ -134,7 +143,7 @@ void Normal::resizeFoto(int DIM){
 
 	}
 	//Eliminamos la memoria del vector coef.
-	delete [] v_fotos;
+	//delete [] v_fotos;
 
 	//Reasignamos el puntero de coeficientes.
 	v_fotos = aux;
@@ -221,17 +230,22 @@ void Normal::printUsuario(){
 			this->v_fotos[i].printFoto();
 		}
 	}else
-		cout << YELLOW << "Este usuario no tiene fotos. " << DEFAULT << endl;
+		cout << RED << "Este usuario no tiene fotos. " << DEFAULT << endl;
 
 }
+
+///////////////////////////////				 INSERT					////////////////////////////////
+
 void Normal::insertarFotoUsuario(Foto *f){
 
+		cout << PURPLE << "----1------" << DEFAULT << endl;
 	//Aumentamos en uno nuestro vector.
 	this->resizeFoto(this->getTotalFotosUsuario());
-
+		cout << PURPLE << "----2--------" << DEFAULT << endl;
 	//Insertamos en elvector nuestra foto
 	this->v_fotos[this->getTotalFotosUsuario()] = *f;
-	
+			cout << PURPLE << "----3----------" << DEFAULT << endl;
 	//Actualizamos las TotalFotosUsuario
 	this->setTotalFotosUsuario(this->getTotalFotosUsuario()+1);
+			cout << PURPLE << "-----4---------" << DEFAULT << endl;
 }

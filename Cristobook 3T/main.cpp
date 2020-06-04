@@ -29,8 +29,9 @@
 using namespace std;
 
 int main(){
-	
+
 	Vista v;
 	v.menuVista();
+	
 
 }

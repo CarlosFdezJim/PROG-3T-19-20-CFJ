@@ -25,15 +25,33 @@
 #include "TablaUsuarios.h"
 using namespace std;
 
+///////////////////////////////				DEBUG					////////////////////////////////
+
+void TablaUsuarios::setDEBUG(bool DEBUG){
+	this->DEBUG = DEBUG;
+}
+bool TablaUsuarios::getDEBUG(){
+	return this->DEBUG;
+}
+
 ///////////////////////////////				TABLA USUARIOS					////////////////////////////////
 
 TablaUsuarios::TablaUsuarios(){
 	
-	//if(this->getDEBUG() == true){
+	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    CREANDO TABLAUSUARIOS    **** " << DEFAULT << endl;
-	//}
-		//Inicializamos el contenido de la TablaUsuarios.
-		this->TotalTuplas = 0;
+	}
+		// Inicializamos el contenido de la TablaUsuarios.
+		
+		//Inicializamos TotalTuplas a 0.
+		this->setTotalTuplas(0);
+		
+		//Filtro para que las tuplas del vector no sea negativo, en caso de serlo abortará la ejecución.
+		if (this->getTotalTuplas() < 0){
+			cerr << "¡¡ERROR!! llas tuplas no pueden ser negativas." << endl;
+			cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
+			exit(-1);
+		}
 		
 		//Reservamos un nuevo espacio para el vector de punteros que tiene dentro la variable estructurada TablaUsuario
 		this->punteroapuntero = new Usuario*[this->TotalTuplas];
@@ -44,38 +62,43 @@ TablaUsuarios::TablaUsuarios(){
 			exit(-1);
 		}
 		
-	//if(this->getDEBUG() == true){
+	if(this->getDEBUG() == true){
 		cout << GREEN << "La TablaUsuarios se ha creado correctamente.\n" << DEFAULT ;
-		cout  << PURPLE << "************************************** " << DEFAULT << endl;
-	//}
+		cout << PURPLE << "************************************** " << DEFAULT << endl;
+	}
 }
 TablaUsuarios::~TablaUsuarios(){
 
-	//if(this->getDEBUG() == true){
+	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    ELIMANDO TABLAUSUARIOS    **** " << DEFAULT << endl;
-	//}	
-		if (getTotalTuplas() > 0){
+	}	
+		if (this->getTotalTuplas() >= 0){
 			//Eliminamos el vector de punteros a Usuarios.
 			for(int i=0; i <= this->getTotalTuplas(); i++){
 				delete punteroapuntero[i];
-				this->getTotalTuplas()-1;
+				//this->getTotalTuplas()-1;
 			}
 		
 			//Ponemos los datos del usuario a 0 antes de eliminar el usuario.
 			this->setTotalTuplas(0);
 
-			//Borramos el vector dinámico de coeficientes.
+			//Borramos el vector dinámico de punteros a usuarios.
 			delete [] punteroapuntero;
+			
+			//Eliminamos la dirección del punteroapuntero.
 			punteroapuntero = 0;
+			
 		}else if (getTotalTuplas() < 0){
 			cerr << RED << "No existe ninguna TablaUsuarios. " << endl;
 	
 		}
-	//if(this->getDEBUG() == true){
+	if(this->getDEBUG() == true){
 		cout << GREEN << "La TablaUsuarios se ha eliminado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
-	//}
+	}
 }
+///////////////////////////////				 SET/GET					////////////////////////////////
+
 void TablaUsuarios::setTotalTuplas(int TotalTuplas){
 	this->TotalTuplas=TotalTuplas;
 }
@@ -83,6 +106,124 @@ int TablaUsuarios::getTotalTuplas(){
 	return this->TotalTuplas;
 }
 
+///////////////////////////////				 PREDEFINIDOS					////////////////////////////////
+void TablaUsuarios::usuariosPredefinidos(){
+	
+	Foto *f = new Foto;
+	
+	/***************************************
+	**************	CARLOS	****************
+	****************************************/
+	Admin *Carlos = new Admin;
+	Carlos->setLogin("@Carlos");
+	Carlos->setNombre("Carlos");
+	Carlos->setApellido("Fernández");
+	Carlos->setPerfilUsuario("Admin");
+	this->insertarUsuarioTablaUsuarios(Carlos);
+
+	/***************************************
+	**************	JAIME	****************
+	****************************************/
+	Normal *Jaime = new Normal;
+	Jaime->setLogin("@Jaime");
+	Jaime->setNombre("Jaime");
+	Jaime->setApellido("Cabezas");
+	Jaime->setPerfilUsuario("Normal");
+	this->insertarUsuarioTablaUsuarios(Jaime);
+	//Foto1
+	f->setRuta("/home/Jaime/Escritorio/Imagenes/Skone");
+	f->setTipo("jpeg");
+	f->setTamanio(49350);
+	Jaime->insertarFotoUsuario(f);
+			cout << PURPLE << "-----foto------" << DEFAULT << endl;
+	//Foto2
+	f->setRuta("/home/Jaime/Escritorio/Imagenes/Force");
+	f->setTipo("jpeg");
+	f->setTamanio(49350);
+	Jaime->insertarFotoUsuario(f);	
+			cout << PURPLE << "-------foto2---------" << DEFAULT << endl;
+	
+	/***************************************
+	********	CRISTIAN	********
+	****************************************/
+/*	Admin *Cristian = new Admin;
+	Cristian->setLogin("@Cristian");
+	Cristian->setNombre("Cristian");
+	Cristian->setApellido("Campos");
+	Cristian->setPerfilUsuario("Admin");
+	this->insertarUsuarioTablaUsuarios(Cristian);*/
+	
+	/***************************************
+	**************	ADRIAN	****************
+	****************************************/
+/*	Normal *Adrian =  new Normal;
+	Adrian->setLogin("@Adrian");
+	Adrian->setNombre("Adrián");
+	Adrian->setApellido("Castillo");
+	Adrian->setPerfilUsuario("Normal");
+	this->insertarUsuarioTablaUsuarios(Adrian);
+	//Foto1
+	f->setRuta("/home/Adrian/Escritorio/Imagenes/polvora");
+	f->setTipo("gif");
+	f->setTamanio(6050);
+	Adrian->insertarFotoUsuario(f);
+	//Foto2
+	f->setRuta("/home/Adrian/Escritorio/Imagenes/Calamar");
+	f->setTipo("bmp");
+	f->setTamanio(125910);
+	Adrian->insertarFotoUsuario(f);*/
+	
+	/***************************************
+	**************	PABLO	****************
+	****************************************/
+/*	Admin *Pablo = new Admin;
+	Pablo->setLogin("@Pablo");
+	Pablo->setNombre("Pablo");
+	Pablo->setApellido("García");
+	Pablo->setPerfilUsuario("Admin");
+	this->insertarUsuarioTablaUsuarios(Pablo);*/	
+	
+	/***************************************
+	**************	DAVID	****************
+	****************************************/
+/*	Normal *David = new Normal;
+	David->setLogin("@David");
+	David->setNombre("Antonio David");
+	David->setApellido("López");
+	David->setPerfilUsuario("Normal");
+	this->insertarUsuarioTablaUsuarios(David);
+	//Foto1
+	f->setRuta("/home/David/Escritorio/Imagenes/Semana-Santa-19");
+	f->setTipo("gif");
+	f->setTamanio(6050);
+	David->insertarFotoUsuario(f);
+	//Foto2
+	f->setRuta("/home/David/Escritorio/Imagenes/Wallpaper_Camarón_4K");
+	f->setTipo("jpeg");
+	f->setTamanio(6050);
+	David->insertarFotoUsuario(f);*/
+	
+	/***************************************
+	**************	  ANA	****************
+	****************************************/
+/*	Normal *Ana = new Normal;
+	Ana->setLogin("@Ana");
+	Ana->setNombre("Ana");
+	Ana->setApellido("Tallón");
+	Ana->setPerfilUsuario("Normal");
+	this->insertarUsuarioTablaUsuarios(Ana);
+	//Foto1
+	f->setRuta("/home/Ana/Escritorio/Imagenes/Amorsito");
+	f->setTipo("jpeg");
+	f->setTamanio(6050);
+	Ana->insertarFotoUsuario(f);
+	//Foto2
+	f->setRuta("/home/Ana/Escritorio/Imagenes/Aguacatinhos");
+	f->setTipo("png");
+	f->setTamanio(8710);
+	Ana->insertarFotoUsuario(f);*/
+	
+}
 ///////////////////////////////				 PRINT					////////////////////////////////
 
 void TablaUsuarios::printTablaUsuarios(){
@@ -128,7 +269,7 @@ void TablaUsuarios::resize(int DIM){
 
 }
 
-///////////////////////////////				 OTHER					////////////////////////////////
+///////////////////////////////				 INSERT					////////////////////////////////
 
 void TablaUsuarios::insertarUsuarioTablaUsuarios(Usuario *u){
 	
@@ -139,7 +280,16 @@ void TablaUsuarios::insertarUsuarioTablaUsuarios(Usuario *u){
 	//Actualizamos las TotalTuplas.
 	this->setTotalTuplas(this->getTotalTuplas()+1);
 }
-
+/**
+ * @brief Módulo que se encarga de comprobar el login de un usuario para saber si está usado o no.
+ * @param string Login.
+ * @param Usuario *u.
+ * @param bool usado.
+ * @pre La TablaUsuarios debberá de tener al menos un usuario ingresado
+ * @post Sabremos si el login introducido está usado o no.
+ * @version 1.0
+ * @author Carlos Fdez.
+ */
 void comprobacionLogin(string Login,Usuario *u,bool &usado){
 
 	//Comprobamos si el login está introducido o no. Si lo está devolveremos usado = true;(Lo hacemos aparte porque lo usaremos en varios sitios).
@@ -161,7 +311,7 @@ void TablaUsuarios::eliminarUsuarioTablaUsuarios(){
 		this->punteroapuntero[i]->printUsuario();
 	}
 	//Pedimos al usuario el login (que es único en el sistema) para eliminarlo.
-	cout << "Selecione el usuario que desea eliminar, recuerde que tiene que introducir el login" << endl;
+	cout << YELLOW << "Selecione el usuario que desea eliminar, recuerde que tiene que introducir el login" << DEFAULT << endl;
 	cin >> Login;
 	
 	//Comprobar que el usuario existe.
@@ -196,45 +346,6 @@ void TablaUsuarios::eliminarUsuarioTablaUsuarios(){
 	}else{
 		cout << ERROR << "El Login que usted ha elegido no se encuentra en nuestra tabla de usuarios. " << DEFAULT << endl;
 		}
-}
-void TablaUsuarios::eliminarUsuariosFotosMin(){
-
-	int posicion = 0;
-	int min = 0;
-	Normal *n = new Normal;
-
-	//1) Imprimimos la TablaUsuarios.
-	this->printTablaUsuarios();
-	
-	//2)Pedimos al usuario el número de fotos mínimas que desea eliminar.
-	cout << BLUE << "\n Por favor indique el número de fotos mínimas que tiene que tener un usuario para eliminarlo: " << DEFAULT << endl;
-	cin >> min;
-	
-	n->setFotosMin(min);
-	
-	//3)Buscamos los usuarios que tengan al menos esas fotos.
-	for (int i = 0; i < this->getTotalTuplas(); i++){
-		if (this->punteroapuntero[i]->getTotalFotosUsuario() < n->getFotosMin()){
-			posicion=i;
-			Usuario *aux = new Usuario;
-		
-			//Realizamos el intercambio de posiciones.
-			aux = this->punteroapuntero[posicion];
-			this->punteroapuntero[posicion] = this->punteroapuntero[this->getTotalTuplas()-1];
-			this->punteroapuntero[this->getTotalTuplas()-1] = aux;
-			
-			//Borramos usuario en la última posición
-			delete this->punteroapuntero[this->getTotalTuplas()-1];
-
-			//Disminuimos el tamaño del vector.
-			this->resize(this->getTotalTuplas()-1);
-			this->setTotalTuplas(this->getTotalTuplas()-1);
-		}
-	}
-
-		//Imprimimos el vector de usuario para que el administrador vea que se ha borrado correctamente.
-			this->printTablaUsuarios();
-
 }
 /**
  * @brief Módulo que se encarga de pedir algunos datos al usuario. 
@@ -397,126 +508,47 @@ void TablaUsuarios::ordenarTablaUsuarios(){
 		cout << YELLOW << "\nLo siento, la opción seleccionada no ha sido añadida todavía. " << DEFAULT << endl;
 	}
 }
+/*void TablaUsuarios::eliminarUsuariosFotosMin(){
 
-void TablaUsuarios::usuariosPredefinidos(){
+	int posicion = 0;
+	int min = 0;
+	Normal *n = new Normal;
+
+	//1) Imprimimos la TablaUsuarios.
+	this->printTablaUsuarios();
 	
-	Foto *f = new Foto;
+	//2)Pedimos al usuario el número de fotos mínimas que desea eliminar.
+	cout << BLUE << "\n Por favor indique el número de fotos mínimas que tiene que tener un usuario para eliminarlo: " << DEFAULT << endl;
+	cin >> min;
 	
+	n->setFotosMin(min);
+	
+	//3)Buscamos los usuarios que tengan al menos esas fotos.
+	for (int i = 0; i < this->getTotalTuplas(); i++){
+		if (this->punteroapuntero[i]->getTotalFotosUsuario() < n->getFotosMin()){
+			posicion=i;
+			Usuario *aux = new Usuario;
 		
-	/***************************************
-	**************	CARLOS	****************
-	****************************************/
-	Admin *Carlos = new Admin;
-	Carlos->setLogin("@Carlos");
-	Carlos->setNombre("Carlos");
-	Carlos->setApellido("Fernández");
-	Carlos->setPerfilUsuario("Admin");
-	this->insertarUsuarioTablaUsuarios(Carlos);
+			//Realizamos el intercambio de posiciones.
+			aux = this->punteroapuntero[posicion];
+			this->punteroapuntero[posicion] = this->punteroapuntero[this->getTotalTuplas()-1];
+			this->punteroapuntero[this->getTotalTuplas()-1] = aux;
+			
+			//Borramos usuario en la última posición
+			delete this->punteroapuntero[this->getTotalTuplas()-1];
 
-	
-	/***************************************
-	**************	JAIME	****************
-	****************************************/
-	Normal *Jaime = new Normal;
-	Jaime->setLogin("@Jaime");
-	Jaime->setNombre("Jaime");
-	Jaime->setApellido("Cabezas");
-	Jaime->setPerfilUsuario("Normal");
-	this->insertarUsuarioTablaUsuarios(Jaime);
-	//Foto1
-	f->setRuta("/home/Jaime/Escritorio/Imagenes/Skone");
-	f->setTipo("jpeg");
-	f->setTamanio(49350);
-	Jaime->insertarFotoUsuario(f);
-	//Foto2
-	f->setRuta("/home/Jaime/Escritorio/Imagenes/Force");
-	f->setTipo("jpeg");
-	f->setTamanio(49350);
-	Jaime->insertarFotoUsuario(f);	
-	
-	/***************************************
-	********	CRISTIAN	********
-	****************************************/
-	Admin *Cristian = new Admin;
-	Cristian->setLogin("@Cristian");
-	Cristian->setNombre("Cristian");
-	Cristian->setApellido("Campos");
-	Cristian->setPerfilUsuario("Admin");
-	this->insertarUsuarioTablaUsuarios(Cristian);
+			//Disminuimos el tamaño del vector.
+			this->resize(this->getTotalTuplas()-1);
+			this->setTotalTuplas(this->getTotalTuplas()-1);
+		}
+	}
 
-	
-	/***************************************
-	**************	ADRIAN	****************
-	****************************************/
-	Normal *Adrian =  new Normal;
-	Adrian->setLogin("@Adrian");
-	Adrian->setNombre("Adrián");
-	Adrian->setApellido("Castillo");
-	Adrian->setPerfilUsuario("Normal");
-	this->insertarUsuarioTablaUsuarios(Adrian);
-	//Foto1
-	f->setRuta("/home/Adrian/Escritorio/Imagenes/polvora");
-	f->setTipo("gif");
-	f->setTamanio(6050);
-	Adrian->insertarFotoUsuario(f);
-	//Foto2
-	f->setRuta("/home/Adrian/Escritorio/Imagenes/Calamar");
-	f->setTipo("bmp");
-	f->setTamanio(125910);
-	Adrian->insertarFotoUsuario(f);
-	
-	/***************************************
-	**************	DAVID	****************
-	****************************************/
-	Normal *David = new Normal;
-	David->setLogin("@David");
-	David->setNombre("Antonio David");
-	David->setApellido("López");
-	David->setPerfilUsuario("Normal");
-	this->insertarUsuarioTablaUsuarios(David);
-	//Foto1
-	f->setRuta("/home/David/Escritorio/Imagenes/Semana-Santa-19");
-	f->setTipo("gif");
-	f->setTamanio(6050);
-	David->insertarFotoUsuario(f);
-	//Foto2
-	f->setRuta("/home/David/Escritorio/Imagenes/Wallpaper_Camarón_4K");
-	f->setTipo("jpeg");
-	f->setTamanio(6050);
-	David->insertarFotoUsuario(f);
+		//Imprimimos el vector de usuario para que el administrador vea que se ha borrado correctamente.
+			this->printTablaUsuarios();
 
-	
-	/***************************************
-	**************	PABLO	****************
-	****************************************/
-	Admin *Pablo = new Admin;
-	Pablo->setLogin("@Pablo");
-	Pablo->setNombre("Pablo");
-	Pablo->setApellido("García");
-	Pablo->setPerfilUsuario("Administrador");
-	this->insertarUsuarioTablaUsuarios(Pablo);
-	
-	/***************************************
-	**************	  ANA	****************
-	****************************************/
-	Normal *Ana = new Normal;
-	Ana->setLogin("@Ana");
-	Ana->setNombre("Ana");
-	Ana->setApellido("Tallón");
-	Ana->setPerfilUsuario("Normal");
-	this->insertarUsuarioTablaUsuarios(Ana);
-	//Foto1
-	f->setRuta("/home/Ana/Escritorio/Imagenes/Amorsito");
-	f->setTipo("jpeg");
-	f->setTamanio(6050);
-	Ana->insertarFotoUsuario(f);
-	//Foto2
-	f->setRuta("/home/Ana/Escritorio/Imagenes/Aguacatinhos");
-	f->setTipo("png");
-	f->setTamanio(8710);
-	Ana->insertarFotoUsuario(f);
-	
-}
+}*/
 void TablaUsuarios::Salir(){
+
+	this->~TablaUsuarios();
 	
 }

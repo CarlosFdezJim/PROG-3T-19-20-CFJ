@@ -47,22 +47,12 @@ void Vista::modoDEBUG(bool DEBUG){
 
 Vista::Vista(){
 
-	//this->setDEBUG(true);
-
 	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    CREANDO VISTA    **** " << DEFAULT << endl;
 	}
 	
-		//Inicializamos las totaltuplas para poder crear la TablaUsuarios
+		//Crearemos la TablaUsuarios en el método Vista.
 		this->tu = new TablaUsuarios;
-	
-	
-		//Filtro para que las tuplas del vector no sea negativo, en caso de serlo abortará la ejecución.
-		if (tu->getTotalTuplas() < 0){
-			cerr << "¡¡ERROR!! llas tuplas no pueden ser negativas." << endl;
-			cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
-			exit(-1);
-		}
 
 	if(this->getDEBUG() == true){
 		cout << GREEN << "El modo Vista se ha creado correctamente.\n" << DEFAULT ;
@@ -116,8 +106,8 @@ void printMenu(){
 	cout << BLUE <<  "\n[ 11 ] " << DEFAULT << " Eliminar Fotografía de un Usuario. ";
 	cout << BLUE <<  "\n[ 12 ] " << DEFAULT << " Imprimir Fotografía de un Usuario. ";
 	cout << BLUE <<  "\n[ 13 ] " << DEFAULT << " EXTRA. ";
-	cout << BLUE <<  "\n[ 14 ] " << DEFAULT << " Salir. " << endl;
-	cout << BLUE <<  "\n[ 15 ] " << DEFAULT << " Eliminar usuarios fotos min. " << endl;
+	cout << BLUE <<  "\n[ 14 ] " << DEFAULT << " Eliminar usuarios fotos min. ";
+	cout << BLUE <<  "\n[ 15 ] " << DEFAULT << " Salir. " << endl;
 
 }
 void Vista::menuVista(){
@@ -127,7 +117,7 @@ void Vista::menuVista(){
 	bool creado = false;
 	
 	//Filtro para que el usuario no se salga de las opciones.
-	while(opcion!=14){
+	while(opcion!=15){
 		//Mostramos menú anteriormente realizado.
 		printMenu();
 		
@@ -139,17 +129,22 @@ void Vista::menuVista(){
 
 				case 1:	
 					//Activar/ Desactivar MODO DEBUG
-					modoDEBUG(getDEBUG());
+					this->modoDEBUG(getDEBUG());
 				break;
 
 				case 2:
 					// Ejecutar Testing Automático.
+					if(creado==true){
 					// TestingAutomatico();
+					}else{
+						cout << ERROR << "Recuerde que NO puede realizar el TESTING si no ha creado una TablaUsuarios. " << DEFAULT << endl;
+						}
 				break;
 				
 				case 3:
 					//Crear tabla Usuario
 					if(creado==false){
+						//tu->setDEBUG(this->getDEBUG());
 						tu->usuariosPredefinidos();
 						creado=true;
 					}else{
@@ -204,7 +199,7 @@ void Vista::menuVista(){
 						tu->BuscarLogin();
 						cout << GREEN << "Buscanso Usuario... " << DEFAULT << endl;
 					}else{
-						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
+						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede buscar ningún Usuario. " << DEFAULT << endl;
 						}
 				break;
 				
@@ -213,9 +208,9 @@ void Vista::menuVista(){
 						//1) totalFotosUsuarios
 						//2) Login
 					if(creado==true){
-						tu->ordenarTablaUsuarios();
-						//ordenarTablaUsuarios();
 						cout << GREEN << "Ordenando tabla... " << DEFAULT << endl;
+						tu->ordenarTablaUsuarios();
+						
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -259,10 +254,20 @@ void Vista::menuVista(){
 				break;
 				
 				case 14:
+					//Eliminar Usuarios Fotos min.
+					if(creado==true){
+						cout << "Buscando Usuario con unas fotografías mínimas... " << DEFAULT << endl;
+					}else{
+						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no tiene Usuarios para eliminar. " << DEFAULT << endl;
+						}
+				break;
+				
+				case 15:
 					//Salir
 					cout << PURPLE << "\n ----------SALIENDO---------- " << endl ;
 					cout << " Gracias por usar CRISTOBOOK " << endl;
 					cout << "\n 	© Carlos Fdez " << DEFAULT << endl;
+					//tu->Salir();
 				break;
 				
 				default:

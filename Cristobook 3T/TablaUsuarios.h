@@ -23,17 +23,37 @@ class TablaUsuarios{
 
 	public:
 		/**
-		* @brief Método para crear la tabla de Usuarios.
-		* @pre Debe de haber espacio para crearla.
-		* @post Tendremos creado una vector Polimorfico de punteros a Usuarios
+		* @brief Método que cambia el valor de la variable booleana DEBUG.
+		* @param bool DEBUG 	//Por defecto será true al no poder darle valor.
+		* @post Introduciremos en la variable booleana DEBUG un valor true/false para activar y desactivar el modo DEBUG.
 		* @author Carlos Fdez.
 		* @version 1.0
 		*/
+		void setDEBUG(bool DEBUG);
+		/**
+		* @brief Método que devuelve el valor de la variable booleana DEBUG.
+		* @post Devolveremos el valor que tenga introducido la variable booleana DEBUG.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		bool getDEBUG();
+		
+		
+		/**
+		 * @brief Este módulo se encarga de crear la TablaUsuarios. Creando en el siguiente orden :
+		 *		1º Inicializamos los valores propios de la clase TablaUsuario a 0.
+		 *		2º Creamos la el vector punteroapuntero que es de tipo Usuario.
+		 * @pre Debemos de tener bien hecho los módulos setTotalTuplas y getTotalTuplas, porque lo utilizaremos en la creación de este método.
+		 * @post Crearemos de manera correcta la TablaUsuario y el vector de punteros de Usuario.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
 		TablaUsuarios();
+
 		/**
 		 * @brief Este módulo se encarga de borrar la TablaUsuarios. Eliminando en el siguiente orden :
-		 *		1º Borramos la estructura Foto y los datos introducidos y ponemos a 0 su puntero.
-		 *		2º Borramos la estructura Usuario y los datos introducidos y ponemos a 0 su puntero.
+		 *		1º Borramos el contenido del vector de punteros de Usuario y ponemos TotalTuplas a 0.
+		 *		2º Borramos el vector dinámico de punteros y su dirección.
 		 *		3º Borramos la estructura TablaUsuarios y los datos introducidos y ponemos a 0 su puntero.
 		 * @param TablaUsuarios tu (E/S)
 		 * @pre Debemos de tener bien hecho el módulo borrarUsuario, sino se nos quedarán cosas en el limbo.
@@ -42,52 +62,53 @@ class TablaUsuarios{
 		 * @author Carlos Fdez.
 		 */
 		~TablaUsuarios();
+		
+		
 		/**
-		* @brief Método que se encarga de eliminar todos los usuarios que tengan menos fotos que fotos_min, para ello pediremos al usuario introduzcan un 			* 	número que será las fotos mínimas que debe de tener el usuario para no ser eliminado.
-		* @pre Deberemos de tener al menos introducidos más de un usuario, y además tener más de una foto cada usuario.
-		* @post Eliminaremos el usuario que tenga menos de "fotos_min"
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
-		void eliminarUsuariosFotosMin();
-		/**
-		 * @brief Este módulo se encarga de almacenar en el puntero de tipo TablaUsuario una variable int llamada TotalTuplas.
-		 * @param TablaUsuarios tu (E/S)
+		 * @brief Este método se encarga de almacenar el valor de TotalTuplas con el valor pasado por referencia.
 		 * @param int TotalTuplas.
-		 * @post Se alamacenará en la variable estructurada TablaUsuarios el tota de tuplas que tiene la tabla.(Las útiles del vector de usuarios llamado 			 * 	PunteroAPuntero).
+		 * @post Se alamacenará en la variable estructurada TablaUsuarios el valor de TotalTuplas.(Las útiles del vector de usuarios llamado 			 * 	PunteroAPuntero).
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
 		void setTotalTuplas(int TotalTuplas);
 		/**
-		 * @brief Devuelve el puntero totalFotosUsuario de una variable estructurada de tipo Usuario.
+		 * @brief Devuelve el valor actual de el miembro TotalTuplas.
 		 * @param TablaUsuarios tu (E/S)
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
 		int getTotalTuplas();
+		
+		
 		/**
-		 * @brief Módulo que se encarga de almacenar en la Tabla de Usuarios algunos usuarios predefinidos.
-		 * @pre Deberemos tener bien hechos los Set para que no fallen al insertar los usuarios predefinidos.
+		 * @brief Módulo que se encarga de insertar en la Tabla de Usuarios algunos usuarios predefinidos (dedicados a hacer pruebas).
+		 * @pre Deberemos tener bien hecho el método para ingresar los usuarios.
 		 * @post Los usuarios serán introducidos en la Tabla de Usuarios.
 		 * @version 2.2
 		 * @author Carlos Fdez.
 		 */
 		void usuariosPredefinidos();
+		
+		
 		/**
-		* @brief Imprimiremos la tabla Usuarios
+		* @brief Imprimiremos la tabla Usuarios.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
 		void printTablaUsuarios();
+		
+		
 		/**
 		* @brief Método que se usa para insertar a los usuario en la TablaUsuarios.
-		* @pre Debes tener creado los usuarios.¡OJO!Este método sólamente sirve para añadir los usuarios ya creados, para introducir un usuario nuevo, hay 			* 	otro método creado.
-		* @post Se insertarán los usuarios ya creados previamente.
+		* @pre Debes tener creado los usuarios.¡OJO!Este método sólamente sirve para añadir los usuarios ya creados, para introducir un usuario nuevo, hay 			* 	otro método creado llamado insertarUsuarioNuevo().
+		* @post Se insertarán los usuarios con los valores ya creados previamente.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
 		void insertarUsuarioTablaUsuarios(Usuario *u);
+		
+		
 		/**
 		* @brief Método que se usa para hacer crecer o decrecer el vector. 
 		* @post Tendrémos un vector de mayor/menos dimensión.
@@ -95,6 +116,8 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void resize(int DIM);
+		
+		
 		/**
 		* @brief Insertaremos un usuario en el vector de usuarios
 		* @pre Debemos de tener memoria suficiente para Insertarlo
@@ -143,6 +166,14 @@ class TablaUsuarios{
 		 * @author Carlos Fdez.
 		 */
 		void ordenamosTotalFotosUsuario();
+		/**
+		* @brief Método que se encarga de eliminar todos los usuarios que tengan menos fotos que fotos_min, para ello pediremos al usuario introduzcan un 			* 	número que será las fotos mínimas que debe de tener el usuario para no ser eliminado.
+		* @pre Deberemos de tener al menos introducidos más de un usuario, y además tener más de una foto cada usuario.
+		* @post Eliminaremos el usuario que tenga menos de "fotos_min"
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void eliminarUsuariosFotosMin();
 		/**
 		 * @brief Módulo que se encarga de liberar toda la memoria dinñamica que hemos utilizado en nuestro programa.
 		 * @param TablaUsuario tu (E/S)

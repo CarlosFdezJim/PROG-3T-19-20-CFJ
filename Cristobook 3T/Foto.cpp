@@ -26,6 +26,14 @@
 #include "Foto.h"
 using namespace std;
 
+///////////////////////////////				DEBUG					////////////////////////////////
+
+void Foto::setDEBUG(bool DEBUG){
+	this->DEBUG = DEBUG;
+}
+bool Foto::getDEBUG(){
+	return this->DEBUG;
+}
 ///////////////////////////////				 USUARIO					////////////////////////////////
 
 Foto::Foto(){

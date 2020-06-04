@@ -21,7 +21,21 @@ class Foto{
 		unsigned long int tamanio;	//Se va a guardar en bytes.
 		bool DEBUG;
 	public:
-		
+		/**
+		* @brief Método que cambia el valor de la variable booleana DEBUG.
+		* @param bool DEBUG 	//Por defecto será true al no poder darle valor.
+		* @post Introduciremos en la variable booleana DEBUG un valor true/false para activar y desactivar el modo DEBUG.
+		* @author Carlos Fdez.
+		* @version 1.0
+		*/
+		void setDEBUG(bool DEBUG);
+		/**
+		* @brief Método que devuelve el valor de la variable booleana DEBUG.
+		* @post Devolveremos el valor que tenga introducido la variable booleana DEBUG.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		bool getDEBUG();
 		/**
 		 * @brief Se reservará un espacio de memoria para crear una estructura de tipo Foto, siempre y cuando haya memoria suficiente.
 		 * @post Se reservará un espacio de memoria para la Foto.
