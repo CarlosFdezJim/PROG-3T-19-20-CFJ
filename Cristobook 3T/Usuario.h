@@ -247,6 +247,7 @@ class Normal: public Usuario{
 		* @version 1.0
 		*/
 		virtual void printUsuario();
+		
 		/**
 		 * @brief Este módulo se usa para introducir las fotos del usuario predefinido.
 		 * @param Foto *f

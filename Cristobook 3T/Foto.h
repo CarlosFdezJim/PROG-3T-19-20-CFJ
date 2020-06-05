@@ -20,6 +20,7 @@ class Foto{
 		string tipo;			//Tipo de la foto(jpg, png).
 		unsigned long int tamanio;	//Se va a guardar en bytes.
 		bool DEBUG;
+
 	public:
 		/**
 		* @brief Método que cambia el valor de la variable booleana DEBUG.

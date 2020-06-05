@@ -110,35 +110,7 @@ void Foto::printFoto(){
 	cout << PURPLE << "----------------" << DEFAULT << endl;
 	
 }
-/*void Foto::printFotosUsuario(){
 
-	string login = "";
-	bool usado = true;
-	int posicion=0;
-	int cont = 0;
-	Usuario *u = 0;
-	
-	cout << PURPLE << "Por favor introduzca el Login del usuario que quiere ver sus fotos: " << DEFAULT << endl;
-	cin >> login;
-	
-	//Comprobamos si el login existe o no.
-	for(int i = 0;i < tu->TotalTuplas;i++){
-		comprobacionLogin(login,tu.punteroapuntero[i],usado);
-		if(usado == true && cont != 1){
-			posicion=i;
-			cont++;
-			cout << "Posición: " << posicion << endl;	
-		}
-	}
-
-	//Si existe el login
-	if(usado == true){
-		//cout << "DEBUG: Posición: " << posicion << endl;
-		this->printVectorFotos(tu->punteroapuntero[posicion]->v_fotos, tu->punteroapuntero[posicion]);
-		
-	}else
-		cerr << RED << "Lo sentimos, el Login introducido no está en nuestra base de datos." << DEFAULT << endl;
-}*/
 /**
  * @brief Este módulo se encarga de pedir los valores predeterminados al usuario y distingirá entre varias opciones para asignarle un tamaño a la foto.
  * @param Foto *f

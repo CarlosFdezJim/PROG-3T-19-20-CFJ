@@ -215,7 +215,7 @@ void Vista::menuVista(){
 				case 10:
 					//Añadir Fotografía en Usuario.
 					if(creado==true){
-						//InsertarFotoUsuario();
+						tu->insertarFoto();
 						cout << GREEN << "Insertando fotografía... " << DEFAULT << endl;
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
@@ -226,6 +226,7 @@ void Vista::menuVista(){
 					//Eliminar Fotografía de un Usuario.
 					if(creado==true){
 						cout << GREEN << "Eliminando fotografía... " << DEFAULT << endl;
+						tu->eliminarFotoUsuario();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -235,6 +236,7 @@ void Vista::menuVista(){
 					//Imprimir Fotografía de un Usuario.
 					if(creado==true){
 						cout << GREEN << "Imprimiendo fotografía... " << DEFAULT << endl;
+						tu->printFotosUsuario();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
