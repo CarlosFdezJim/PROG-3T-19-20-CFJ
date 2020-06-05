@@ -47,14 +47,14 @@ void Vista::modoDEBUG(bool DEBUG){
 
 Vista::Vista(){
 
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout  << PURPLE << "\n  ****    CREANDO VISTA    **** " << DEFAULT << endl;
 	}
 	
 		//Crearemos la TablaUsuarios en el método Vista.
 		this->tu = new TablaUsuarios;
 
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout << GREEN << "El modo Vista se ha creado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}
@@ -62,19 +62,13 @@ Vista::Vista(){
 }
 Vista::~Vista(){
 
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout  << PURPLE << "\n  ****    DESTRUYENDO VISTA    **** " << DEFAULT << endl;
 	}
 		//Borramos los datos de los miembros del polinomio.
 		tu->setTotalTuplas(0);
 
-		//Borramos el contenido.
-		delete tu;
-		
-		//Borramos el valor del puntero.
-		tu = 0;
-
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout << GREEN << "El modo Vista se ha eliminado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}
@@ -135,7 +129,8 @@ void Vista::menuVista(){
 				case 2:
 					// Ejecutar Testing Automático.
 					if(creado==true){
-					// TestingAutomatico();
+						cout << GREEN << "Ejecutando Testing en TablaUsuario... " << DEFAULT << endl;					
+						tu->Testing();
 					}else{
 						cout << ERROR << "Recuerde que NO puede realizar el TESTING si no ha creado una TablaUsuarios. " << DEFAULT << endl;
 						}
@@ -144,7 +139,7 @@ void Vista::menuVista(){
 				case 3:
 					//Crear tabla Usuario
 					if(creado==false){
-						//tu->setDEBUG(this->getDEBUG());
+						cout << GREEN << "Creando TablaUsuario... " << DEFAULT << endl;
 						tu->usuariosPredefinidos();
 						creado=true;
 					}else{
@@ -155,6 +150,7 @@ void Vista::menuVista(){
 				case 4:
 					//Eliminar TablaUsuarios
 					if(creado==true){
+						cout << GREEN << "Eliminando TablaUsuario... " << DEFAULT << endl;
 						tu->~TablaUsuarios();
 						creado=false;
 					}else{
@@ -267,7 +263,7 @@ void Vista::menuVista(){
 					cout << PURPLE << "\n ----------SALIENDO---------- " << endl ;
 					cout << " Gracias por usar CRISTOBOOK " << endl;
 					cout << "\n 	© Carlos Fdez " << DEFAULT << endl;
-					//tu->Salir();
+					//this->~Vista();
 				break;
 				
 				default:

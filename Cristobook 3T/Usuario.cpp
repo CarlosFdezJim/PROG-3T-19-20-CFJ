@@ -39,9 +39,9 @@ bool Usuario::getDEBUG(){
 
 Usuario::Usuario(){
 
-	//if(this->getDEBUG() == true){
+	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    CREANDO USUARIOS    **** " << DEFAULT << endl;
-	//}
+	}
 		//Inicializamos el contenido del Usuario.
 		this->login = "NULL";
 		this->nombre = "NULL";
@@ -56,17 +56,19 @@ Usuario::Usuario(){
 }
 Usuario::Usuario(string login, string nombre, string apellido, string perfil_usuario){
 
-	cout  << PURPLE << "\n ****    CREANDO USUARIOS POR PARÁMETROS    **** " << DEFAULT << endl;
+	if(this->getDEBUG() == true){
+		cout  << PURPLE << "\n ****    CREANDO USUARIOS POR PARÁMETROS    **** " << DEFAULT << endl;
+	}
+		//Inicializamos el contenido del Usuario.
+		this->login = login;
+		this->nombre = nombre;
+		this->apellido = apellido;
+		this->perfil_usuario = perfil_usuario;	
 
-	//Inicializamos el contenido del Usuario.
-	this->login = login;
-	this->nombre = nombre;
-	this->apellido = apellido;
-	this->perfil_usuario = perfil_usuario;	
-
-	cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
-	cout  << PURPLE << "************************************** " << DEFAULT << endl;
-
+	if(this->getDEBUG() == true){
+		cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
+		cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	}
 }
 Admin::Admin():Usuario(){
 
@@ -143,7 +145,7 @@ void Normal::resizeFoto(int DIM){
 
 	}
 	//Eliminamos la memoria del vector coef.
-	//delete [] v_fotos;
+	delete [] v_fotos;
 
 	//Reasignamos el puntero de coeficientes.
 	v_fotos = aux;
@@ -238,14 +240,28 @@ void Normal::printUsuario(){
 
 void Normal::insertarFotoUsuario(Foto *f){
 
-		cout << PURPLE << "----1------" << DEFAULT << endl;
 	//Aumentamos en uno nuestro vector.
 	this->resizeFoto(this->getTotalFotosUsuario());
-		cout << PURPLE << "----2--------" << DEFAULT << endl;
+
 	//Insertamos en elvector nuestra foto
 	this->v_fotos[this->getTotalFotosUsuario()] = *f;
-			cout << PURPLE << "----3----------" << DEFAULT << endl;
+
 	//Actualizamos las TotalFotosUsuario
 	this->setTotalFotosUsuario(this->getTotalFotosUsuario()+1);
-			cout << PURPLE << "-----4---------" << DEFAULT << endl;
+
+}
+
+///////////////////////////////				 SOBRECARGA					////////////////////////////////
+
+ostream& operator<<(ostream &flujo, Usuario *u){
+	
+	//Imprimimos el usuario con todos sus miembros.
+	flujo << YELLOW << "****************************************" << endl;
+	flujo << YELLOW <<  "Login: " << DEFAULT << u->getLogin() << endl;
+	flujo << YELLOW << "Nombre: " << DEFAULT << u->getNombre() << endl;
+	flujo << YELLOW << "Apellido: " << DEFAULT << u->getApellido() << endl;
+	flujo << YELLOW << "Perfil de usuarios: " << DEFAULT << u->getPerfilUsuario() << endl;
+	flujo << YELLOW << "--------------------------" << DEFAULT << endl;
+	
+	return flujo;
 }

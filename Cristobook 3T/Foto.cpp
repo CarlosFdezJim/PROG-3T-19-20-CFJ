@@ -38,41 +38,41 @@ bool Foto::getDEBUG(){
 
 Foto::Foto(){
 
-	cout  << PURPLE << "\n  ****    CREANDO FOTO    **** " << DEFAULT << endl;
-	//Reservamos un nuevo espacio de memoria para la Foto y lo inicializamos.
-	Foto *f;
-	
-	//Inicializamos el contenido del Usuario.	
-	this->ruta = "";
-	this->tipo = "";
-	this->tamanio = 0;
-	
-	//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
-	if (f == 0){
-		cerr << "Error. No hay memoria suficiente para crear una foto nueva. Se abortará la ejecución" << endl;
-		exit(-1);
+	if(this->getDEBUG() == true){
+		cout  << PURPLE << "\n  ****    CREANDO FOTO    **** " << DEFAULT << endl;
 	}
+		//Reservamos un nuevo espacio de memoria para la Foto y lo inicializamos.
+		Foto *f;
 	
-	cout << GREEN << "La Foto se ha creado correctamente.\n" << DEFAULT ;
-	cout  << PURPLE << "************************************** " << DEFAULT << endl;
+		//Inicializamos el contenido del Usuario.	
+		this->ruta = "";
+		this->tipo = "";
+		this->tamanio = 0;
+	
+		//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
+		if (f == 0){
+			cerr << "Error. No hay memoria suficiente para crear una foto nueva. Se abortará la ejecución" << endl;
+			exit(-1);
+		}
+	if(this->getDEBUG() == true){	
+		cout << GREEN << "La Foto se ha creado correctamente.\n" << DEFAULT ;
+		cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	}
 }
 Foto::~Foto(){
 
-	cout  << PURPLE << "\n  ****    BORRANDO FOTO    **** " << DEFAULT << endl;
-
-	//Ponemos a cero/null todos los datos que tiene la Foto
-	this->ruta = "NULL";
-	this->tipo = "NULL";
-	this->tamanio = -1;
-
-	//borro el fragmento de memoria
-	//delete f;
-
-	//elimino la dirección que referenciaba al fragmento de memoria(puntero).
-	//f = 0;
-		
-	cout << GREEN << "La foto se ha borrado correctamente.\n" << DEFAULT ;
-	cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	if(this->getDEBUG() == true){
+		cout  << PURPLE << "\n  ****    BORRANDO FOTO    **** " << DEFAULT << endl;
+	}
+		//Ponemos a cero/null todos los datos que tiene la Foto
+		this->ruta = "NULL";
+		this->tipo = "NULL";
+		this->tamanio = -1;
+	
+	if(this->getDEBUG() == true){
+		cout << GREEN << "La foto se ha borrado correctamente.\n" << DEFAULT ;
+		cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	}
 }
 
 ///////////////////////////////				 SET					////////////////////////////////

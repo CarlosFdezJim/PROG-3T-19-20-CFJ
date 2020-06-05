@@ -82,6 +82,27 @@ class TablaUsuarios{
 		
 		
 		/**
+		* @brief Método que realiza un Testing: 
+		* 	1) Insertar 3 Usuarios en TablaUsuarios.
+		*	2) Eliminar 5 Usuarios de TablaUsuarios.
+		*	3) Insertar 2 Usuarios en TablaUsuarios.
+		*	4) Eliminar 5 Usuarios de TablaUsuarios.
+		* @pre Tener bien creados los módulos a testar.
+		* @post Realizaremos un testing automatizado.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void Testing();
+		/**
+		* @brief Testing Automático
+		* @pre Tener bien creados los módulos a testar.
+		* @post Realizaremos un testing automatizado.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void TestingAutomatico();
+		
+		/**
 		 * @brief Módulo que se encarga de insertar en la Tabla de Usuarios algunos usuarios predefinidos (dedicados a hacer pruebas).
 		 * @pre Deberemos tener bien hecho el método para ingresar los usuarios.
 		 * @post Los usuarios serán introducidos en la Tabla de Usuarios.
@@ -176,9 +197,8 @@ class TablaUsuarios{
 		void eliminarUsuariosFotosMin();
 		/**
 		 * @brief Módulo que se encarga de liberar toda la memoria dinñamica que hemos utilizado en nuestro programa.
-		 * @param TablaUsuario tu (E/S)
 		 * @post El programa no dejará ningún dato en el limbo, porque todo será borrado y puesto a 0/NULL
-		 * @version 2.0
+		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
 		void Salir();

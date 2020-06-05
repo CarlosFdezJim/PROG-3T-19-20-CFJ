@@ -32,6 +32,15 @@ int main(){
 
 	Vista v;
 	v.menuVista();
-	
+
+	//Usuario *Carlos = new Usuario;		
+	/*Usuario *Carlos = new Usuario("@Carlos","Carlos","Fernández","Admin");
+	Carlos->setLogin("@Carlos");
+	Carlos->setNombre("Carlos");
+	Carlos->setApellido("Fernández");
+	Carlos->setPerfilUsuario("Admin");
+
+	cout << &Carlos << endl;
+	cout << Carlos << endl;*/
 
 }

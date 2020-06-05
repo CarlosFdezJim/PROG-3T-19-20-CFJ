@@ -3,7 +3,7 @@ BIENVENIDO Al SISTEMA CRISTOBOOK
 Pulse la tecla que desee para realizar una de las siguientes acciones:
 
 	1) Activar/Desactivar MODO DEBUG.
-	2) Ejecutar Testing Automático.
+	2) Ejecutar Testing Automático.(IMPLEMENTADO)
 	3) Crear tabla Usuarios. (IMPLEMENTADO)
 	4) Eliminar tabla Usuarios. (IMPLEMENTADO)
 	5) Imprimir tabla Usuarios. (IMPLEMENTADO)

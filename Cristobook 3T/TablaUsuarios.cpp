@@ -76,7 +76,7 @@ TablaUsuarios::~TablaUsuarios(){
 			//Eliminamos el vector de punteros a Usuarios.
 			for(int i=0; i <= this->getTotalTuplas(); i++){
 				delete punteroapuntero[i];
-				//this->getTotalTuplas()-1;
+				this->getTotalTuplas()-1;
 			}
 		
 			//Ponemos los datos del usuario a 0 antes de eliminar el usuario.
@@ -107,6 +107,7 @@ int TablaUsuarios::getTotalTuplas(){
 }
 
 ///////////////////////////////				 PREDEFINIDOS					////////////////////////////////
+
 void TablaUsuarios::usuariosPredefinidos(){
 	
 	Foto *f = new Foto;
@@ -135,28 +136,26 @@ void TablaUsuarios::usuariosPredefinidos(){
 	f->setTipo("jpeg");
 	f->setTamanio(49350);
 	Jaime->insertarFotoUsuario(f);
-			cout << PURPLE << "-----foto------" << DEFAULT << endl;
 	//Foto2
 	f->setRuta("/home/Jaime/Escritorio/Imagenes/Force");
 	f->setTipo("jpeg");
 	f->setTamanio(49350);
 	Jaime->insertarFotoUsuario(f);	
-			cout << PURPLE << "-------foto2---------" << DEFAULT << endl;
 	
 	/***************************************
 	********	CRISTIAN	********
 	****************************************/
-/*	Admin *Cristian = new Admin;
+	Admin *Cristian = new Admin;
 	Cristian->setLogin("@Cristian");
 	Cristian->setNombre("Cristian");
 	Cristian->setApellido("Campos");
 	Cristian->setPerfilUsuario("Admin");
-	this->insertarUsuarioTablaUsuarios(Cristian);*/
+	this->insertarUsuarioTablaUsuarios(Cristian);
 	
 	/***************************************
 	**************	ADRIAN	****************
 	****************************************/
-/*	Normal *Adrian =  new Normal;
+	Normal *Adrian =  new Normal;
 	Adrian->setLogin("@Adrian");
 	Adrian->setNombre("Adrián");
 	Adrian->setApellido("Castillo");
@@ -171,22 +170,22 @@ void TablaUsuarios::usuariosPredefinidos(){
 	f->setRuta("/home/Adrian/Escritorio/Imagenes/Calamar");
 	f->setTipo("bmp");
 	f->setTamanio(125910);
-	Adrian->insertarFotoUsuario(f);*/
+	Adrian->insertarFotoUsuario(f);
 	
 	/***************************************
 	**************	PABLO	****************
 	****************************************/
-/*	Admin *Pablo = new Admin;
+	Admin *Pablo = new Admin;
 	Pablo->setLogin("@Pablo");
 	Pablo->setNombre("Pablo");
 	Pablo->setApellido("García");
 	Pablo->setPerfilUsuario("Admin");
-	this->insertarUsuarioTablaUsuarios(Pablo);*/	
+	this->insertarUsuarioTablaUsuarios(Pablo);
 	
 	/***************************************
 	**************	DAVID	****************
 	****************************************/
-/*	Normal *David = new Normal;
+	Normal *David = new Normal;
 	David->setLogin("@David");
 	David->setNombre("Antonio David");
 	David->setApellido("López");
@@ -201,12 +200,12 @@ void TablaUsuarios::usuariosPredefinidos(){
 	f->setRuta("/home/David/Escritorio/Imagenes/Wallpaper_Camarón_4K");
 	f->setTipo("jpeg");
 	f->setTamanio(6050);
-	David->insertarFotoUsuario(f);*/
+	David->insertarFotoUsuario(f);
 	
 	/***************************************
 	**************	  ANA	****************
 	****************************************/
-/*	Normal *Ana = new Normal;
+	Normal *Ana = new Normal;
 	Ana->setLogin("@Ana");
 	Ana->setNombre("Ana");
 	Ana->setApellido("Tallón");
@@ -221,7 +220,7 @@ void TablaUsuarios::usuariosPredefinidos(){
 	f->setRuta("/home/Ana/Escritorio/Imagenes/Aguacatinhos");
 	f->setTipo("png");
 	f->setTamanio(8710);
-	Ana->insertarFotoUsuario(f);*/
+	Ana->insertarFotoUsuario(f);
 	
 }
 ///////////////////////////////				 PRINT					////////////////////////////////
@@ -304,12 +303,13 @@ void TablaUsuarios::eliminarUsuarioTablaUsuarios(){
 	bool usado = false;
 	unsigned int posicion = 0;
 	int cont = 0;
-	Usuario *u;
+	//Usuario *u;
 	
 	//Imprimimos la tabla de Usuarios
 	for(int i = 0; i < this->getTotalTuplas(); i++){
 		this->punteroapuntero[i]->printUsuario();
 	}
+	
 	//Pedimos al usuario el login (que es único en el sistema) para eliminarlo.
 	cout << YELLOW << "Selecione el usuario que desea eliminar, recuerde que tiene que introducir el login" << DEFAULT << endl;
 	cin >> Login;
@@ -474,9 +474,9 @@ void TablaUsuarios::ordenarTablaUsuarios(){
 	
 	//Submenú ordenar.
 	cout << BLUE << "\n******************************";
-	cout << "\n[1] Ordenar por Login ";
-	cout << "\n[2] Ordenar por el total fotos. ";
-	cout << "\n******************************" << DEFAULT << endl;
+	cout << BLUE << "\n[1] " << DEFAULT << "Ordenar por Login ";
+	cout << BLUE << "\n[2] " << DEFAULT << "Ordenar por el total fotos. ";
+	cout << BLUE << "\n******************************" << DEFAULT << endl;
 	cout << "Seleccione el criterio por el que quiere ordenar: " << endl;
 	cin >> opcion;
 	
@@ -547,8 +547,92 @@ void TablaUsuarios::ordenarTablaUsuarios(){
 			this->printTablaUsuarios();
 
 }*/
+
+///////////////////////////////				 TESTING					////////////////////////////////
+void TablaUsuarios::TestingAutomatico(){
+
+	cout  << CYAN << " ****    IMPRIMIENDO TABLA DE USUARIOS    **** " << DEFAULT << endl;
+	this->printTablaUsuarios();
+	cout  << CYAN << " ****    ORDENANDO TABLA DE USUARIOS POR LOGIN    **** " << DEFAULT << endl;
+	this->ordenamosLogin();
+	cout  << YELLOW << " Ordenando... " << DEFAULT << endl;
+	cout  << CYAN << " ****    IMPRIMIENDO TABLA DE USUARIOS    **** " << DEFAULT << endl;
+	this->printTablaUsuarios();
+	/*cout  << CYAN << " ****    INSERTANDO FOTOS A CADA USUARIOS    **** " << DEFAULT << endl;
+	for(int i=0; i < getTotalTuplas(tu); i++){
+		this->insertarFoto();
+	}*/
+	cout  << PURPLE << " ****    ELIMINANDO USUARIOS    **** " << DEFAULT << endl;
+	for(int j=0; j < 7; j++){
+		this->eliminarUsuarioTablaUsuarios();
+	}
+
+}
+
+void TablaUsuarios::Testing(){
+
+	int opcion = 0;
+
+	while(opcion!=5){
+		cout << BLUE << " ****************************** "<< DEFAULT << endl;
+		cout << BLUE << " *****    MENÚ TESTING    ***** " << DEFAULT << endl;
+		cout << BLUE << " ****************************** "<< DEFAULT << endl;
+		cout << BLUE << "[1] " << DEFAULT << " Insertar 3 Usuarios en TablaUsuarios. "<< DEFAULT << endl;
+		cout << BLUE << "[2] " << DEFAULT << " Eliminar 5 Usuarios de TablaUsuarios. "<< DEFAULT << endl;
+		cout << BLUE << "[3] " << DEFAULT << " Insertar 2 Usuarios en TablaUsuarios. "<< DEFAULT << endl;
+		cout << BLUE << "[4] " << DEFAULT << " Testing automátizado. "<< DEFAULT << endl;
+		cout << BLUE << "[5] " << DEFAULT << " Salir. "<< DEFAULT << endl;
+		cout << BLUE << " ****************************** " << DEFAULT << endl;
+		
+		//Pedimos al usuario que escoga una opción de las mostradas previamente.
+		cout << "\nEliga usted el Testing que desea ejecutar: " << endl;
+		cin >> opcion;
+
+		switch (opcion){
+
+			case 1:	
+				// 1º) Insetamos tres usuarios
+				for(int j=0; j < 3; j++){
+					this->insertarUsuarioNuevo();
+				}
+			break;
+			
+			case 2:	
+				// 2º) Eliminamos cinco usuario
+				for(int k=0; k < 5; k++){
+					this->eliminarUsuarioTablaUsuarios();	
+				}
+			break;
+			
+			case 3:	
+				// 3º) Insertamos dos usuarios
+				for(int l=0; l < 2; l++){
+					this->insertarUsuarioNuevo();
+				}
+			break;
+			
+			case 4:	
+				// 4º)Testing automátizado
+				 TestingAutomatico();
+			break;
+			
+			case 5:	
+				// 5º) Salir
+				cout << " Saliendo del Testing " << endl;
+			break;
+	
+			default:
+				cout << BLUE << "Lo siento, la opción seleccionada no es correcta. " << DEFAULT << endl;
+				cout << BLUE << "Por favor seleccione otra o pulse 14 para salir. \n" << DEFAULT << endl;
+			}
+	}
+}
+
+///////////////////////////////				 EXIT					////////////////////////////////
+
 void TablaUsuarios::Salir(){
 
-	this->~TablaUsuarios();
+	//this->TablaUsuarios();
+	//this->~TablaUsuarios();
 	
 }
