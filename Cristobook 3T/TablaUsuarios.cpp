@@ -377,17 +377,17 @@ void ValoresFoto(Foto *f){
 }
 void TablaUsuarios::insertarFoto(){
 
-	string login = "";
+	string Login = "";
 	bool usado = false;
 	int posicion=0;
 	int cont = 0;
 	
 	cout << "Introduce su Login del usuario al que quieres introducir la fotografía : " << endl;
-	cin >> login;
+	cin >> Login;
 	
 	//Comprobamos si el login existe o no.
 	for(int i = 0;i < this->getTotalTuplas();i++){
-		comprobacionLogin(login,this->punteroapuntero[i],usado);
+		comprobacionLogin(Login,this->punteroapuntero[i],usado);
 		if(usado == true && cont != 1){
 			posicion=i;
 			cont++;	
@@ -417,28 +417,28 @@ void TablaUsuarios::insertarFoto(){
  * @version 1.0
  * @author Carlos Fdez.
  */
-void pedirDatosUsuario(Usuario *u){
+void TablaUsuarios::pedirDatosUsuario(Usuario *u){
 	
 	string nombre = "";
 	string apellido = "";
-	string perfilUsuario = "";
 
 	cout << YELLOW << "Nombre: " << DEFAULT << endl;
 	cin >> nombre;
 	cout << YELLOW << "Apellido: " << DEFAULT << endl;
 	cin >> apellido;
-	cout << YELLOW << "Perfil de usuarios: " << DEFAULT  << endl;
-	cin >> perfilUsuario;
+	//cout << YELLOW << "Perfil de usuarios: " << DEFAULT  << endl;
+	//cin >> perfilUsuario;
 	
 	u->setNombre(nombre);
 	u->setApellido(apellido);
-	u->setPerfilUsuario(perfilUsuario);
+	//u->setPerfilUsuario(perfilUsuario);
 
 }
 void TablaUsuarios::insertarUsuarioNuevo(){
 
 	string Login = "";
 	bool usado = false;
+	int opcion = 0;
 		
 	
 	//Pedimos al usuario los datos.
@@ -453,13 +453,27 @@ void TablaUsuarios::insertarUsuarioNuevo(){
 	
 	//Si el usuario no existe entramos en este if y creamos Usuario y lo insertamos en la TablaUsuarios.
 	if(usado != true){
-		//if ( opcion = 1){
+		cout << GREEN << " ¿Que tipo de Usuario desea insertar? " << DEFAULT << endl;
+		cout << " [1] Normal " << endl;
+		cout << " [2] Admin " << endl;
+		cin >> opcion;
+		cout << " *********************************** " << endl;
+		if (opcion == 1){
 			//Reservamos el espacio de memmoria al nuevo Usuario.
 			Normal *n = new Normal;
 			n->setLogin(Login);
 			pedirDatosUsuario(n);
+			n->setPerfilUsuario("Normal");
 			this->insertarUsuarioTablaUsuarios(n);
-		//}
+		}else if(opcion == 2){
+			Admin *a = new Admin;
+			a->setLogin(Login);
+			pedirDatosUsuario(a);
+			a->setPerfilUsuario("Admin");
+			this->insertarUsuarioTablaUsuarios(a);
+		}else{
+			 cout << RED << " La opción escogida no es válida, lo siento " << DEFAULT << endl;
+		 }
 	}else{
 		cout << RED << "El Login introducido ya está en uso." << DEFAULT << endl;
 		}
@@ -513,9 +527,7 @@ void TablaUsuarios::ordenamosLogin(){
 }
 void TablaUsuarios::ordenamosTotalFotosUsuario(){
 	
-	//Filtro desde uno porque al crear la tabla de usuarios se introducen 7 usuarios predefinidos por lo que TotalTuplas = 7.
-	
-	if (this->getTotalTuplas() > 1){
+	if (this->getTotalTuplas() > 0){
 		for(int i = 0;i < this->getTotalTuplas();i++){
 			for(int j= 0; j < this->getTotalTuplas();j++){
 				if(Normal *n = dynamic_cast<Normal*>(this->punteroapuntero[i])){
@@ -544,6 +556,7 @@ void TablaUsuarios::ordenamosTotalFotosUsuario(){
 	}else{
 		cout << RED << "Lo sentimos, todavía no podemos ordenar porque no hay los usuarios suficientes " << DEFAULT << endl;
 		}
+		
 }
 void TablaUsuarios::ordenarTablaUsuarios(){
 
@@ -561,7 +574,7 @@ void TablaUsuarios::ordenarTablaUsuarios(){
 	
 	//Dependiendo de la opción que desee el usuario entrará en la opcion 1 o 2, en caso contrario mostraremos un mensaje de error.
 	if(opcion == 1){
-		cout  << " ****    ORDENANDO TABLA DE USUARIOS POR LOGIN    **** " << endl;
+		cout  << GREEN << " ****    ORDENANDO TABLA DE USUARIOS POR LOGIN    **** " << DEFAULT << endl;
 		ordenamosLogin();
 		cout << GREEN << "La TablaUsuarios se ha ordenado correctamente." << DEFAULT << endl;
 		cout << GREEN << "Para Imprimir la Tabla pulse [1] sino presione [0]." << DEFAULT << endl;
@@ -573,7 +586,7 @@ void TablaUsuarios::ordenarTablaUsuarios(){
 			}
 	}
 	else if(opcion == 2){
-		cout  << " ****    ORDENANDO TABLA DE USUARIOS POR TOTAL FOTOS USUARIO    **** " << endl;
+		cout  << GREEN << " ****    ORDENANDO TABLA DE USUARIOS POR TOTAL FOTOS USUARIO    **** " << DEFAULT << endl;
 		this->ordenamosTotalFotosUsuario();
 		cout << GREEN << "La TablaUsuarios se ha ordenado correctamente." << DEFAULT << endl;
 		cout << GREEN << "Para Imprimir la Tabla pulse [1] sino presione [0]." << DEFAULT << endl;
@@ -590,7 +603,7 @@ void TablaUsuarios::ordenarTablaUsuarios(){
 void TablaUsuarios::eliminarFotoUsuario(){
 
 	//Declaración de variables locales.
-	string login = "";
+	string Login = "";
 	bool usado = false;
 	unsigned int posicion=0;
 	int cont=0;
@@ -600,16 +613,17 @@ void TablaUsuarios::eliminarFotoUsuario(){
 	
 	//Pedimos al usuario el Login para eliminar la fotografía.
 	cout << "Introduce el Login del usuario al que quieres eliminar una fotografía : " << endl;
-	cin >> login;
+	cin >> Login;
 	
 	//Comprobamos si el login existe o no.
 	for(int i = 0;i < this->getTotalTuplas();i++){
-		comprobacionLogin(login,this->punteroapuntero[i],usado);
+		comprobacionLogin(Login,this->punteroapuntero[i],usado);
 		if(usado == true && cont != 1){
 			posicion=i;
 			cont++;	
 		}
 	}
+	
 	//Si existe el usuario realizamos el intercambio de posiciones y eliminamos la última posición del vector.
 	if(usado == true){	
 	
@@ -622,6 +636,8 @@ void TablaUsuarios::eliminarFotoUsuario(){
 			n->getv_fotos(elim) = n->getv_fotos(n->getTotalFotosUsuario()-1);
 			n->setTotalFotosUsuario(n->getTotalFotosUsuario()-1);
 			n = 0;
+		}else {
+			cout << RED << "Lo siento, los usuario Adim no tienen fotos ingresadas." << DEFAULT << endl;
 		}
 	}else{
 		cerr << RED << "Lo sentimos, el Login introducido no está en nuestra base de datos." << DEFAULT << endl;
@@ -631,42 +647,47 @@ void TablaUsuarios::eliminarFotoUsuario(){
 }
 void TablaUsuarios::printFotosUsuario(){
 
-	string login = "";
-	bool usado = true;
+	string Login = "";
+	bool usado = false;
 	int posicion=0;
 	int cont = 0;
 	Usuario *u = 0;
-	Foto *f = 0;
 	
 	cout << PURPLE << "Por favor introduzca el Login del usuario que quiere ver sus fotos: " << DEFAULT << endl;
-	cin >> login;
+	cin >> Login;
 	
 	//Comprobamos si el login existe o no.
 	for(int i = 0;i < this->getTotalTuplas();i++){
-		comprobacionLogin(login,this->punteroapuntero[i],usado);
+		comprobacionLogin(Login,this->punteroapuntero[i],usado);
 		if(usado == true && cont != 1){
 			posicion=i;
 			cont++;	
 		}
 	}
-
-	//Si existe el login
+			
+	//Si existe el usuario entramos en el if e imprimimos el Usuario, si no existe mostramos un mensaje por pantalla.
 	if(usado == true){
 		if(Normal *n = dynamic_cast<Normal*>(this->punteroapuntero[posicion])){
-		//printVectorFotos(tu.punteroapuntero[posicion]->v_fotos, tu.punteroapuntero[posicion]);
-			if(n->getTotalFotosUsuario() != 0){
-				for(int i=0; i < n->getTotalFotosUsuario(); i++){
-					f->printFoto();
-					cout << PURPLE << "----------------" << DEFAULT << endl;
-				}
-			}else{
-				cerr << RED << "Lo sentimos, no hay fotos insertadas." << DEFAULT << endl;
-			}
+				n->printUsuario();
+				cout << PURPLE << "----------------" << DEFAULT << endl;
+		}
+		if(Admin *a = dynamic_cast<Admin*>(this->punteroapuntero[posicion])){
+			cout << RED << " Este usuario es Administrador, por lo que no tiene foto insertadas. " << DEFAULT << endl;
 		}
 	}else{
 		cerr << RED << "Lo sentimos, el Login introducido no está en nuestra base de datos." << DEFAULT << endl;
 	}
 }
+/*void printVectorFotos(Foto *v_fotos, Usuario *u ){
+
+		if(getTotalFotosUsuario(u) != 0){
+			for(int i=0; i < getTotalFotosUsuario(u); i++){
+				printFoto(&v_fotos[i]);
+				cout << PURPLE << "----------------" << DEFAULT << endl;
+			}
+		}else
+			cerr << RED << "Lo sentimos, no hay fotos insertadas." << DEFAULT << endl;
+}*/
 /*void TablaUsuarios::eliminarUsuariosFotosMin(){
 
 	int posicion = 0;

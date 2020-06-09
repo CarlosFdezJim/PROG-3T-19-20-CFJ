@@ -201,6 +201,8 @@ class TablaUsuarios{
 		void insertarFoto();
 		
 		void printFotosUsuario();
+		
+		void pedirDatosUsuario(Usuario *u);
 		/**
 		 * @brief Módulo que se encarga de liberar toda la memoria dinñamica que hemos utilizado en nuestro programa.
 		 * @post El programa no dejará ningún dato en el limbo, porque todo será borrado y puesto a 0/NULL

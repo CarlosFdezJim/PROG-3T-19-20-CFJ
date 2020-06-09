@@ -72,7 +72,7 @@ Usuario::Usuario(string login, string nombre, string apellido, string perfil_usu
 }
 Admin::Admin():Usuario(){
 
-	//Creo los miembro exclusivos del Administradorm el resto los hereda de Usuario.
+	//Creo los miembro exclusivos del Administrador el resto los hereda de Usuario.
 	int consultas = 0;
 
 }
@@ -80,7 +80,7 @@ Normal::Normal():Usuario(){
 
 	int DIM_vfotos = 0;
 	int totalFotosUsuario = 0;
-	
+
 }
 Usuario::~Usuario(){
 
@@ -246,6 +246,18 @@ void Normal::insertarFotoUsuario(Foto *f){
 
 ///////////////////////////////				 SOBRECARGA					////////////////////////////////
 
+ostream& operator<<(ostream &flujo, Usuario &u){
+	
+	//Imprimimos el usuario con todos sus miembros.
+	flujo << YELLOW << "****************************************" << endl;
+	flujo << YELLOW <<  "Login: " << DEFAULT << u.getLogin() << endl;
+	flujo << YELLOW << "Nombre: " << DEFAULT << u.getNombre() << endl;
+	flujo << YELLOW << "Apellido: " << DEFAULT << u.getApellido() << endl;
+	flujo << YELLOW << "Perfil de usuarios: " << DEFAULT << u.getPerfilUsuario() << endl;
+	flujo << YELLOW << "--------------------------" << DEFAULT << endl;
+	
+	return flujo;
+}
 ostream& operator<<(ostream &flujo, Usuario *u){
 	
 	//Imprimimos el usuario con todos sus miembros.
@@ -257,7 +269,21 @@ ostream& operator<<(ostream &flujo, Usuario *u){
 	flujo << YELLOW << "--------------------------" << DEFAULT << endl;
 	
 	return flujo;
-}
+}/*
+ostream& operator<<(ostream &flujo, Normal *n){
+	
+	this->Usuario::printUsuario();
+	//Imprimimos el vector de fotos 
+	if(this->getTotalFotosUsuario() != 0){
+		cout << PURPLE << "----------------" << DEFAULT << endl;
+		for(int i= 0; i < this->getTotalFotosUsuario();i++){
+			cout << BLUE << "Foto número : " << DEFAULT << i << endl;
+			this->v_fotos[i].printFoto();
+		}
+	}else
+		cout << RED << "Este usuario no tiene fotos. " << DEFAULT << endl;
+		
+}*/
 /*void Normal::operator=(const Normal &n){
 
 	//delete[] n;
