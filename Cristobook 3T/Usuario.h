@@ -138,12 +138,28 @@ class Usuario{
 		 * @author Carlos Fdez.
 		 */
 		void printVectorFotos();
+		
+		
+		/**
+		 * @brief Sobrecarga del operador << 
+		 * @post Se utiliza para poder imprimir un usuario de tipo Usuario utilizando simplemente este operador.
+		 * Ejemplo --> cout << Carlos.
+		 * @author Carlos Fdez
+		 * @version 1.0
+		 */
 		friend ostream& operator<<(ostream &flujo, Usuario *u);
+		/**
+		 * @brief Sobrecarga del operador <<  por referencia.
+		 * @post Se utiliza para poder imprimir un usuario de tipo Usuario utilizando simplemente este operador.
+		 * Ejemplo --> cout << Carlos.
+		 * @author Carlos Fdez
+		 * @version 1.0
+		 */
+		friend ostream& operator<<(ostream &flujo, Usuario &u);
 };
 class Admin: public Usuario{
 
 	protected:
-		
 		int consultas;
 		
 	public:
@@ -154,7 +170,29 @@ class Admin: public Usuario{
 		*/
 		Admin();
 		/**
-		* @brief Destructor de la clase Admin
+		* @brief Constructor por parámetros, este contructor hereda los miembros de la clase padre y los incluye en su mismo contructor.
+		* @post Construiremos los parámetros en una misma línea.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		//Admin(int consultas):Usuario(string login, string nombre,string apellido, string perfil_usuario);
+		
+		/**
+		* @brief Método que se utiliza para insertar en el miembro consutas de la clase admin, el número de veces que se ha ingresado un usuario.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void setConsultas(int consultas);
+		/**
+		* @brief Método que devuelves cuantas consultas se han realizado.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		int getConsultas();
+		
+		
+		/**
+		* @brief Destructor de la clase Admin.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
@@ -166,7 +204,24 @@ class Admin: public Usuario{
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		//virtual void printUsuario();
+		virtual void printUsuario();
+		
+		
+		/**
+		 * @brief Sobrecarga del operador << 
+		 * @post Se utiliza para poder imprimir un usuario de tipo Admin utilizando simplemente este operador.
+		 * Ejemplo --> cout << Carlos.
+		 * @author Carlos Fdez
+		 * @version 1.0
+		 */
+		friend ostream& operator<<(ostream &flujo, Admin *a);
+		/**
+		 * @brief Sobrecarga del operador << por referencia.
+		 * @post Se utiliza para poder imprimir un usuario de tipo Admin utilizando simplemente este operador.
+		 * @author Carlos Fdez
+		 * @version 1.0
+		 */
+		friend ostream& operator<<(ostream &flujo, Admin &a);
 
 
 };
@@ -187,6 +242,13 @@ class Normal: public Usuario{
 		* @version 1.0
 		*/
 		Normal();
+		/**
+		* @brief Constructor por parámetros, este contructor hereda los miembros de la clase padre y los incluye en su mismo contructor.
+		* @post Construiremos los parámetros en una misma línea.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		//Normal(int DIM_vfotos, int totalFotosUsuario):Usuario(login, nombre,apellido,perfil_usuario);
 		/**
 		* @brief Destructor de la clase Normal.
 		* @pre Debemos de tener creada la clase Usuario perfectamente.
@@ -263,6 +325,26 @@ class Normal: public Usuario{
 		* @version 1.0
 		*/
 		void resizeFoto(int DIM);
+		
+		
+		
+		
+		
+		/**
+		 * @brief Sobrecarga del operador << 
+		 * @post Se utiliza para poder imprimir un usuario de tipo Normal utilizando simplemente este operador.
+		 * Ejemplo --> cout << Carlos.
+		 * @author Carlos Fdez
+		 * @version 1.0
+		 */
+		friend ostream& operator<<(ostream &flujo, Normal *n);
+		 /**
+		 * @brief Sobrecarga del operador << por referencia.
+		 * @post Se utiliza para poder imprimir un usuario de tipo Normal utilizando simplemente este operador.
+		 * @author Carlos Fdez
+		 * @version 1.0
+		 */
+		friend ostream& operator<<(ostream &flujo, Normal &n);
 
 		
 

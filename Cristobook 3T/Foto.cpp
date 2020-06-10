@@ -143,23 +143,3 @@ void Foto::printFoto(){
 		setTamanio(f,405000);
 }*/
 
-
-/**
- * @brief Este módulo se usa para introducir las fotos del usuario predefinido.
- * @param Usuario *u
- * @param Foto *f
- * @pre El resize debe de funcionar correctamente.
- * @post El usuario tendrá las fotos insertadas en su perfil.
- * @version 1.0
- * @author Carlos Fdez.
- */
-/*void insertarFotoUsuario(Usuario *u, Foto *f){
-	
-	//Aumentamos en uno nuestro vector.
-	resizeAumentarFoto(u,u->v_fotos);
-	
-	//Insertamos en elvector nuestra foto
-	u->v_fotos[getTotalFotosUsuario(u)] = *f;
-	
-	setTotalFotosUsuario(u,getTotalFotosUsuario(u)+1);
-}*/

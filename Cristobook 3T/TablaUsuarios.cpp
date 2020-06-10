@@ -131,15 +131,20 @@ void TablaUsuarios::usuariosPredefinidos(){
 	Jaime->setPerfilUsuario("Normal");
 	this->insertarUsuarioTablaUsuarios(Jaime);
 	//Foto1
-	f->setRuta("/home/Jaime/Escritorio/Imagenes/Skone");
+	f->setRuta("/home/Jaime1988/Escritorio/Imagenes/Skone");
 	f->setTipo("jpeg");
 	f->setTamanio(49350);
 	Jaime->insertarFotoUsuario(f);
 	//Foto2
-	f->setRuta("/home/Jaime/Escritorio/Imagenes/Force");
+	f->setRuta("/home/Jaime1988/Escritorio/Imagenes/Force");
 	f->setTipo("jpeg");
 	f->setTamanio(49350);
 	Jaime->insertarFotoUsuario(f);	
+	//Foto 3
+	/*f->setRuta("/home/Jaime1988/Escritorio/Imagenes/Chuty");
+	f->setTipo("jpeg");
+	f->setTamanio(49350);
+	Jaime->insertarFotoUsuario(f);87
 	
 	/***************************************
 	********	CRISTIAN	********
@@ -278,22 +283,49 @@ void TablaUsuarios::insertarUsuarioTablaUsuarios(Usuario *u){
 	//Actualizamos las TotalTuplas.
 	this->setTotalTuplas(this->getTotalTuplas()+1);
 }
-/**
- * @brief Módulo que se encarga de comprobar el login de un usuario para saber si está usado o no.
- * @param string Login.
- * @param Usuario *u.
- * @param bool usado.
- * @pre La TablaUsuarios debberá de tener al menos un usuario ingresado
- * @post Sabremos si el login introducido está usado o no.
- * @version 1.0
- * @author Carlos Fdez.
- */
-void comprobacionLogin(string Login,Usuario *u,bool &usado){
+void comprobacionLogin(string Login,Usuario *u, bool &usado){
 
 	//Comprobamos si el login está introducido o no. Si lo está devolveremos usado = true;(Lo hacemos aparte porque lo usaremos en varios sitios).
 	if(Login == u->getLogin()){
 		usado = true;
 	}
+
+}
+void TablaUsuarios::comprobacionLogin2(bool &usado, unsigned int &posicion){
+
+	//Declaración de variables locales.
+	string Login = "";
+	//bool usado = false;
+	//unsigned int posicion = 0;
+	int cont = 0;
+	Usuario *u = 0;
+	
+	//Pedimos al usuario el login (que es único en el sistema) para eliminarlo.
+	cout << YELLOW << "Selecione el usuario que desea eliminar, recuerde que tiene que introducir el login" << DEFAULT << endl;
+	cin >> Login;
+
+	//Comprobar que el usuario existe.
+	for(int i = 0; i < this->getTotalTuplas();i++){
+		//Comprobamos si el login está introducido o no. Si lo está devolveremos usado = true;(Lo hacemos aparte porque lo usaremos en varios sitios).
+		if(Login == u->getLogin()){
+			usado = true;
+		}
+		//comprobacionLogin(Login,this->punteroapuntero[i],usado);
+		if(usado == true && cont != 1){
+			posicion=i;
+			cont++;	
+		}
+	}
+	
+	if(usado == true){
+		cout << "está usado en comprobacion2 " << endl;
+		cout << "Posición nº : " << posicion << endl;
+	}else{
+		cout << "No está usado" << endl;
+		cout << "Posición nº : " << posicion << endl;
+	}
+	
+
 }
 void TablaUsuarios::eliminarUsuarioTablaUsuarios(){
 
@@ -304,9 +336,7 @@ void TablaUsuarios::eliminarUsuarioTablaUsuarios(){
 	int cont = 0;
 	
 	//Imprimimos la tabla de Usuarios
-	for(int i = 0; i < this->getTotalTuplas(); i++){
-		this->punteroapuntero[i]->printUsuario();
-	}
+	this->printTablaUsuarios();
 	
 	//Pedimos al usuario el login (que es único en el sistema) para eliminarlo.
 	cout << YELLOW << "Selecione el usuario que desea eliminar, recuerde que tiene que introducir el login" << DEFAULT << endl;
@@ -320,6 +350,8 @@ void TablaUsuarios::eliminarUsuarioTablaUsuarios(){
 			cont++;	
 		}
 	}
+	
+	//this->comprobacionLogin2(usado, posicion);
 	
 	//Si usado==true, el usuario existe y podemos eliminarlo.
 	if(usado == true){
@@ -670,29 +702,20 @@ void TablaUsuarios::printFotosUsuario(){
 		if(Normal *n = dynamic_cast<Normal*>(this->punteroapuntero[posicion])){
 				n->printUsuario();
 				cout << PURPLE << "----------------" << DEFAULT << endl;
+				n = 0;
 		}
 		if(Admin *a = dynamic_cast<Admin*>(this->punteroapuntero[posicion])){
 			cout << RED << " Este usuario es Administrador, por lo que no tiene foto insertadas. " << DEFAULT << endl;
+			a = 0;
 		}
 	}else{
 		cerr << RED << "Lo sentimos, el Login introducido no está en nuestra base de datos." << DEFAULT << endl;
 	}
 }
-/*void printVectorFotos(Foto *v_fotos, Usuario *u ){
-
-		if(getTotalFotosUsuario(u) != 0){
-			for(int i=0; i < getTotalFotosUsuario(u); i++){
-				printFoto(&v_fotos[i]);
-				cout << PURPLE << "----------------" << DEFAULT << endl;
-			}
-		}else
-			cerr << RED << "Lo sentimos, no hay fotos insertadas." << DEFAULT << endl;
-}*/
-/*void TablaUsuarios::eliminarUsuariosFotosMin(){
+void TablaUsuarios::eliminarUsuariosFotosMin(){
 
 	int posicion = 0;
 	int min = 0;
-	Normal *n = new Normal;
 
 	//1) Imprimimos la TablaUsuarios.
 	this->printTablaUsuarios();
@@ -701,13 +724,24 @@ void TablaUsuarios::printFotosUsuario(){
 	cout << BLUE << "\n Por favor indique el número de fotos mínimas que tiene que tener un usuario para eliminarlo: " << DEFAULT << endl;
 	cin >> min;
 	
-	n->setFotosMin(min);
-	
 	//3)Buscamos los usuarios que tengan al menos esas fotos.
 	for (int i = 0; i < this->getTotalTuplas(); i++){
-		if (this->punteroapuntero[i]->getTotalFotosUsuario() < n->getFotosMin()){
+		if(Normal *n = dynamic_cast<Normal*>(this->punteroapuntero[i])){
+			if(n->getTotalFotosUsuario() <= min){
+				
+			}else {
+				cout << "Este usuario se ha salvado" << endl;
+			}
+		n = 0;
+		}
+	}
+	
+	
+	
+	/*for (int i = 0; i < this->getTotalTuplas(); i++){
+		if(Normal *n = dynamic_cast<Normal*>(this->punteroapuntero[i])){
 			posicion=i;
-			Usuario *aux = new Usuario;
+			Normal *aux = new Normal;
 		
 			//Realizamos el intercambio de posiciones.
 			aux = this->punteroapuntero[posicion];
@@ -721,14 +755,15 @@ void TablaUsuarios::printFotosUsuario(){
 			this->resize(this->getTotalTuplas()-1);
 			this->setTotalTuplas(this->getTotalTuplas()-1);
 		}
-	}
+	}*/
 
 		//Imprimimos el vector de usuario para que el administrador vea que se ha borrado correctamente.
 			this->printTablaUsuarios();
 
-}*/
+}
 
 ///////////////////////////////				 TESTING					////////////////////////////////
+
 void TablaUsuarios::TestingAutomatico(){
 
 	cout  << CYAN << " ****    IMPRIMIENDO TABLA DE USUARIOS    **** " << DEFAULT << endl;

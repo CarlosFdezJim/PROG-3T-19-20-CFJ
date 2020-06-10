@@ -255,6 +255,7 @@ void Vista::menuVista(){
 					//Eliminar Usuarios Fotos min.
 					if(creado==true){
 						cout << "Buscando Usuario con unas fotografías mínimas... " << DEFAULT << endl;
+						tu->eliminarUsuariosFotosMin();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no tiene Usuarios para eliminar. " << DEFAULT << endl;
 						}

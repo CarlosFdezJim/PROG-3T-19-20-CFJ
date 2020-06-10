@@ -119,6 +119,17 @@ class TablaUsuarios{
 		*/
 		void printTablaUsuarios();
 		
+		/**
+		 * @brief Módulo que se encarga de comprobar el login de un usuario para saber si está usado o no, devuelve una posición y un booleano.
+		 * @param int i
+		 * @param bool usado.
+		 * @pre La TablaUsuarios debberá de tener al menos un usuario ingresado
+		 * @post Sabremos si el login introducido está usado o no y la posición en caso de estar usado.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
+		void comprobacionLogin2(bool &usado, unsigned int &posicion);
+		
 		
 		/**
 		* @brief Método que se usa para insertar a los usuario en la TablaUsuarios.

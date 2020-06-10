@@ -76,12 +76,26 @@ Admin::Admin():Usuario(){
 	int consultas = 0;
 
 }
+/*Admin::Admin(int consultas):Usuario(login, nombre,apellido,perfil_usuario){
+
+	//Creo los miembro exclusivos del Administrador el resto los hereda de Usuario.
+	int consultas = consultas;
+
+}*/
+
 Normal::Normal():Usuario(){
 
 	int DIM_vfotos = 0;
 	int totalFotosUsuario = 0;
 
 }
+/*Normal::Normal(int DIM_vfotos, int totalFotosUsuario):Usuario(login, nombre,apellido,perfil_usuario){
+
+	int DIM_vfotos = DIM_vfotos;
+	int totalFotosUsuario = totalFotosUsuario;
+
+}*/
+
 Usuario::~Usuario(){
 
 	if(this->getDEBUG() == true){
@@ -175,6 +189,9 @@ void Normal::setV_Fotos(int i){
 void Normal::setDIM_vfotos(int DIM_vfotos){
 	this->DIM_vfotos = DIM_vfotos;   
 }
+void Admin::setConsultas(int consultas){
+	this->consultas = consultas;
+}
 
 ///////////////////////////////				 GET					////////////////////////////////
 
@@ -198,6 +215,9 @@ int Normal::getDIM_vfotos(){
 }
 int Normal::getTotalFotosUsuario(){
 	return this->totalFotosUsuario;
+}
+int Admin::getConsultas(){
+	return this->consultas;
 }
 
 ///////////////////////////////				 PRINT					////////////////////////////////
@@ -228,7 +248,16 @@ void Normal::printUsuario(){
 		cout << RED << "Este usuario no tiene fotos. " << DEFAULT << endl;
 
 }
+void Admin::printUsuario(){
 
+	this->Usuario::printUsuario();
+	
+	//Imprimimos los datos únicos del administrador.
+	cout << PURPLE << "****************************************" << endl;
+	cout << PURPLE << "Consultas realizadas: " << DEFAULT <<  this->getConsultas() << endl;
+	cout << PURPLE << "****************************************" << endl;
+
+}
 ///////////////////////////////				 INSERT					////////////////////////////////
 
 void Normal::insertarFotoUsuario(Foto *f){
@@ -269,22 +298,85 @@ ostream& operator<<(ostream &flujo, Usuario *u){
 	flujo << YELLOW << "--------------------------" << DEFAULT << endl;
 	
 	return flujo;
-}/*
+}
 ostream& operator<<(ostream &flujo, Normal *n){
 	
-	this->Usuario::printUsuario();
+	//Imprimimos el usuario con todos sus miembros.
+	flujo << YELLOW << "****************************************" << endl;
+	flujo << YELLOW <<  "Login: " << DEFAULT << n->getLogin() << endl;
+	flujo << YELLOW << "Nombre: " << DEFAULT << n->getNombre() << endl;
+	flujo << YELLOW << "Apellido: " << DEFAULT << n->getApellido() << endl;
+	flujo << YELLOW << "Perfil de usuarios: " << DEFAULT << n->getPerfilUsuario() << endl;
+	flujo << YELLOW << "--------------------------" << DEFAULT << endl;
+	
 	//Imprimimos el vector de fotos 
-	if(this->getTotalFotosUsuario() != 0){
-		cout << PURPLE << "----------------" << DEFAULT << endl;
-		for(int i= 0; i < this->getTotalFotosUsuario();i++){
-			cout << BLUE << "Foto número : " << DEFAULT << i << endl;
-			this->v_fotos[i].printFoto();
+	if(n->getTotalFotosUsuario() != 0){
+		flujo << PURPLE << "----------------" << DEFAULT << endl;
+		for(int i= 0; i < n->getTotalFotosUsuario();i++){
+			flujo << BLUE << "Foto número : " << DEFAULT << i << endl;
+			n->v_fotos[i].printFoto();
 		}
 	}else
-		cout << RED << "Este usuario no tiene fotos. " << DEFAULT << endl;
+		flujo << RED << "Este usuario no tiene fotos. " << DEFAULT << endl;
 		
-}*/
-/*void Normal::operator=(const Normal &n){
+	return flujo;
+}
+ostream& operator<<(ostream &flujo, Normal &n){
+	
+	//Imprimimos el usuario con todos sus miembros.
+	flujo << YELLOW << "****************************************" << endl;
+	flujo << YELLOW <<  "Login: " << DEFAULT << n.getLogin() << endl;
+	flujo << YELLOW << "Nombre: " << DEFAULT << n.getNombre() << endl;
+	flujo << YELLOW << "Apellido: " << DEFAULT << n.getApellido() << endl;
+	flujo << YELLOW << "Perfil de usuarios: " << DEFAULT << n.getPerfilUsuario() << endl;
+	flujo << YELLOW << "--------------------------" << DEFAULT << endl;
+	
+	//Imprimimos el vector de fotos 
+	if(n.getTotalFotosUsuario() != 0){
+		flujo << PURPLE << "----------------" << DEFAULT << endl;
+		for(int i= 0; i < n.getTotalFotosUsuario();i++){
+			cout << BLUE << "Foto número : " << DEFAULT << i << endl;
+			n.v_fotos[i].printFoto();
+		}
+	}else
+		flujo << RED << "Este usuario no tiene fotos. " << DEFAULT << endl;
+	
+	return flujo;
+		
+}
+ostream& operator<<(ostream &flujo, Admin &a){
+	
+	//Imprimimos el usuario con todos sus miembros.
+	flujo << YELLOW << "****************************************" << endl;
+	flujo << YELLOW <<  "Login: " << DEFAULT << a.getLogin() << endl;
+	flujo << YELLOW << "Nombre: " << DEFAULT << a.getNombre() << endl;
+	flujo << YELLOW << "Apellido: " << DEFAULT << a.getApellido() << endl;
+	flujo << YELLOW << "Perfil de usuarios: " << DEFAULT << a.getPerfilUsuario() << endl;
+	flujo << YELLOW << "--------------------------" << DEFAULT << endl;
+	
+	//Imprimimos los datos únicos del administrador.
+	cout << PURPLE << "****************************************" << endl;
+	cout << PURPLE << "Consultas realizadas: " << DEFAULT <<  a.getConsultas() << endl;
+	cout << PURPLE << "****************************************" << endl;
+		
+}
+ostream& operator<<(ostream &flujo, Admin *a){
+	
+	//Imprimimos el usuario con todos sus miembros.
+	flujo << YELLOW << "****************************************" << endl;
+	flujo << YELLOW <<  "Login: " << DEFAULT << a->getLogin() << endl;
+	flujo << YELLOW << "Nombre: " << DEFAULT << a->getNombre() << endl;
+	flujo << YELLOW << "Apellido: " << DEFAULT << a->getApellido() << endl;
+	flujo << YELLOW << "Perfil de usuarios: " << DEFAULT << a->getPerfilUsuario() << endl;
+	flujo << YELLOW << "--------------------------" << DEFAULT << endl;
+	
+	//Imprimimos los datos únicos del administrador.
+	cout << PURPLE << "****************************************" << DEFAULT << endl;
+	cout << PURPLE << "Consultas realizadas: " << DEFAULT <<  a->getConsultas() << endl;
+	cout << PURPLE << "****************************************" << DEFAULT << endl;
+		
+}
+void Normal::operator=(const Normal &n){
 
 	//delete[] n;
 
@@ -309,4 +401,4 @@ ostream& operator<<(ostream &flujo, Normal *n){
 		exit(-1);
 	}
 
-}*/
+}

@@ -37,6 +37,9 @@ class Foto{
 		* @version 1.0
 		*/
 		bool getDEBUG();
+		
+		
+		
 		/**
 		 * @brief Se reservará un espacio de memoria para crear una estructura de tipo Foto, siempre y cuando haya memoria suficiente.
 		 * @post Se reservará un espacio de memoria para la Foto.
@@ -53,6 +56,9 @@ class Foto{
 		 * @author Carlos Fdez.
 		 */
 		~Foto();
+		
+		
+		
 		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Foto en una variable string llamada ruta.
 		 * @param string ruta		//Nombre de la ruta donde se va a almacenar la foto.
@@ -98,6 +104,9 @@ class Foto{
 		 * @author Carlos Fdez.
 		 */		
 		int long unsigned getTamanio();
+		
+		
+		
 		/**
 		 * @brief Imprime por pantalla la ruta de la foto junto a su tipo y el tamaño que ocupa la foto.
 		 * @param Foto *f
