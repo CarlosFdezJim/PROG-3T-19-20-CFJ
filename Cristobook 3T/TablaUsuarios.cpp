@@ -41,7 +41,6 @@ TablaUsuarios::TablaUsuarios(){
 	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    CREANDO TABLAUSUARIOS    **** " << DEFAULT << endl;
 	}
-		// Inicializamos el contenido de la TablaUsuarios.
 		
 		//Inicializamos TotalTuplas a 0.
 		this->setTotalTuplas(0);
@@ -72,7 +71,7 @@ TablaUsuarios::~TablaUsuarios(){
 	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    ELIMANDO TABLAUSUARIOS    **** " << DEFAULT << endl;
 	}	
-		if (this->getTotalTuplas() >= 0){
+		if (this->getTotalTuplas() > 0){
 			//Eliminamos el vector de punteros a Usuarios.
 			for(int i=0; i <= this->getTotalTuplas(); i++){
 				delete punteroapuntero[i];
@@ -144,7 +143,7 @@ void TablaUsuarios::usuariosPredefinidos(){
 	/*f->setRuta("/home/Jaime1988/Escritorio/Imagenes/Chuty");
 	f->setTipo("jpeg");
 	f->setTamanio(49350);
-	Jaime->insertarFotoUsuario(f);87
+	Jaime->insertarFotoUsuario(f);*/
 	
 	/***************************************
 	********	CRISTIAN	********

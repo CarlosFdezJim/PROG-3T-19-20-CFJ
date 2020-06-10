@@ -30,40 +30,8 @@ using namespace std;
 
 int main(){
 
-	//Vista v;
-	//v.menuVista();
+	Vista v;
+	v.menuVista();
 
-	//------	SOBRECARGA USUARIO	-------//
-	/*Usuario *Carlos = new Usuario;		
-	Carlos->setLogin("@Carlos");
-	Carlos->setNombre("Carlos");
-	Carlos->setApellido("Fernández");
-	Carlos->setPerfilUsuario("Admin");
-	cout << Carlos << endl;*/
-	
-	/*Usuario *Carlos = new Usuario("@Carlos","Carlos","Fernández","Admin");
-	cout << Carlos << endl;*/
-	
-	//------	SOBRECARGA NORMAL	-------//
-	/*Normal *Carlos = new Normal;		
-	Carlos->setLogin("@Carlos");
-	Carlos->setNombre("Carlos");
-	Carlos->setApellido("Fernández");
-	Carlos->setPerfilUsuario("Admin");
-	cout << Carlos << endl;*/
-	
-	/*Normal *Carlos = new Normal();
-	cout << Carlos << endl;*/
-
-	//------	SOBRECARGA ADMIN	-------//
-	/*Normal *Carlos = new Normal;		
-	Carlos->setLogin("@Carlos");
-	Carlos->setNombre("Carlos");
-	Carlos->setApellido("Fernández");
-	Carlos->setPerfilUsuario("Admin");
-	cout << Carlos << endl;*/
-	
-	Admin *Carlos = new Admin();
-	cout << Carlos << endl;
 
 }

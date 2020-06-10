@@ -376,29 +376,63 @@ ostream& operator<<(ostream &flujo, Admin *a){
 	cout << PURPLE << "****************************************" << DEFAULT << endl;
 		
 }
-void Normal::operator=(const Normal &n){
+void Usuario::operator=(Usuario &u){
 
-	//delete[] n;
+	if(u.getDEBUG() == true){
+		cout  << PURPLE << "\n  ****    CREANDO USUARIOS    **** " << DEFAULT << endl;
+	}
+		//Inicializamos el contenido del Usuario.
+		u.login = "NULL";
+		u.nombre = "NULL";
+		u.apellido = "NULL";
+		u.perfil_usuario = "NULL";	
+	
+	if(u.getDEBUG() == true){
+		cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
+		cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	}
+
+}
+void Normal::operator=(Normal &n){
+
+	if(n.getDEBUG() == true){
+		cout  << PURPLE << "\n  ****    CREANDO USUARIOS    **** " << DEFAULT << endl;
+	}
+		//Inicializamos el contenido del Usuario.
+		n.login = "NULL";
+		n.nombre = "NULL";
+		n.apellido = "NULL";
+		n.perfil_usuario = "NULL";	
+	
+	if(n.getDEBUG() == true){
+		cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
+		cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	}
+
 
 	//Inicializamos los miembros del polinomio.
-	this->DIM_vfotos = n->DIM_vfotos;
-	this->totalFotosUsuario = n->totalFotosUsuario;
+	n.DIM_vfotos = n.DIM_vfotos;
+	n.totalFotosUsuario = n.totalFotosUsuario;
 
-	//Filtro para que al crear un polinomio no sea de grado negativo, en caso de serlo abortará la ejecución.
-	/*if(this->totalFotosUsuario >= 0){
-		//Creamos un vector dinámico de coeficientes.
-		this->coef = new float[this->getTotalFotosUsuario()+1];	//Reservo el valor de max_grado+1.
+}
+void Admin::operator=(Admin &a){
 
-
-		//Rellenamos el vector de coeficientes a 0
-		for(int i=0; i <= this->getMax_Grado(); i++){
-			this->coef[i]= p.coef[i];
-		}
-
-	}else if (this->max_grado < 0){
-		cerr << "¡¡ERROR!! un polinomo no puede tener un grado negativo." << endl;
-		cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
-		exit(-1);
+	if(a.getDEBUG() == true){
+		cout  << PURPLE << "\n  ****    CREANDO USUARIOS    **** " << DEFAULT << endl;
 	}
+		//Inicializamos el contenido del Usuario.
+		a.login = "NULL";
+		a.nombre = "NULL";
+		a.apellido = "NULL";
+		a.perfil_usuario = "NULL";	
+	
+	if(a.getDEBUG() == true){
+		cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
+		cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	}
+
+
+	//Inicializamos los miembros del polinomio.
+	a.consultas = a.consultas;
 
 }

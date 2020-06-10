@@ -156,6 +156,13 @@ class Usuario{
 		 * @version 1.0
 		 */
 		friend ostream& operator<<(ostream &flujo, Usuario &u);
+		/**
+		* @brief Sobrecarga del operador =.
+		* @post Se utiliza para copiar los miembros de un Usuario en otro.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void operator=(Usuario &u);
 };
 class Admin: public Usuario{
 
@@ -222,6 +229,13 @@ class Admin: public Usuario{
 		 * @version 1.0
 		 */
 		friend ostream& operator<<(ostream &flujo, Admin &a);
+		/**
+		* @brief Sobrecarga del operador =.
+		* @post Se utiliza para copiar los miembros de un usuario Admin en otro.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void operator=(Admin &a);
 
 
 };
@@ -327,9 +341,6 @@ class Normal: public Usuario{
 		void resizeFoto(int DIM);
 		
 		
-		
-		
-		
 		/**
 		 * @brief Sobrecarga del operador << 
 		 * @post Se utiliza para poder imprimir un usuario de tipo Normal utilizando simplemente este operador.
@@ -345,7 +356,12 @@ class Normal: public Usuario{
 		 * @version 1.0
 		 */
 		friend ostream& operator<<(ostream &flujo, Normal &n);
-
-		
+		/**
+		* @brief Sobrecarga del operador =.
+		* @post Se utiliza para copiar los miembros de un usuario Normal en otro.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void operator=(Normal &n);
 
 };

@@ -110,36 +110,21 @@ void Foto::printFoto(){
 	cout << PURPLE << "----------------" << DEFAULT << endl;
 	
 }
+ostream& operator<<(ostream &flujo, Foto *f){
 
-/**
- * @brief Este módulo se encarga de pedir los valores predeterminados al usuario y distingirá entre varias opciones para asignarle un tamaño a la foto.
- * @param Foto *f
- * @pre Los módulos set tienen que estar hechos correctamente.
- * @post Almacenaremos en el usuario los valores de las fotos.
- * @version 1.0
- * @author Carlos Fdez.
- */
-/*void Foto::ValoresFoto(Foto *f){
+	//Imprimimos toda la foto inluyendo Ruta,Tipo y Tamanio.
+	flujo << BLUE << "Ruta : " << DEFAULT << f->getRuta() << "." << f->getTipo() << endl;
+	flujo << BLUE << "Tipo : " << DEFAULT << f->getTipo()  << endl;
+	flujo << BLUE << "Tamaño : " << DEFAULT << f->getTamanio() << " bytes." << endl;
+	flujo << PURPLE << "----------------" << DEFAULT << endl;
 
-	cout << BLUE << "* * * * * * * * * * * * * * * * * * * " << DEFAULT << endl;
-	cout << YELLOW << "Por favor ingresa la ruta de la foto. " << DEFAULT << endl;
-	cin >> f->ruta;
-	
-	cout << YELLOW << "Por favor ingresa el formato de la foto. " << DEFAULT << endl;
-	cout << YELLOW << "Le indico los tipos compatibles [bmp] [jpeg] [png] [gif] " << DEFAULT << endl ;
-	cin >> f->tipo;
-	cout << BLUE << "* * * * * * * * * * * * * * * * * * * " << DEFAULT << endl;
-	
-	//Dependiendo del tipo de foto se le asigna un tamaño predeterminado.
-	if(f->tipo == "bmp"){
-		setTamanio(f,125910);
-	}else if(f->tipo == "jpeg"){
-		setTamanio(f,49350);
-	}else if(f->tipo == "png"){
-		setTamanio(f,8710);
-	}else if(f->tipo == "gif"){
-		setTamanio(f,6050);
-	}else 
-		setTamanio(f,405000);
-}*/
+}
+ostream& operator<<(ostream &flujo, Foto &f){
 
+	//Imprimimos toda la foto inluyendo Ruta,Tipo y Tamanio.
+	flujo << BLUE << "Ruta : " << DEFAULT << f.getRuta() << "." << f.getTipo() << endl;
+	flujo << BLUE << "Tipo : " << DEFAULT << f.getTipo()  << endl;
+	flujo << BLUE << "Tamaño : " << DEFAULT << f.getTamanio() << " bytes." << endl;
+	flujo << PURPLE << "----------------" << DEFAULT << endl;
+
+}

@@ -125,6 +125,20 @@ class Foto{
 		 */
 		 void printFotosUsuario();
 		
+		/**
+		 * @brief Sobrecarga del operador << 
+		 * @post Se utiliza para poder imprimir una foto utilizando simplemente este operador.
+		 * @author Carlos Fdez
+		 * @version 1.0
+		 */
+		friend ostream& operator<<(ostream &flujo, Foto *f);
+		/**
+		 * @brief Sobrecarga del operador << 
+		 * @post Se utiliza para poder imprimir una foto utilizando simplemente este operador.
+		 * @author Carlos Fdez
+		 * @version 1.0
+		 */
+		friend ostream& operator<<(ostream &flujo, Foto &f);
 		 
 		 
 };
