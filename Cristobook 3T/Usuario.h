@@ -40,6 +40,9 @@ class Usuario{
 		* @version 1.0
 		*/
 		bool getDEBUG();
+		
+		
+		
 		/**
 		 * @brief Se reservará un espacio de memoria para crear un nuevo Usuario y sus miembros, siempre y cuando haya memoria suficiente.
 		 * @post Se reservará un espacio de memoria para la Usuario.
@@ -63,9 +66,12 @@ class Usuario{
 		 * @author Carlos Fdez.
 		 */
 		virtual ~Usuario();
+		
+		
+		
 		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable string llamada login.
-		 * @param string login		//Login del usuario.
+		 * @param string login.
 		 * @post Se almacenará en la variable estructurada Usuario el login del usuario.
 		 * @version 1.0
 		 * @author Carlos Fdez.
@@ -73,7 +79,7 @@ class Usuario{
 		void setLogin(string login);
 		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable string llamada nombre.
-		 * @param string nombre		//Nombre del usuario.
+		 * @param string nombre.
 		 * @post Se almacenará en la variable estructurada Usuario el nombre del usuario.
 		 * @version 1.0
 		 * @author Carlos Fdez.
@@ -81,57 +87,60 @@ class Usuario{
 		void setNombre(string nombre);
 		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable string llamada apellido.
-		 * @param string apellido	//Apellido del usuario.
+		 * @param string apellido.
 		 * @post Se almacenará en la variable estructurada Usuario el apellido del usuario.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */		
 		void setApellido(string apellido);
 		/**
-		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable string llamada perfil_usuario que almacenará el nombre del 			 * 	juego al que el usuario quiere jugar.
-		 * @param Usuario *u			//Puntero de tipo Usuario.
-		 * @param string perfil_usuario		//Nombre del juego al que juega el usuario.
-		 * @post Se almacenará en la variable estructurada Usuario el juego favorito del usuario.
+		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable string llamada perfil_usuario que almacenará el 			 * 	tipo de usuario, ADMIN o NORMAL.
+		 * @param string perfil_usuario
+		 * @post Se almacenará el tipo de dato del usuario que vamos a utilizar.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */		
 		void setPerfilUsuario(string perfil_usuario);
+		
+		
+		
 		/**
-		 * @brief Devuelve el puntero Login de una variable estructurada de tipo Usuario.
-		 * @param Usuario *u		//Puntero de tipo Usuario.
+		 * @brief Devuelve el valor Login de un de tipo Usuario.
+		 * @post Devolveremos el valor del Login de ese usuario.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
 		string getLogin();
 		/**
-		 * @brief Devuelve el puntero Nombre de una variable estructurada de tipo Usuario.
+		 * @brief Devuelve el valor Nombre de un de tipo Usuario.
+		 * @post Devolveremos el valor del Nombre de ese usuario.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */		
 		string getNombre();
 		/**
-		 * @brief Devuelve el puntero Apellido de una variable estructurada de tipo Usuario.
+		 * @brief Devuelve el valor Apellido de un de tipo Usuario.
+		 * @post Devolveremos el valor del Apellido de ese usuario.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */		
 		string getApellido();
 		/**
-		 * @brief Devuelve el puntero Perfil_Usuario de una variable estructurada de tipo Usuario.
-		 * @param Usuario *u		//Puntero de tipo Usuario.
+		 * @brief Devuelve el valor Perfil_Usuario de un de tipo Usuario.
+		 * @post Devolveremos el valor del Perfil de usuario de ese usuario.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
 		string getPerfilUsuario();
 		/**
-		 * @brief Imprime por pantalla el contenido de una variable estructurada de tipo Usuario.
+		 * @brief Imprime por pantalla el contenido de un tipo Usuario.
 		 * @post Imprimir un Usuario seleccionado.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
 		virtual void printUsuario();
 		/**
-		 * @brief Módulo que me muestra las fotos tengo en el vector de fotos.
-		 * @param Foto *v_fotos
+		 * @brief Módulo que me muestra las fotos de un vector de fotos.
 		 * @pre El vector de fotos tiene que estar creado y tener por lo menos una foto.
 		 * @post Se mostrará el vector de fotos al usuario.
 		 * @version 1.0
@@ -183,6 +192,13 @@ class Admin: public Usuario{
 		* @version 1.0
 		*/
 		//Admin(int consultas):Usuario(string login, string nombre,string apellido, string perfil_usuario);
+		/**
+		* @brief Destructor de la clase Admin.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		virtual ~Admin();
+		
 		
 		/**
 		* @brief Método que se utiliza para insertar en el miembro consutas de la clase admin, el número de veces que se ha ingresado un usuario.
@@ -198,13 +214,7 @@ class Admin: public Usuario{
 		int getConsultas();
 		
 		
-		/**
-		* @brief Destructor de la clase Admin.
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
-		virtual ~Admin();
-
+		
 		/**
 		* @brief Imprime los atributos propios de la clase Normal.
 		* @post Imprimiermos SÓLAMENTE los atributos propios.
@@ -271,6 +281,9 @@ class Normal: public Usuario{
 		* @version 2.0
 		*/
 		~Normal();
+		
+		
+		
 		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable int llamada totalFotosUsuario.
 		 * @param Usuario *u		//Puntero de tipo Usuario.
@@ -297,6 +310,9 @@ class Normal: public Usuario{
 		 * @author Carlos Fdez.
 		 */		
 		void setDIM_vfotos(int DIM_vfotos);
+		
+		
+		
 		/**
 		 * @brief Devuelve una posición del vector de fotos de un Usuario concreto.
 		 * @param int i
@@ -316,6 +332,9 @@ class Normal: public Usuario{
 		 * @author Carlos Fdez.
 		 */		
 		int getTotalFotosUsuario();
+		
+		
+		
 		/**
 		* @brief Imprime los atributos propios de la clase Normal.
 		* @post Imprimiermos SÓLAMENTE los atributos propios.
@@ -323,6 +342,8 @@ class Normal: public Usuario{
 		* @version 1.0
 		*/
 		virtual void printUsuario();
+		
+		
 		
 		/**
 		 * @brief Este módulo se usa para introducir las fotos del usuario predefinido.
@@ -339,6 +360,7 @@ class Normal: public Usuario{
 		* @version 1.0
 		*/
 		void resizeFoto(int DIM);
+		
 		
 		
 		/**

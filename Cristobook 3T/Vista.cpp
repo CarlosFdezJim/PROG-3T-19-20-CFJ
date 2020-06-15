@@ -37,9 +37,11 @@ void Vista::modoDEBUG(bool DEBUG){
 
 	if(this->getDEBUG()==false){
 		this->setDEBUG(true);
+		tu->setDEBUG(true);
 		cout << ERROR << "MODO DEBUG ACTIVADO" << DEFAULT << endl;
 	}else{
 		this->setDEBUG(false);
+		tu->setDEBUG(false);
 		cout << ERROR << "MODO DEBUG DESACTIVADO" << DEFAULT << endl;
 	}
 }
@@ -47,14 +49,14 @@ void Vista::modoDEBUG(bool DEBUG){
 
 Vista::Vista(){
 
-	if(this->getDEBUG() == false){
+	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    CREANDO VISTA    **** " << DEFAULT << endl;
 	}
 	
 		//Crearemos la TablaUsuarios en el método Vista.
 		this->tu = new TablaUsuarios;
 
-	if(this->getDEBUG() == false){
+	if(this->getDEBUG() == true){
 		cout << GREEN << "El modo Vista se ha creado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}
@@ -62,13 +64,13 @@ Vista::Vista(){
 }
 Vista::~Vista(){
 
-	if(this->getDEBUG() == false){
+	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    DESTRUYENDO VISTA    **** " << DEFAULT << endl;
 	}
 		//Borramos los datos de los miembros del polinomio.
 		tu->setTotalTuplas(0);
 
-	if(this->getDEBUG() == false){
+	if(this->getDEBUG() == true){
 		cout << GREEN << "El modo Vista se ha eliminado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}
@@ -192,8 +194,8 @@ void Vista::menuVista(){
 				case 8:
 					//Buscar Usuario por login (búsqueda secuencial)
 					if(creado==true){
-						tu->BuscarLogin();
 						cout << GREEN << "Buscanso Usuario... " << DEFAULT << endl;
+						tu->BuscarLogin();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede buscar ningún Usuario. " << DEFAULT << endl;
 						}
@@ -201,8 +203,6 @@ void Vista::menuVista(){
 				
 				case 9:
 					//Ordenar TablaUsuario:
-						//1) totalFotosUsuarios
-						//2) Login
 					if(creado==true){
 						cout << GREEN << "Ordenando tabla... " << DEFAULT << endl;
 						tu->ordenarTablaUsuarios();
@@ -245,7 +245,7 @@ void Vista::menuVista(){
 				case 13:
 					//Busqueda fotografía en todos los usuarios(Sólo Admin).
 					if(creado==true){
-						cout << "Buscando Fotografía de Usuario en tabla... " << DEFAULT << endl;
+						cout << GREEN << "Buscando Fotografía de Usuario en tabla... " << DEFAULT << endl;
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -254,7 +254,7 @@ void Vista::menuVista(){
 				case 14:
 					//Eliminar Usuarios Fotos min.
 					if(creado==true){
-						cout << "Buscando Usuario con unas fotografías mínimas... " << DEFAULT << endl;
+						cout << GREEN << "Buscando Usuario con unas fotografías mínimas... " << DEFAULT << endl;
 						tu->eliminarUsuariosFotosMin();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no tiene Usuarios para eliminar. " << DEFAULT << endl;
@@ -266,7 +266,7 @@ void Vista::menuVista(){
 					cout << PURPLE << "\n ----------SALIENDO---------- " << endl ;
 					cout << " Gracias por usar CRISTOBOOK " << endl;
 					cout << "\n 	© Carlos Fdez " << DEFAULT << endl;
-					//this->~Vista();
+					//tu->Salir;
 				break;
 				
 				default:

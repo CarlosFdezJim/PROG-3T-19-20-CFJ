@@ -84,6 +84,9 @@ class Foto{
 		 * @author Carlos Fdez.
 		 */
 		void setTamanio(unsigned long int tamanio);
+		
+		
+		
 		/**
 		 * @brief Devuelve el puntero Ruta de una variable estructurada de tipo Foto.
 		 * @version 1.0
@@ -109,21 +112,13 @@ class Foto{
 		
 		/**
 		 * @brief Imprime por pantalla la ruta de la foto junto a su tipo y el tamaño que ocupa la foto.
-		 * @param Foto *f
 		 * @post Imprimiremos la ruta de la foto por pantalla.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
 		void printFoto();
-		/**
-		 * @brief Módulo que se encarga de imprimir el vector de fotografías de un usuario.
-		 * @param TablaUsuarios tu
-		 * @pre El usuario debe de estar instertado.
-		 * @post Se muestran por pantalla las fotografías de ese usuario
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */
-		 void printFotosUsuario();
+		
+		
 		
 		/**
 		 * @brief Sobrecarga del operador << 

@@ -47,7 +47,7 @@ TablaUsuarios::TablaUsuarios(){
 
 		//Filtro para que las tuplas del vector no sea negativo, en caso de serlo abortará la ejecución.
 		if (this->getTotalTuplas() < 0){
-			cerr << "¡¡ERROR!! llas tuplas no pueden ser negativas." << endl;
+			cerr << "¡¡ERROR!! las tuplas no pueden ser negativas." << endl;
 			cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
 			exit(-1);
 		}
@@ -72,7 +72,7 @@ TablaUsuarios::~TablaUsuarios(){
 		cout  << PURPLE << "\n  ****    ELIMANDO TABLAUSUARIOS    **** " << DEFAULT << endl;
 	}	
 		if (this->getTotalTuplas() > 0){
-			//Eliminamos el vector de punteros a Usuarios.
+			//Eliminamos el contenido del vector de punteros a Usuarios.
 			for(int i=0; i <= this->getTotalTuplas(); i++){
 				delete punteroapuntero[i];
 			}
@@ -119,6 +119,7 @@ void TablaUsuarios::usuariosPredefinidos(){
 	Carlos->setApellido("Fernández");
 	Carlos->setPerfilUsuario("Admin");
 	this->insertarUsuarioTablaUsuarios(Carlos);
+	Carlos->setConsultas(99);
 
 	/***************************************
 	**************	JAIME	****************
@@ -138,12 +139,7 @@ void TablaUsuarios::usuariosPredefinidos(){
 	f->setRuta("/home/Jaime1988/Escritorio/Imagenes/Force");
 	f->setTipo("jpeg");
 	f->setTamanio(49350);
-	Jaime->insertarFotoUsuario(f);	
-	//Foto 3
-	/*f->setRuta("/home/Jaime1988/Escritorio/Imagenes/Chuty");
-	f->setTipo("jpeg");
-	f->setTamanio(49350);
-	Jaime->insertarFotoUsuario(f);*/
+	Jaime->insertarFotoUsuario(f);
 	
 	/***************************************
 	********	CRISTIAN	********
@@ -154,6 +150,7 @@ void TablaUsuarios::usuariosPredefinidos(){
 	Cristian->setApellido("Campos");
 	Cristian->setPerfilUsuario("Admin");
 	this->insertarUsuarioTablaUsuarios(Cristian);
+	Cristian->setConsultas(9);
 	
 	/***************************************
 	**************	ADRIAN	****************
@@ -184,6 +181,7 @@ void TablaUsuarios::usuariosPredefinidos(){
 	Pablo->setApellido("García");
 	Pablo->setPerfilUsuario("Admin");
 	this->insertarUsuarioTablaUsuarios(Pablo);
+	Cristian->setConsultas(19);
 	
 	/***************************************
 	**************	DAVID	****************
@@ -281,6 +279,8 @@ void TablaUsuarios::insertarUsuarioTablaUsuarios(Usuario *u){
 	this->punteroapuntero[this->getTotalTuplas()] = u;
 	//Actualizamos las TotalTuplas.
 	this->setTotalTuplas(this->getTotalTuplas()+1);
+	
+	
 }
 void comprobacionLogin(string Login,Usuario *u, bool &usado){
 
@@ -315,16 +315,27 @@ void TablaUsuarios::comprobacionLogin2(bool &usado, unsigned int &posicion){
 			cont++;	
 		}
 	}
-	
-	if(usado == true){
-		cout << "está usado en comprobacion2 " << endl;
-		cout << "Posición nº : " << posicion << endl;
-	}else{
-		cout << "No está usado" << endl;
-		cout << "Posición nº : " << posicion << endl;
-	}
-	
 
+
+}
+void TablaUsuarios::eliminarUsuario(int posicion){
+
+	Usuario *aux = new Usuario;
+	
+	//Realizamos el intercambio de posiciones.
+	aux = this->punteroapuntero[posicion];
+	this->punteroapuntero[posicion] = this->punteroapuntero[this->getTotalTuplas()-1];
+	this->punteroapuntero[this->getTotalTuplas()-1] = aux;
+
+	//Borramos usuario en la última posición
+	delete this->punteroapuntero[this->getTotalTuplas()-1];
+
+	//Disminuimos el tamaño del vector.
+	this->resize(this->getTotalTuplas()-1);
+
+	//Actualizamos las TotalTuplas.
+	this->setTotalTuplas(this->getTotalTuplas()-1);
+	
 }
 void TablaUsuarios::eliminarUsuarioTablaUsuarios(){
 
@@ -349,8 +360,6 @@ void TablaUsuarios::eliminarUsuarioTablaUsuarios(){
 			cont++;	
 		}
 	}
-	
-	//this->comprobacionLogin2(usado, posicion);
 	
 	//Si usado==true, el usuario existe y podemos eliminarlo.
 	if(usado == true){
@@ -441,13 +450,6 @@ void TablaUsuarios::insertarFoto(){
 		cerr << RED << "Lo sentimos, el Login introducido no está en nuestra base de datos." << DEFAULT << endl;
 		}
 }
-/**
- * @brief Módulo que se encarga de pedir algunos datos al usuario. 
- * @param Usuario *u
- * @pre El módulo insertarUsuarioNuevo debe de estar introducido correctamente.
- * @version 1.0
- * @author Carlos Fdez.
- */
 void TablaUsuarios::pedirDatosUsuario(Usuario *u){
 	
 	string nombre = "";
@@ -457,12 +459,9 @@ void TablaUsuarios::pedirDatosUsuario(Usuario *u){
 	cin >> nombre;
 	cout << YELLOW << "Apellido: " << DEFAULT << endl;
 	cin >> apellido;
-	//cout << YELLOW << "Perfil de usuarios: " << DEFAULT  << endl;
-	//cin >> perfilUsuario;
 	
 	u->setNombre(nombre);
 	u->setApellido(apellido);
-	//u->setPerfilUsuario(perfilUsuario);
 
 }
 void TablaUsuarios::insertarUsuarioNuevo(){
@@ -484,9 +483,9 @@ void TablaUsuarios::insertarUsuarioNuevo(){
 	
 	//Si el usuario no existe entramos en este if y creamos Usuario y lo insertamos en la TablaUsuarios.
 	if(usado != true){
-		cout << GREEN << " ¿Que tipo de Usuario desea insertar? " << DEFAULT << endl;
-		cout << " [1] Normal " << endl;
-		cout << " [2] Admin " << endl;
+		cout << GREEN << "¿Que tipo de Usuario desea insertar? " << DEFAULT << endl;
+		cout << "[1] Normal " << endl;
+		cout << "[2] Admin " << endl;
 		cin >> opcion;
 		cout << " *********************************** " << endl;
 		if (opcion == 1){
@@ -558,13 +557,13 @@ void TablaUsuarios::ordenamosLogin(){
 }
 void TablaUsuarios::ordenamosTotalFotosUsuario(){
 	
-	if (this->getTotalTuplas() > 0){
-		for(int i = 0;i < this->getTotalTuplas();i++){
-			for(int j= 0; j < this->getTotalTuplas();j++){
-				if(Normal *n = dynamic_cast<Normal*>(this->punteroapuntero[i])){
-					if(Normal *N = dynamic_cast<Normal*>(this->punteroapuntero[j])){	
+	if(this->getTotalTuplas() > 0){
+		for(int i = 0; i < this->getTotalTuplas()-1;i++){
+			if(Normal *n = dynamic_cast<Normal*>(this->punteroapuntero[i])){
+				if(Normal *N = dynamic_cast<Normal*>(this->punteroapuntero[i+1])){	
 						if(n->getTotalFotosUsuario() < N->getTotalFotosUsuario()){
 							Normal *aux = 0;
+							
 							
 							//Ordenamos las fotos con un Usuario Normal aux.
 							aux = n;
@@ -576,13 +575,13 @@ void TablaUsuarios::ordenamosTotalFotosUsuario(){
 							n = 0;
 							N = 0;
 						}
-					}
-					
-				}else if (Admin *a = dynamic_cast<Admin*>(this->punteroapuntero[i])){
-					a = 0;
-					//cout << "El usuario no puede tener fotos porque es un administrador, no un usuario" << endl;
 				}
+					
 			}
+				if (Admin *a = dynamic_cast<Admin*>(this->punteroapuntero[i])){
+					a = 0;
+					cout << "El usuario no puede tener fotos porque es un administrador, no un usuario" << endl;
+				}
 		}
 	}else{
 		cout << RED << "Lo sentimos, todavía no podemos ordenar porque no hay los usuarios suficientes " << DEFAULT << endl;
@@ -713,51 +712,31 @@ void TablaUsuarios::printFotosUsuario(){
 }
 void TablaUsuarios::eliminarUsuariosFotosMin(){
 
-	int posicion = 0;
 	int min = 0;
 
 	//1) Imprimimos la TablaUsuarios.
 	this->printTablaUsuarios();
 	
 	//2)Pedimos al usuario el número de fotos mínimas que desea eliminar.
-	cout << BLUE << "\n Por favor indique el número de fotos mínimas que tiene que tener un usuario para eliminarlo: " << DEFAULT << endl;
+	cout << BLUE << "Por favor indique el número de fotos mínimas que tiene que tener un usuario para eliminarlo: " << DEFAULT << endl;
 	cin >> min;
 	
 	//3)Buscamos los usuarios que tengan al menos esas fotos.
 	for (int i = 0; i < this->getTotalTuplas(); i++){
 		if(Normal *n = dynamic_cast<Normal*>(this->punteroapuntero[i])){
 			if(n->getTotalFotosUsuario() <= min){
-				
-			}else {
-				cout << "Este usuario se ha salvado" << endl;
+				this->eliminarUsuario(i);
+				n = 0;
+				i = 0;
 			}
-		n = 0;
+		}
+		if(Admin *a = dynamic_cast<Admin*>(this->punteroapuntero[i])){
+			cout << ERROR << "Este usuario es administrador y no puedes eliminarlo" << DEFAULT << endl;
 		}
 	}
 	
-	
-	
-	/*for (int i = 0; i < this->getTotalTuplas(); i++){
-		if(Normal *n = dynamic_cast<Normal*>(this->punteroapuntero[i])){
-			posicion=i;
-			Normal *aux = new Normal;
-		
-			//Realizamos el intercambio de posiciones.
-			aux = this->punteroapuntero[posicion];
-			this->punteroapuntero[posicion] = this->punteroapuntero[this->getTotalTuplas()-1];
-			this->punteroapuntero[this->getTotalTuplas()-1] = aux;
-			
-			//Borramos usuario en la última posición
-			delete this->punteroapuntero[this->getTotalTuplas()-1];
-
-			//Disminuimos el tamaño del vector.
-			this->resize(this->getTotalTuplas()-1);
-			this->setTotalTuplas(this->getTotalTuplas()-1);
-		}
-	}*/
-
-		//Imprimimos el vector de usuario para que el administrador vea que se ha borrado correctamente.
-			this->printTablaUsuarios();
+	// 4)Imprimimos el vector de usuario para que el administrador vea que se ha borrado correctamente.
+	this->printTablaUsuarios();
 
 }
 
@@ -772,14 +751,10 @@ void TablaUsuarios::TestingAutomatico(){
 	cout  << YELLOW << " Ordenando... " << DEFAULT << endl;
 	cout  << CYAN << " ****    IMPRIMIENDO TABLA DE USUARIOS    **** " << DEFAULT << endl;
 	this->printTablaUsuarios();
-	/*cout  << CYAN << " ****    INSERTANDO FOTOS A CADA USUARIOS    **** " << DEFAULT << endl;
-	for(int i=0; i < getTotalTuplas(tu); i++){
-		this->insertarFoto();
-	}*/
+	cout  << CYAN << " ****    INSERTANDO FOTOS A CADA USUARIOS    **** " << DEFAULT << endl;
+	this->insertarFoto();
 	cout  << PURPLE << " ****    ELIMINANDO USUARIOS    **** " << DEFAULT << endl;
-	for(int j=0; j < 7; j++){
-		this->eliminarUsuarioTablaUsuarios();
-	}
+	this->eliminarUsuarioTablaUsuarios();
 
 }
 
@@ -837,7 +812,7 @@ void TablaUsuarios::Testing(){
 	
 			default:
 				cout << BLUE << "Lo siento, la opción seleccionada no es correcta. " << DEFAULT << endl;
-				cout << BLUE << "Por favor seleccione otra o pulse 14 para salir. \n" << DEFAULT << endl;
+				cout << BLUE << "Por favor seleccione otra o pulse 5 para salir. \n" << DEFAULT << endl;
 			}
 	}
 }

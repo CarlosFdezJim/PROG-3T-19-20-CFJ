@@ -110,6 +110,9 @@ void Foto::printFoto(){
 	cout << PURPLE << "----------------" << DEFAULT << endl;
 	
 }
+
+///////////////////////////////				 SOBRECARGA					////////////////////////////////
+
 ostream& operator<<(ostream &flujo, Foto *f){
 
 	//Imprimimos toda la foto inluyendo Ruta,Tipo y Tamanio.

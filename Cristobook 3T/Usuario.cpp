@@ -76,26 +76,12 @@ Admin::Admin():Usuario(){
 	int consultas = 0;
 
 }
-/*Admin::Admin(int consultas):Usuario(login, nombre,apellido,perfil_usuario){
-
-	//Creo los miembro exclusivos del Administrador el resto los hereda de Usuario.
-	int consultas = consultas;
-
-}*/
-
 Normal::Normal():Usuario(){
-
+	
 	int DIM_vfotos = 0;
 	int totalFotosUsuario = 0;
-
+	
 }
-/*Normal::Normal(int DIM_vfotos, int totalFotosUsuario):Usuario(login, nombre,apellido,perfil_usuario){
-
-	int DIM_vfotos = DIM_vfotos;
-	int totalFotosUsuario = totalFotosUsuario;
-
-}*/
-
 Usuario::~Usuario(){
 
 	if(this->getDEBUG() == true){
@@ -123,11 +109,6 @@ Normal::~Normal(){
 	int DIM_vfotos = 0;
 	int totalFotosUsuario = 0;
 	
-	//Borramos el vector de Fotos del Usuario.
-		/*for( int i=0; i < this->getTotalFotosUsuario();i++){
-			delete v_fotos[i];
-		}*/
-		
 	//borro el fragmento de memoria
 	delete [] this->v_fotos;
 	
@@ -232,7 +213,6 @@ void Usuario::printUsuario(){
 	cout << YELLOW << "Perfil de usuarios: " << DEFAULT <<  this->getPerfilUsuario() << endl;
 	cout << YELLOW << "--------------------------" << DEFAULT << endl;
 	
-
 }
 void Normal::printUsuario(){
 

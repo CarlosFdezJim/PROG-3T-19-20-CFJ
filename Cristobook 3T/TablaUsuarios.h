@@ -83,10 +83,6 @@ class TablaUsuarios{
 		
 		/**
 		* @brief Método que realiza un Testing: 
-		* 	1) Insertar 3 Usuarios en TablaUsuarios.
-		*	2) Eliminar 5 Usuarios de TablaUsuarios.
-		*	3) Insertar 2 Usuarios en TablaUsuarios.
-		*	4) Eliminar 5 Usuarios de TablaUsuarios.
 		* @pre Tener bien creados los módulos a testar.
 		* @post Realizaremos un testing automatizado.
 		* @author Carlos Fdez
@@ -102,6 +98,8 @@ class TablaUsuarios{
 		*/
 		void TestingAutomatico();
 		
+		
+		
 		/**
 		 * @brief Módulo que se encarga de insertar en la Tabla de Usuarios algunos usuarios predefinidos (dedicados a hacer pruebas).
 		 * @pre Deberemos tener bien hecho el método para ingresar los usuarios.
@@ -112,12 +110,15 @@ class TablaUsuarios{
 		void usuariosPredefinidos();
 		
 		
+		
 		/**
 		* @brief Imprimiremos la tabla Usuarios.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
 		void printTablaUsuarios();
+		
+		
 		
 		/**
 		 * @brief Módulo que se encarga de comprobar el login de un usuario para saber si está usado o no, devuelve una posición y un booleano.
@@ -131,6 +132,7 @@ class TablaUsuarios{
 		void comprobacionLogin2(bool &usado, unsigned int &posicion);
 		
 		
+		
 		/**
 		* @brief Método que se usa para insertar a los usuario en la TablaUsuarios.
 		* @pre Debes tener creado los usuarios.¡OJO!Este método sólamente sirve para añadir los usuarios ya creados, para introducir un usuario nuevo, hay 			* 	otro método creado llamado insertarUsuarioNuevo().
@@ -139,6 +141,7 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void insertarUsuarioTablaUsuarios(Usuario *u);
+		
 		
 		
 		/**
@@ -150,6 +153,7 @@ class TablaUsuarios{
 		void resize(int DIM);
 		
 		
+		
 		/**
 		* @brief Insertaremos un usuario en el vector de usuarios
 		* @pre Debemos de tener memoria suficiente para Insertarlo
@@ -157,6 +161,17 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void insertarUsuarioNuevo();
+		
+		
+		
+		/**
+		* @brief Eliminaremos el usuario en la posición indicada.
+		* @pre Deberemos de tener un usuario en esa posición.
+		* @post El usuario de esa posición se eliminará
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void eliminarUsuario(int posicion);
 		/**
 		* @brief Eliminamos un usuario de la tablaUsuarios
 		* @pre Deberemos de tener al menos un usuario introducido
@@ -164,6 +179,9 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void eliminarUsuarioTablaUsuarios();
+		
+		
+		
 		/**
 		 * @brief Módulo que se encarga de buscar usuario por Login
 		 * @pre Los usuarios deben de estar introducidos correctamente en el vector.
@@ -198,6 +216,9 @@ class TablaUsuarios{
 		 * @author Carlos Fdez.
 		 */
 		void ordenamosTotalFotosUsuario();
+		
+		
+		
 		/**
 		* @brief Método que se encarga de eliminar todos los usuarios que tengan menos fotos que fotos_min, para ello pediremos al usuario introduzcan un 			* 	número que será las fotos mínimas que debe de tener el usuario para no ser eliminado.
 		* @pre Deberemos de tener al menos introducidos más de un usuario, y además tener más de una foto cada usuario.
@@ -206,13 +227,42 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void eliminarUsuariosFotosMin();
-		
+		/**
+		* @brief Eliminaremos la foto del usuario indicado.
+		* @pre Deberemos de tener al menos una foto insertada.
+		* @post La foto será eliminada.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
 		void eliminarFotoUsuario();
-		
+		/**
+		* @brief Insertaremos la foto en el vector de fotos del usuario.
+		* @post Quedará la foto insertada en el vector de su usuario.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
 		void insertarFoto();
 		
-		void printFotosUsuario();
 		
+		
+		/**
+		* @brief Imprime por pantalla las fotos que tiene el usuario.
+		* @pre Tenemos que tener alguna foto ingresada de caso contrario mostrará un mensaje advirtiendo.
+		* @post Imprimimos todas las fotos del usuario.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void printFotosUsuario();
+		/**
+		 * @brief Módulo que se encarga de pedir algunos datos al usuario. 
+		 * @param Usuario *u
+		 * @pre El módulo insertarUsuarioNuevo debe de estar introducido correctamente.
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
+		 
+		 
+		 
 		void pedirDatosUsuario(Usuario *u);
 		/**
 		 * @brief Módulo que se encarga de liberar toda la memoria dinñamica que hemos utilizado en nuestro programa.
