@@ -6,7 +6,7 @@
 //
 //
 
-//**********COLOR**********//
+//*********	COLOR		*********//
 
 #define DEFAULT "\033[1;0m"
 #define GREY "\033[1;30m"
@@ -17,7 +17,9 @@
 #define PURPLE "\033[1;35m"
 #define CYAN "\033[1;36m"
 #define ERROR "\033[1;41m"
-//************************//
+#define BLACK "\033[0;30m"
+
+//**************************************//
 
 #include <iostream>
 #include <stdlib.h>
@@ -38,30 +40,23 @@ bool Foto::getDEBUG(){
 
 Foto::Foto(){
 
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout  << PURPLE << "\n  ****    CREANDO FOTO    **** " << DEFAULT << endl;
 	}
-		//Reservamos un nuevo espacio de memoria para la Foto y lo inicializamos.
-		Foto *f;
 	
 		//Inicializamos el contenido del Usuario.	
 		this->ruta = "";
 		this->tipo = "";
 		this->tamanio = 0;
 	
-		//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
-		if (f == 0){
-			cerr << "Error. No hay memoria suficiente para crear una foto nueva. Se abortará la ejecución" << endl;
-			exit(-1);
-		}
-	if(this->getDEBUG() == true){	
+	if(this->getDEBUG() == false){	
 		cout << GREEN << "La Foto se ha creado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}
 }
 Foto::~Foto(){
 
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout  << PURPLE << "\n  ****    BORRANDO FOTO    **** " << DEFAULT << endl;
 	}
 		//Ponemos a cero/null todos los datos que tiene la Foto.
@@ -69,7 +64,7 @@ Foto::~Foto(){
 		this->tipo = "NULL";
 		this->tamanio = -1;
 	
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout << GREEN << "La foto se ha borrado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}

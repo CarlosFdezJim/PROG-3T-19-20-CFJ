@@ -17,6 +17,7 @@
 #define PURPLE "\033[1;35m"
 #define CYAN "\033[1;36m"
 #define ERROR "\033[1;41m"
+#define BLACK "\033[0;30m"
 
 //**************************************//
 #include <iostream>
@@ -39,7 +40,7 @@ bool Usuario::getDEBUG(){
 
 Usuario::Usuario(){
 
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout  << PURPLE << "\n  ****    CREANDO USUARIOS    **** " << DEFAULT << endl;
 	}
 		//Inicializamos el contenido del Usuario.
@@ -48,7 +49,7 @@ Usuario::Usuario(){
 		this->apellido = "NULL";
 		this->perfil_usuario = "NULL";	
 	
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}
@@ -56,7 +57,7 @@ Usuario::Usuario(){
 }
 Usuario::Usuario(string login, string nombre, string apellido, string perfil_usuario){
 
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout  << PURPLE << "\n ****    CREANDO USUARIOS POR PARÁMETROS    **** " << DEFAULT << endl;
 	}
 		//Inicializamos el contenido del Usuario.
@@ -65,7 +66,7 @@ Usuario::Usuario(string login, string nombre, string apellido, string perfil_usu
 		this->apellido = apellido;
 		this->perfil_usuario = perfil_usuario;
 
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}
@@ -84,7 +85,7 @@ Normal::Normal():Usuario(){
 }
 Usuario::~Usuario(){
 
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout  << PURPLE << "\n  ****    BORRAR USUARIOS    **** " << DEFAULT << endl;
 	}
 	
@@ -94,9 +95,10 @@ Usuario::~Usuario(){
 		this->apellido = "";
 		this->perfil_usuario = "";	
 
-	cout << GREEN << "El Usuario se ha borrado correctamente.\n" << DEFAULT ;
-	cout  << PURPLE << "************************************** " << DEFAULT << endl;
-	
+	if(this->getDEBUG() == false){
+		cout << GREEN << "El Usuario se ha borrado correctamente.\n" << DEFAULT ;
+		cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	}
 }
 Admin::~Admin(){
 
@@ -105,7 +107,8 @@ Admin::~Admin(){
 
 }
 Normal::~Normal(){
-
+	
+	//Ponemos a 0 los valores de los miembros.
 	int DIM_vfotos = 0;
 	int totalFotosUsuario = 0;
 	
@@ -114,7 +117,7 @@ Normal::~Normal(){
 	
 	//elimino la dirección que referenciaba al fragmento de memoria(puntero).
 	this->v_fotos = 0;
-
+	
 }
 
 ///////////////////////////////				 RESIZE					////////////////////////////////
@@ -122,15 +125,14 @@ Normal::~Normal(){
 void Normal::resizeFoto(int DIM){
 
 	//Reservo memoria para el vector auxiliar con una DIM +1.
-	Foto* aux = new Foto[DIM+1];
+	Foto* aux = new Foto[DIM];
 	
 	//Compruebo que hay memoria suficiente.
 	if (aux == 0){
 		cerr << "Error. No hay memoria suficiente para crear un nuevo vector. Se abortará la ejecución" << endl;
 		exit(-1);
 	}
-
-	if( DIM >= this->getTotalFotosUsuario()){
+	if(DIM >= this->getTotalFotosUsuario()){
 
 		//Copio el contenido de punteroapuntero[i] en aux[i].
 		for(int i = 0;i < this->getTotalFotosUsuario();i++){
@@ -138,11 +140,14 @@ void Normal::resizeFoto(int DIM){
 		}
 
 	}
-	//Eliminamos la memoria del vector coef.
-	delete [] v_fotos;
+	
+	//Eliminamos la memoria del vector v_fotos.
+	//delete [] v_fotos;
 
-	//Reasignamos el puntero de coeficientes.
+	//Reasignamos el puntero de v_fotos.
 	v_fotos = aux;
+	aux = 0;
+
 	//Actualizamos la dimension
 	this->setDIM_vfotos(this->getTotalFotosUsuario()+1);
 
@@ -243,7 +248,7 @@ void Admin::printUsuario(){
 void Normal::insertarFotoUsuario(Foto *f){
 
 	//Aumentamos en uno nuestro vector.
-	this->resizeFoto(this->getTotalFotosUsuario());
+	this->resizeFoto(this->getTotalFotosUsuario()+1);
 
 	//Insertamos en elvector nuestra foto
 	this->v_fotos[this->getTotalFotosUsuario()] = *f;
@@ -373,6 +378,23 @@ void Usuario::operator=(Usuario &u){
 	}
 
 }
+void Usuario::operator=(Usuario *u){
+
+	if(u->getDEBUG() == true){
+		cout  << PURPLE << "\n  ****    CREANDO USUARIOS    **** " << DEFAULT << endl;
+	}
+		//Inicializamos el contenido del Usuario.
+		u->login = "NULL";
+		u->nombre = "NULL";
+		u->apellido = "NULL";
+		u->perfil_usuario = "NULL";	
+	
+	if(u->getDEBUG() == true){
+		cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
+		cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	}
+
+}
 void Normal::operator=(Normal &n){
 
 	if(n.getDEBUG() == true){
@@ -395,6 +417,28 @@ void Normal::operator=(Normal &n){
 	n.totalFotosUsuario = n.totalFotosUsuario;
 
 }
+void Normal::operator=(Normal *n){
+
+	if(n->getDEBUG() == true){
+		cout  << PURPLE << "\n  ****    CREANDO USUARIOS    **** " << DEFAULT << endl;
+	}
+		//Inicializamos el contenido del Usuario.
+		n->login = "NULL";
+		n->nombre = "NULL";
+		n->apellido = "NULL";
+		n->perfil_usuario = "NULL";	
+	
+	if(n->getDEBUG() == true){
+		cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
+		cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	}
+
+
+	//Inicializamos los miembros del polinomio.
+	n->DIM_vfotos = n->DIM_vfotos;
+	n->totalFotosUsuario = n->totalFotosUsuario;
+
+}
 void Admin::operator=(Admin &a){
 
 	if(a.getDEBUG() == true){
@@ -414,5 +458,26 @@ void Admin::operator=(Admin &a){
 
 	//Inicializamos los miembros del polinomio.
 	a.consultas = a.consultas;
+
+}
+void Admin::operator=(Admin *a){
+
+	if(a->getDEBUG() == true){
+		cout  << PURPLE << "\n  ****    CREANDO USUARIOS    **** " << DEFAULT << endl;
+	}
+		//Inicializamos el contenido del Usuario.
+		a->login = "NULL";
+		a->nombre = "NULL";
+		a->apellido = "NULL";
+		a->perfil_usuario = "NULL";	
+	
+	if(a->getDEBUG() == true){
+		cout << GREEN << "El Usuario se ha creado correctamente.\n" << DEFAULT ;
+		cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	}
+
+
+	//Inicializamos los miembros del polinomio.
+	a->consultas = a->consultas;
 
 }

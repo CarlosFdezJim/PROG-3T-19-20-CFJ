@@ -14,6 +14,6 @@ Pulse la tecla que desee para realizar una de las siguientes acciones:
 	10) Añadir Fotografía a Usuario.(IMPLEMENTADO)
 	11) Eliminar Fotografía de un Usuario.(IMPLEMENTADO)
 	12) Imprimir las Fotografías de un Usuario.(IMPLEMENTADO)
-	13) EXTRA SUBIR NOTA: Devolver el conjunto de usuarios que posean una determinada fotografía. 
-	14) Eliminar Usuario con Fotos unas fotos mínimas.
-	15) Salir.
+	13) EXTRA SUBIR NOTA: Devolver el conjunto de usuarios que posean una determinada fotografía. (IMPLEMENTANDO)
+	14) Eliminar Usuario con Fotos unas fotos mínimas.(IMPLEMENTADO)
+	15) Salir.(IMPLEMENTADO)

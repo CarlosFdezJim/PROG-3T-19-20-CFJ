@@ -17,6 +17,7 @@
 #define PURPLE "\033[1;35m"
 #define CYAN "\033[1;36m"
 #define ERROR "\033[1;41m"
+#define BLACK "\033[0;30m"
 
 //**************************************//
 #include <iostream>
@@ -28,17 +29,25 @@ using namespace std;
 ///////////////////////////////				DEBUG					////////////////////////////////
 
 void TablaUsuarios::setDEBUG(bool DEBUG){
+	
 	this->DEBUG = DEBUG;
 }
 bool TablaUsuarios::getDEBUG(){
 	return this->DEBUG;
+}
+void TablaUsuarios::modoDEBUG(bool DEBUG){
+
+	for(int i = 0; i < this->getTotalTuplas(); i++){
+		this->punteroapuntero[i]->setDEBUG(DEBUG);
+	}
+
 }
 
 ///////////////////////////////				TABLA USUARIOS					////////////////////////////////
 
 TablaUsuarios::TablaUsuarios(){
 	
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout  << PURPLE << "\n  ****    CREANDO TABLAUSUARIOS    **** " << DEFAULT << endl;
 	}
 		
@@ -60,37 +69,39 @@ TablaUsuarios::TablaUsuarios(){
 			cerr << "Error. No hay memoria suficiente para crear una nueva TablaUsuarios. Se abortará la ejecución" << endl;
 			exit(-1);
 		}
+		
+		//this->usuariosPredefinidos();
 
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout << GREEN << "La TablaUsuarios se ha creado correctamente.\n" << DEFAULT ;
 		cout << PURPLE << "************************************** " << DEFAULT << endl;
 	}
 }
 TablaUsuarios::~TablaUsuarios(){
 
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout  << PURPLE << "\n  ****    ELIMANDO TABLAUSUARIOS    **** " << DEFAULT << endl;
 	}	
 		if (this->getTotalTuplas() > 0){
 			//Eliminamos el contenido del vector de punteros a Usuarios.
 			for(int i=0; i <= this->getTotalTuplas(); i++){
-				delete punteroapuntero[i];
+				delete this->punteroapuntero[i];
 			}
 		
 			//Ponemos los datos del usuario a 0 antes de eliminar el usuario.
 			this->setTotalTuplas(0);
 
 			//Borramos el vector dinámico de punteros a usuarios.
-			delete [] punteroapuntero;
+			delete [] this->punteroapuntero;
 			
 			//Eliminamos la dirección del punteroapuntero.
-			punteroapuntero = 0;
+			this->punteroapuntero = 0;
 			
-		}else if (getTotalTuplas() < 0){
+		}else if (this->getTotalTuplas() < 0){
 			cerr << RED << "No existe ninguna TablaUsuarios. " << endl;
 	
 		}
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout << GREEN << "La TablaUsuarios se ha eliminado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}
@@ -104,6 +115,33 @@ int TablaUsuarios::getTotalTuplas(){
 	return this->TotalTuplas;
 }
 
+///////////////////////////////				PASS					////////////////////////////////
+
+void TablaUsuarios::credentials(string pass, string contrasena, bool &usado){
+	
+	int cont = 0;
+	
+	for(int i = 0; i < this->getTotalTuplas(); i++){
+		if(Admin *a = dynamic_cast <Admin*>(this->punteroapuntero[i])){
+			if(pass == a->getLogin() && cont != 1){
+				usado = true;
+				cont++;
+				cout << GREEN << "Acceso concedido" << DEFAULT << endl;
+			}
+		}
+		/*if(Normal *n = dynamic_cast <Normal*>(this->punteroapuntero[i])){
+			if(pass == n->getLogin() && cont != 1){
+				cout << "DEBUG 2 " << endl;
+				usado = false;
+				cout << RED << "Este usuario se encuentra en nuestra base de datos";
+				cout <<" pero no puede usar esta funcionalidad porque no es Administrador. " << DEFAULT << endl;
+			}else{
+				cout << ERROR << "El Login introducido no se encuentra en nuestra base de datos. " << DEFAULT << endl;
+			}
+		}*/
+		
+	}
+}
 ///////////////////////////////				 PREDEFINIDOS					////////////////////////////////
 
 void TablaUsuarios::usuariosPredefinidos(){
@@ -168,6 +206,11 @@ void TablaUsuarios::usuariosPredefinidos(){
 	Adrian->insertarFotoUsuario(f);
 	//Foto2
 	f->setRuta("/home/Adrian/Escritorio/Imagenes/Calamar");
+	f->setTipo("bmp");
+	f->setTamanio(125910);
+	Adrian->insertarFotoUsuario(f);
+	//Foto3
+	f->setRuta("/home/Adrian/Escritorio/Imagenes/Calamar2");
 	f->setTipo("bmp");
 	f->setTamanio(125910);
 	Adrian->insertarFotoUsuario(f);
@@ -261,11 +304,12 @@ void TablaUsuarios::resize(int DIM){
 		}
 	}
 	
-	//Eliminamos la memoria del vector coef.
+	//Eliminamos la memoria del vector de usuario.
 	delete [] punteroapuntero;
 
-	//Reasignamos el puntero de coeficientes.
+	//Reasignamos el puntero de punteroapuntero.
 	punteroapuntero = aux;
+	aux = 0;
 
 }
 
@@ -294,8 +338,6 @@ void TablaUsuarios::comprobacionLogin2(bool &usado, unsigned int &posicion){
 
 	//Declaración de variables locales.
 	string Login = "";
-	//bool usado = false;
-	//unsigned int posicion = 0;
 	int cont = 0;
 	Usuario *u = 0;
 	
@@ -320,15 +362,17 @@ void TablaUsuarios::comprobacionLogin2(bool &usado, unsigned int &posicion){
 }
 void TablaUsuarios::eliminarUsuario(int posicion){
 
-	Usuario *aux = new Usuario;
+	//Usuario *aux = new Usuario;
 	
 	//Realizamos el intercambio de posiciones.
-	aux = this->punteroapuntero[posicion];
+	
+	delete this->punteroapuntero[posicion];
+	
 	this->punteroapuntero[posicion] = this->punteroapuntero[this->getTotalTuplas()-1];
-	this->punteroapuntero[this->getTotalTuplas()-1] = aux;
+	//this->punteroapuntero[this->getTotalTuplas()-1] = aux;
 
 	//Borramos usuario en la última posición
-	delete this->punteroapuntero[this->getTotalTuplas()-1];
+//	delete this->punteroapuntero[this->getTotalTuplas()-1];
 
 	//Disminuimos el tamaño del vector.
 	this->resize(this->getTotalTuplas()-1);
@@ -454,6 +498,7 @@ void TablaUsuarios::pedirDatosUsuario(Usuario *u){
 	
 	string nombre = "";
 	string apellido = "";
+	int x = 0;
 
 	cout << YELLOW << "Nombre: " << DEFAULT << endl;
 	cin >> nombre;
@@ -462,7 +507,7 @@ void TablaUsuarios::pedirDatosUsuario(Usuario *u){
 	
 	u->setNombre(nombre);
 	u->setApellido(apellido);
-
+	
 }
 void TablaUsuarios::insertarUsuarioNuevo(){
 
@@ -564,7 +609,7 @@ void TablaUsuarios::ordenamosTotalFotosUsuario(){
 						if(n->getTotalFotosUsuario() < N->getTotalFotosUsuario()){
 							Normal *aux = 0;
 							
-							
+							cout << "DEBUG" << endl;
 							//Ordenamos las fotos con un Usuario Normal aux.
 							aux = n;
 							n = N;
@@ -576,12 +621,24 @@ void TablaUsuarios::ordenamosTotalFotosUsuario(){
 							N = 0;
 						}
 				}
+				/*if (Admin *a = dynamic_cast<Admin*>(this->punteroapuntero[i+1])){
+					Admin *aux = 0;
 					
+					//Ordenamos las fotos con un Usuario Normal aux.
+					aux = n;
+					n = a;
+					a = aux;
+					
+					//Eliminamos la dirección de memoria de los punteros.
+					aux = 0;
+					n = 0;
+					N = 0;
+				}*/
 			}
-				if (Admin *a = dynamic_cast<Admin*>(this->punteroapuntero[i])){
-					a = 0;
-					cout << "El usuario no puede tener fotos porque es un administrador, no un usuario" << endl;
-				}
+			if (Admin *a = dynamic_cast<Admin*>(this->punteroapuntero[i])){
+				a = 0;
+				cout << "El usuario no puede tener fotos porque es un administrador, no un usuario" << endl;
+			}
 		}
 	}else{
 		cout << RED << "Lo sentimos, todavía no podemos ordenar porque no hay los usuarios suficientes " << DEFAULT << endl;

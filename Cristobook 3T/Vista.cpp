@@ -17,6 +17,7 @@
 #define PURPLE "\033[1;35m"
 #define CYAN "\033[1;36m"
 #define ERROR "\033[1;41m"
+#define BLACK "\033[0;30m"
 
 //**************************************//
 #include <iostream>
@@ -37,26 +38,29 @@ void Vista::modoDEBUG(bool DEBUG){
 
 	if(this->getDEBUG()==false){
 		this->setDEBUG(true);
-		tu->setDEBUG(true);
 		cout << ERROR << "MODO DEBUG ACTIVADO" << DEFAULT << endl;
 	}else{
 		this->setDEBUG(false);
-		tu->setDEBUG(false);
 		cout << ERROR << "MODO DEBUG DESACTIVADO" << DEFAULT << endl;
 	}
+	
+	tu->modoDEBUG(DEBUG);
+
 }
 ///////////////////////////////				VISTA					////////////////////////////////
 
 Vista::Vista(){
 
-	if(this->getDEBUG() == true){
+	this->setDEBUG(false);
+
+	if(this->getDEBUG() == false){
 		cout  << PURPLE << "\n  ****    CREANDO VISTA    **** " << DEFAULT << endl;
 	}
 	
 		//Crearemos la TablaUsuarios en el método Vista.
 		this->tu = new TablaUsuarios;
 
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout << GREEN << "El modo Vista se ha creado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}
@@ -64,15 +68,41 @@ Vista::Vista(){
 }
 Vista::~Vista(){
 
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout  << PURPLE << "\n  ****    DESTRUYENDO VISTA    **** " << DEFAULT << endl;
 	}
 		//Borramos los datos de los miembros del polinomio.
 		tu->setTotalTuplas(0);
 
-	if(this->getDEBUG() == true){
+	if(this->getDEBUG() == false){
 		cout << GREEN << "El modo Vista se ha eliminado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	}
+
+}
+
+///////////////////////////////				PASS					////////////////////////////////
+
+void Vista::credentials(){
+
+	string pass = "";
+	string contrasena = "";
+	bool usado = false;
+
+	cout << endl;
+	//cout << CYAN << "\n***************************************" << DEFAULT << endl;
+	//cout << CYAN << "**************	LOGIN	****************" << DEFAULT << endl;
+	//cout << CYAN << "***************************************" << DEFAULT << endl;
+	cout << PURPLE << "Login : " << DEFAULT << endl;
+	cin >> pass;
+
+	tu->credentials(pass, contrasena, usado);
+	
+	if(usado == true){
+		cout << PURPLE << "Password : " << BLACK << endl;
+		cin >> contrasena;
+		cout  << PURPLE << "************************************** " << DEFAULT << endl;
+		menuVista();
 	}
 
 }
@@ -101,7 +131,7 @@ void printMenu(){
 	cout << BLUE <<  "\n[ 10 ] " << DEFAULT << " Añadir Fotografía a Usuario. ";
 	cout << BLUE <<  "\n[ 11 ] " << DEFAULT << " Eliminar Fotografía de un Usuario. ";
 	cout << BLUE <<  "\n[ 12 ] " << DEFAULT << " Imprimir Fotografía de un Usuario. ";
-	cout << BLUE <<  "\n[ 13 ] " << DEFAULT << " EXTRA. ";
+	cout << BLUE <<  "\n[ 13 ] " << DEFAULT << " Busca Fotografías de Usuario en TablaUsuarios. ";
 	cout << BLUE <<  "\n[ 14 ] " << DEFAULT << " Eliminar usuarios fotos min. ";
 	cout << BLUE <<  "\n[ 15 ] " << DEFAULT << " Salir. " << endl;
 
@@ -266,7 +296,6 @@ void Vista::menuVista(){
 					cout << PURPLE << "\n ----------SALIENDO---------- " << endl ;
 					cout << " Gracias por usar CRISTOBOOK " << endl;
 					cout << "\n 	© Carlos Fdez " << DEFAULT << endl;
-					//tu->Salir;
 				break;
 				
 				default:

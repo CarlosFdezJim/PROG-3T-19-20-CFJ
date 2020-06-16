@@ -31,18 +31,7 @@ using namespace std;
 int main(){
 
 	Vista v;
+	//v.credentials();
 	v.menuVista();
 	
-	/*Usuario *vini = new Usuario("Vini", "Vinicius", "Jr", "Normal");
-	cout << vini;
-	
-	Usuario *Rodrygo = new Usuario("Rodrygo", "Rodrygo", "Goes", "Normal");
-	cout << Rodrygo;
-	
-	vini = Rodrygo;
-	
-	cout << vini;*/
-	
-
-
 }

@@ -37,6 +37,14 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		bool getDEBUG();
+		/**
+		* @brief
+		* @pre
+		* @post
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void modoDEBUG(bool DEBUG);
 		
 		
 		/**
@@ -98,6 +106,17 @@ class TablaUsuarios{
 		*/
 		void TestingAutomatico();
 		
+		
+		
+		/**
+		* @brief
+		* @pre
+		* @post
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void credentials(string pass, string contrasena, bool &usado);
+
 		
 		
 		/**
