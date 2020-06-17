@@ -21,7 +21,7 @@ class Vista{
 	public:
 		/**
 		* @brief Método que cambia el valor de la variable booleana DEBUG.
-		* @param bool DEBUG 	//Por defecto será true al no poder darle valor.
+		* @param bool DEBUG
 		* @post Introduciremos en la variable booleana DEBUG un valor true/false para activar y desactivar el modo DEBUG.
 		* @author Carlos Fdez.
 		* @version 1.0
@@ -52,9 +52,16 @@ class Vista{
 		*/
 		Vista();
 		/**
+		* @brief Método para crear la vista del Usuario con parámetros.
+		* @post Crearemos los atributos de la clase vista, pasándole parámetros.
+		* @author Carlos Fdez.
+		* @version 1.0
+		*/
+		Vista(int TotalTuplas);
+		/**
 		* @brief Destructor de la clase vista.
 		* @pre Debemos de tener creado correctamente el método vista.
-		* @post Liberaremos la memoria creada al crear TablaUsuarios.
+		* @post Liberaremos la memoria creada liberándola en el orden correcto.
 		* @author Carlos Fdez.
 		* @version 1.0
 		*/
@@ -71,12 +78,22 @@ class Vista{
 		*/
 		void menuVista();
 
+
+
 		/**
-		* @brief
-		* @pre
-		* @post
+		* @brief Método que recoge los datos para comprobar que el usuario que desea ingresar es un usuario Administrador.
+		* @pre Deberemos de tener los usuarios creador una vez creamos la TablaUsuarios.
+		* @post Sólamente accederá al menú los usuarios Administrador.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
 		void credentials();
+		/**
+		* @brief Comprobamos que el Login existe en nuestra TablaUsuarios
+		* @pre Deberemos de tener insertado algún Login en nuestra TablaUsuarios, aunque sino está manda un mensaje de error.
+		* @post Devolveremos un bool usado, si existe el login en nuestra TablaUsuarios.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void comprobacionLoginVista(bool &usado);
 };

@@ -40,7 +40,7 @@ bool Foto::getDEBUG(){
 
 Foto::Foto(){
 
-	if(this->getDEBUG() == false){
+	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    CREANDO FOTO    **** " << DEFAULT << endl;
 	}
 	
@@ -49,14 +49,14 @@ Foto::Foto(){
 		this->tipo = "";
 		this->tamanio = 0;
 	
-	if(this->getDEBUG() == false){	
+	if(this->getDEBUG() == true){	
 		cout << GREEN << "La Foto se ha creado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}
 }
 Foto::~Foto(){
 
-	if(this->getDEBUG() == false){
+	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    BORRANDO FOTO    **** " << DEFAULT << endl;
 	}
 		//Ponemos a cero/null todos los datos que tiene la Foto.
@@ -64,7 +64,7 @@ Foto::~Foto(){
 		this->tipo = "NULL";
 		this->tamanio = -1;
 	
-	if(this->getDEBUG() == false){
+	if(this->getDEBUG() == true){
 		cout << GREEN << "La foto se ha borrado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}

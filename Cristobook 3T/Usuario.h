@@ -17,9 +17,9 @@ class Usuario{
 
 	protected:
 	
-		string login;		//Debe ser único.
-		string nombre;		//Nombre del usuario
-		string apellido;	//Apellido del usuario
+		string login;		//Debe ser único, se usará para inicia sesión.
+		string nombre;		//Nombre del usuario.
+		string apellido;	//Apellido del usuario.
 		string perfil_usuario;	//Perfil del Usuario. Administrador o Usuario Normal.
 		bool DEBUG;
 
@@ -27,7 +27,7 @@ class Usuario{
 	public:
 		/**
 		* @brief Método que cambia el valor de la variable booleana DEBUG.
-		* @param bool DEBUG 	//Por defecto será true al no poder darle valor.
+		* @param bool DEBUG
 		* @post Introduciremos en la variable booleana DEBUG un valor true/false para activar y desactivar el modo DEBUG.
 		* @author Carlos Fdez.
 		* @version 1.0
@@ -40,6 +40,14 @@ class Usuario{
 		* @version 1.0
 		*/
 		bool getDEBUG();
+		/**
+		* @brief Método que cambia el estado de la variable booleana DEBUG para activar o desactivar el DEBUG.
+		* @pre Tendremos que tener bien hecho los set y get de la variable booleana DEBUG.
+		* @post Cambiamos el valor de la variable boolenana DEBUG.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void modoDEBUG(bool DEBUG);
 		
 		
 		
@@ -58,6 +66,20 @@ class Usuario{
 		* @version 1.0
 		*/
 		Usuario(string login, string nombre, string apellido, string perfil_usuario);
+		/**
+		* @brief Constructor por copia(parámetros). Este contructor introduce automáticamente los parámetros en los datos del Usuario.
+		* @post Se reservará un espacio de memoria para la Usuario.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		Usuario(Usuario &u);
+		/**
+		* @brief Constructor por copia (puntero). Este contructor introduce automáticamente los parámetros en los datos del Usuario.
+		* @post Se reservará un espacio de memoria para la Usuario.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		Usuario(Usuario *u);
 		/**
 		 * @brief Módulo que borrará el espacio de memoria reservado a un Usuario, borrando primero los datos del usuario y después borramos los punteros.
 		 * @post Se liberará un espacio de memoria al borrar a un usuario.
@@ -106,32 +128,35 @@ class Usuario{
 		
 		/**
 		 * @brief Devuelve el valor Login de un de tipo Usuario.
-		 * @post Devolveremos el valor del Login de ese usuario.
+		 * @post Devolveremos el valor del Login de ese Usuario.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
 		string getLogin();
 		/**
 		 * @brief Devuelve el valor Nombre de un de tipo Usuario.
-		 * @post Devolveremos el valor del Nombre de ese usuario.
+		 * @post Devolveremos el valor del Nombre de ese Usuario.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */		
 		string getNombre();
 		/**
 		 * @brief Devuelve el valor Apellido de un de tipo Usuario.
-		 * @post Devolveremos el valor del Apellido de ese usuario.
+		 * @post Devolveremos el valor del Apellido de ese Usuario.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */		
 		string getApellido();
 		/**
 		 * @brief Devuelve el valor Perfil_Usuario de un de tipo Usuario.
-		 * @post Devolveremos el valor del Perfil de usuario de ese usuario.
+		 * @post Devolveremos el valor del Perfil de usuario de ese Usuario.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
 		string getPerfilUsuario();
+		
+		
+		
 		/**
 		 * @brief Imprime por pantalla el contenido de un tipo Usuario.
 		 * @post Imprimir un Usuario seleccionado.
@@ -142,11 +167,12 @@ class Usuario{
 		/**
 		 * @brief Módulo que me muestra las fotos de un vector de fotos.
 		 * @pre El vector de fotos tiene que estar creado y tener por lo menos una foto.
-		 * @post Se mostrará el vector de fotos al usuario.
+		 * @post Se mostrará el vector de fotos de un Usuario.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
 		void printVectorFotos();
+		
 		
 		
 		/**
@@ -179,15 +205,19 @@ class Usuario{
 		* @version 1.0
 		*/
 		void operator=(Usuario *u);
+		
+		
+		
 };
 class Admin: public Usuario{
 
 	protected:
-		int consultas;
+	
+		int consultas;		//Número de consultas que realiza el Administrador.
 		
 	public:
 		/**
-		* @brief Constructor de la clase Admin
+		* @brief Constructor de la clase Admin, constructor que utiliza el constructor de Usuario y luego crea sus miembros propios
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
@@ -200,7 +230,8 @@ class Admin: public Usuario{
 		*/
 		//Admin(int consultas):Usuario(string login, string nombre,string apellido, string perfil_usuario);
 		/**
-		* @brief Destructor de la clase Admin.
+		* @brief Destructor de la clase Admin, es virtual porque al eliminar un Usuario Admin elimina los miembos de la clase Usuario.
+		* @pre Debemos de tener al menos un Usuario Administrador.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
@@ -208,7 +239,8 @@ class Admin: public Usuario{
 		
 		
 		/**
-		* @brief Método que se utiliza para insertar en el miembro consutas de la clase admin, el número de veces que se ha ingresado un usuario.
+		* @brief Método que se utiliza para insertar en el miembro consultas de la clase Admin un número de consultas.
+		* @pre No puede ser negativo.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
@@ -224,11 +256,12 @@ class Admin: public Usuario{
 		
 		/**
 		* @brief Imprime los atributos propios de la clase Normal.
-		* @post Imprimiermos SÓLAMENTE los atributos propios.
+		* @post Imprimiermos los atributos propios y los de Usuario.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
 		virtual void printUsuario();
+		
 		
 		
 		/**
@@ -240,8 +273,9 @@ class Admin: public Usuario{
 		 */
 		friend ostream& operator<<(ostream &flujo, Admin *a);
 		/**
-		 * @brief Sobrecarga del operador << por referencia.
+		 * @brief Sobrecarga del operador <<
 		 * @post Se utiliza para poder imprimir un usuario de tipo Admin utilizando simplemente este operador.
+		 * Ejemplo --> cout << Carlos.
 		 * @author Carlos Fdez
 		 * @version 1.0
 		 */
@@ -260,21 +294,24 @@ class Admin: public Usuario{
 		* @version 1.0
 		*/
 		void operator=(Admin *a);
+		
+		
 
 };
 class Normal: public Usuario{
 
 	protected:
 		
-		Foto* v_fotos;	//Vector Dinámico de Burbujas.
-		int DIM_vfotos;		//Dimensión del vector.
-		int totalFotosUsuario;	//utiles del vector
+		Foto* v_fotos;		//Vector Dinámico de Burbujas.
+		int DIM_vfotos;				//Dimensión del vector.
+		int totalFotosUsuario;			//Útiles del vector
+		
 	public:
 	
 		/**
 		* @brief Constructor de la clase Normal.
 		* @pre Debemos de tener creada la clase Usuario perfectamente.
-		* @post Crearemos una clase que hereda los atributos desde la clase padre(class Usuario).
+		* @post Crearemos una clase que hereda los atributos desde la clase padre(Usuario).
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
@@ -288,7 +325,7 @@ class Normal: public Usuario{
 		//Normal(int DIM_vfotos, int totalFotosUsuario):Usuario(login, nombre,apellido,perfil_usuario);
 		/**
 		* @brief Destructor de la clase Normal.
-		* @pre Debemos de tener creada la clase Usuario perfectamente.
+		* @pre Debemos de tener al menos un Usuario Normal.
 		* @post Crearemos una clase que hereda los atributos desde la clase padre(class Usuario).
 		* @author Carlos Fdez
 		* @version 2.0
@@ -299,8 +336,7 @@ class Normal: public Usuario{
 		
 		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable int llamada totalFotosUsuario.
-		 * @param Usuario *u		//Puntero de tipo Usuario.
-		 * @param int totalFotosUsuario	//Total de fotos que almacena actualmente el usuario.
+		 * @param int totalFotosUsuario
 		 * @post Se almacenará en la variable estructurada Usuario el total de fotos que tiene actualmente el usuario del usuario.
 		 * @version 1.0
 		 * @author Carlos Fdez.
@@ -308,8 +344,7 @@ class Normal: public Usuario{
 		void setTotalFotosUsuario(int totalFotosUsuario);
 		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable int llamada v_fotos.
-		 * @param Usuario *u		//Puntero de tipo Usuario.
-		 * @param Foto *f		//Puntero de tipo Foto.
+		 * @param int i			//Variable que apunta a una foto dentro del vector de fotos.
 		 * @post Se almacenará en la variable estructurada Usuario la cantidad de fotos que puede almacenar del usuario.
 		 * @version 1.0
 		 * @author Carlos Fdez.
@@ -350,7 +385,7 @@ class Normal: public Usuario{
 		
 		/**
 		* @brief Imprime los atributos propios de la clase Normal.
-		* @post Imprimiermos SÓLAMENTE los atributos propios.
+		* @post Imprimiermos los atributos propios y los de Usuario.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
@@ -368,7 +403,7 @@ class Normal: public Usuario{
 		 */
 		void insertarFotoUsuario(Foto *f);
 		/**
-		* @brief Redimensiona el vector de fotos
+		* @brief Redimensiona el vector de fotos.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
@@ -378,7 +413,7 @@ class Normal: public Usuario{
 		
 		/**
 		 * @brief Sobrecarga del operador << 
-		 * @post Se utiliza para poder imprimir un usuario de tipo Normal utilizando simplemente este operador.
+		 * @post Se utiliza para poder imprimir un Usuario de tipo Normal utilizando simplemente este operador.
 		 * Ejemplo --> cout << Carlos.
 		 * @author Carlos Fdez
 		 * @version 1.0
@@ -386,24 +421,25 @@ class Normal: public Usuario{
 		friend ostream& operator<<(ostream &flujo, Normal *n);
 		 /**
 		 * @brief Sobrecarga del operador << por referencia.
-		 * @post Se utiliza para poder imprimir un usuario de tipo Normal utilizando simplemente este operador.
+		 * @post Se utiliza para poder imprimir un Usuario de tipo Normal utilizando simplemente este operador.
 		 * @author Carlos Fdez
 		 * @version 1.0
 		 */
 		friend ostream& operator<<(ostream &flujo, Normal &n);
 		/**
 		* @brief Sobrecarga del operador =.
-		* @post Se utiliza para copiar los miembros de un usuario Normal en otro.
+		* @post Se utiliza para copiar los miembros de un Usuario Normal en otro.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
 		void operator=(Normal &n);
 		/**
 		* @brief Sobrecarga del operador =.
-		* @post Se utiliza para copiar los miembros de un usuario Normal en otro.
+		* @post Se utiliza para copiar los miembros de un Usuario Normal en otro.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
 		void operator=(Normal *n);
+
 
 };

@@ -17,14 +17,14 @@ class Foto{
 
 	private:
 		string ruta;			//ruta del archivo en el SO.
-		string tipo;			//Tipo de la foto(jpg, png).
+		string tipo;			//Tipo de la foto ( bmp, jpeg, png, gif).
 		unsigned long int tamanio;	//Se va a guardar en bytes.
 		bool DEBUG;
 
 	public:
 		/**
 		* @brief Método que cambia el valor de la variable booleana DEBUG.
-		* @param bool DEBUG 	//Por defecto será true al no poder darle valor.
+		* @param bool DEBUG
 		* @post Introduciremos en la variable booleana DEBUG un valor true/false para activar y desactivar el modo DEBUG.
 		* @author Carlos Fdez.
 		* @version 1.0
@@ -37,11 +37,19 @@ class Foto{
 		* @version 1.0
 		*/
 		bool getDEBUG();
+		/**
+		* @brief Método que cambia el estado de la variable booleana DEBUG para activar o desactivar el DEBUG.
+		* @pre Tendremos que tener bien hecho los set y get de la variable booleana DEBUG.
+		* @post Cambiamos el valor de la variable boolenana DEBUG.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void modoDEBUG(bool DEBUG);
 		
 		
 		
 		/**
-		 * @brief Se reservará un espacio de memoria para crear una estructura de tipo Foto, siempre y cuando haya memoria suficiente.
+		 * @brief Se reservará un espacio de memoria para crear una clase de tipo Foto, siempre y cuando haya memoria suficiente.
 		 * @post Se reservará un espacio de memoria para la Foto.
 		 * @pre Debe de teber memoria suficiente para crear la Foto.
 		 * @version 1.0
@@ -60,7 +68,7 @@ class Foto{
 		
 		
 		/**
-		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Foto en una variable string llamada ruta.
+		 * @brief Este módulo se encarga de almacenar en el valor de tipo Foto en una variable string llamada ruta.
 		 * @param string ruta		//Nombre de la ruta donde se va a almacenar la foto.
 		 * @post Se almacenará en la variable estructurada Foto la ruta de dónde está almacenada.
 		 * @version 1.0
@@ -68,7 +76,7 @@ class Foto{
 		 */
 		void setRuta(string ruta);
 		/**
-		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Foto una variable string llamada tipo.
+		 * @brief Este módulo se encarga de almacenar en el valor de tipo Foto una variable string llamada tipo.
 		 * @param string tipo		//Formato de la foto.
 		 * @post Se almacenará en la variable estructurada Foto el formato de la foto.
 		 * @version 1.0
@@ -76,7 +84,7 @@ class Foto{
 		 */
 		void setTipo(string tipo);
 		/**
-		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Foto una variable de tipo long int llamada tamanio.
+		 * @brief Este módulo se encarga de almacenar en el valor de tipo Foto una variable de tipo unsigned long int llamada tamanio.
 		 * @param unsigned long int tamanio.	//Tamaño de la foto, esto dependerá de el tipo del formato que tenga la foto.
 		 * @pre El tamanio no puede ser números negativos, por eso usamos "unsigned".
 		 * @post Nos devuelve la variable tamanio de un tipo estructurado de Foto.
@@ -88,21 +96,20 @@ class Foto{
 		
 		
 		/**
-		 * @brief Devuelve el puntero Ruta de una variable estructurada de tipo Foto.
+		 * @brief Devuelve el valor Ruta de una variable estructurada de tipo Foto.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
 		string getRuta();
 		/**
-		 * @brief Devuelve el puntero Tipo de una variable estructurada de tipo Foto.
+		 * @brief Devuelve el valor Tipo de una variable estructurada de tipo Foto.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
 		string getTipo();
 		/**
-		 * @brief Devuelve el Tamanio de una variable estructurada de tipo Foto.
+		 * @brief Devuelve el valor Tamanio de una variable estructurada de tipo Foto.
 		 * @pre Está filtrada al usar unsigned int para no introducir números negativos.
-		 * @post Nos devuelve la variable edad de un tipo estructurado de alumno.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */		

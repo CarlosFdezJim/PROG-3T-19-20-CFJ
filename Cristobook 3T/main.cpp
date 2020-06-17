@@ -28,10 +28,26 @@
 #include "Vista.h"
 using namespace std;
 
+
 int main(){
 
 	Vista v;
 	//v.credentials();
 	v.menuVista();
+
+	/*Usuario *u = new Usuario("User","Prueba", "ee", "Admin");
+	cout << u;
+
+	Usuario *x = new Usuario("User2","Prueba2", "ee2", "Admin");	
+	cout << x;
+	
+	cout <<"\nCopiamos User en User2" << endl;
+	x = u;
+	
+	cout << "\nImprimimos User " << endl;
+	cout << u;
+	cout << "\nImprimimos User2 despues de copiarlo " << endl;
+	cout << x;*/
+	
 	
 }

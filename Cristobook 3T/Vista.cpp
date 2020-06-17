@@ -26,6 +26,9 @@
 #include "Vista.h"
 using namespace std;
 
+//Variable global.
+bool DEBUG = false;
+
 ///////////////////////////////				DEBUG					////////////////////////////////
 
 void Vista::setDEBUG(bool DEBUG){
@@ -38,9 +41,11 @@ void Vista::modoDEBUG(bool DEBUG){
 
 	if(this->getDEBUG()==false){
 		this->setDEBUG(true);
+		tu->setDEBUG(DEBUG);
 		cout << ERROR << "MODO DEBUG ACTIVADO" << DEFAULT << endl;
 	}else{
 		this->setDEBUG(false);
+		tu->setDEBUG(DEBUG);
 		cout << ERROR << "MODO DEBUG DESACTIVADO" << DEFAULT << endl;
 	}
 	
@@ -51,16 +56,29 @@ void Vista::modoDEBUG(bool DEBUG){
 
 Vista::Vista(){
 
-	this->setDEBUG(false);
-
-	if(this->getDEBUG() == false){
+	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    CREANDO VISTA    **** " << DEFAULT << endl;
 	}
 	
 		//Crearemos la TablaUsuarios en el método Vista.
-		this->tu = new TablaUsuarios;
+		this->tu = new TablaUsuarios();
 
-	if(this->getDEBUG() == false){
+	if(this->getDEBUG() == true){
+		cout << GREEN << "El modo Vista se ha creado correctamente.\n" << DEFAULT ;
+		cout  << PURPLE << "************************************** " << DEFAULT << endl;
+	}
+
+}
+Vista::Vista(int TotalTuplas){
+
+	if(this->getDEBUG() == true){
+		cout  << PURPLE << "\n  ****    CREANDO VISTA CON PARÁMETROS    **** " << DEFAULT << endl;
+	}
+	
+		//Crearemos la TablaUsuarios en el método Vista.
+		this->tu = new TablaUsuarios(TotalTuplas);
+		
+	if(this->getDEBUG() == true){
 		cout << GREEN << "El modo Vista se ha creado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}
@@ -68,13 +86,14 @@ Vista::Vista(){
 }
 Vista::~Vista(){
 
-	if(this->getDEBUG() == false){
+	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    DESTRUYENDO VISTA    **** " << DEFAULT << endl;
 	}
+	
 		//Borramos los datos de los miembros del polinomio.
 		tu->setTotalTuplas(0);
 
-	if(this->getDEBUG() == false){
+	if(this->getDEBUG() == true){
 		cout << GREEN << "El modo Vista se ha eliminado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}
@@ -89,20 +108,45 @@ void Vista::credentials(){
 	string contrasena = "";
 	bool usado = false;
 
+	//Pedimos al usuario el login y lo comprobamos.
 	cout << endl;
-	//cout << CYAN << "\n***************************************" << DEFAULT << endl;
-	//cout << CYAN << "**************	LOGIN	****************" << DEFAULT << endl;
-	//cout << CYAN << "***************************************" << DEFAULT << endl;
 	cout << PURPLE << "Login : " << DEFAULT << endl;
 	cin >> pass;
 
+	//Comprobamos que el Login y contraseña existe en nuestra base de datos.
 	tu->credentials(pass, contrasena, usado);
 	
+	//Entra aquí si el Login coincide con lo que tenemos en nuestra base de datos.
 	if(usado == true){
+		//Si el usuario existe le pedimos la contraseña.
 		cout << PURPLE << "Password : " << BLACK << endl;
 		cin >> contrasena;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 		menuVista();
+	}else{
+		cout << RED << "Este usuario no se encuentra en nuestra base de datos. " << DEFAULT << endl;
+	}
+
+}
+
+///////////////////////////////				----					////////////////////////////////
+
+void Vista::comprobacionLoginVista(bool &usado){
+
+	//Declaración de variables locales.
+	string Login = "";
+	
+	//Pedimos al usuario el login (que es único en el sistema).
+	cout << BLUE << "Selecione el Login del Usuario: " << DEFAULT << endl;
+	cin >> Login;
+	
+	//Comprobamos que el Login existe en nuestra base de datos.
+	tu->comprobacionLogin(Login, usado);
+		
+	if (usado == true){ 
+		cout << "El Login está en nuestra base de datos" << endl;
+	}else if(usado == false){
+		cout << "El login no se encuentra en nuestra base de datos" << endl;
 	}
 
 }
@@ -116,7 +160,7 @@ void Vista::credentials(){
 void printMenu(){
 
 	cout << BLUE <<"/***************************************"<< endl;
-		cout << "****	     CLASE VISTA	    ****" << endl;
+		cout << "****	     CRISTOBOOK	    ****" << endl;
 		cout << "****************************************/" << DEFAULT;
 	cout << BLUE <<  "\nAquí le mostramos las opciones disponibles para realizar en la clase Vista : " << DEFAULT;
 	cout << BLUE <<  "\n[  1 ] " << DEFAULT << " Modo DEBUG. ";
@@ -139,8 +183,9 @@ void printMenu(){
 void Vista::menuVista(){
 
 	//Declaración de variables.
-	int opcion=0;
+	int opcion = 0;
 	bool creado = false;
+	bool usado=false;
 	
 	//Filtro para que el usuario no se salga de las opciones.
 	while(opcion!=15){
@@ -155,7 +200,9 @@ void Vista::menuVista(){
 
 				case 1:	
 					//Activar/ Desactivar MODO DEBUG
-					this->modoDEBUG(getDEBUG());
+					cout << GREEN << "Modo DEBUG... " << DEFAULT << endl;	
+					//this->modoDEBUG(getDEBUG());
+					this->comprobacionLoginVista(usado);
 				break;
 
 				case 2:
@@ -172,7 +219,7 @@ void Vista::menuVista(){
 					//Crear tabla Usuario
 					if(creado==false){
 						cout << GREEN << "Creando TablaUsuario... " << DEFAULT << endl;
-						tu->usuariosPredefinidos();
+						//tu->usuariosPredefinidos();
 						creado=true;
 					}else{
 						cout << ERROR << "Recuerde que ya hay CREADA una TablaUsuarios. " << DEFAULT << endl;

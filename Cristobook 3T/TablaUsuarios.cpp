@@ -47,7 +47,7 @@ void TablaUsuarios::modoDEBUG(bool DEBUG){
 
 TablaUsuarios::TablaUsuarios(){
 	
-	if(this->getDEBUG() == false){
+	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    CREANDO TABLAUSUARIOS    **** " << DEFAULT << endl;
 	}
 		
@@ -62,7 +62,10 @@ TablaUsuarios::TablaUsuarios(){
 		}
 
 		//Reservamos un nuevo espacio para el vector de punteros que tiene dentro la variable estructurada TablaUsuario
-		this->punteroapuntero = new Usuario*[this->TotalTuplas];
+		this->punteroapuntero = new Usuario*[this->getTotalTuplas()];
+	
+		//Insertamos los Usuarios predefinidos.
+		this->dataBase();
 	
 		//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
 		if (this->punteroapuntero == 0){
@@ -70,16 +73,47 @@ TablaUsuarios::TablaUsuarios(){
 			exit(-1);
 		}
 		
-		//this->usuariosPredefinidos();
+	if(this->getDEBUG() == true){
+		cout << GREEN << "La TablaUsuarios se ha creado correctamente.\n" << DEFAULT ;
+		cout << PURPLE << "************************************** " << DEFAULT << endl;
+	}
+}
+TablaUsuarios::TablaUsuarios(int TotalTuplas){
+	
+	if(this->getDEBUG() == true){
+		cout  << PURPLE << "\n  ****    CREANDO TABLAUSUARIOS POR PARÁMETROS    **** " << DEFAULT << endl;
+	}
+		
+		//Inicializamos TotalTuplas al valor pasado por parámetros.
+		this->setTotalTuplas(TotalTuplas);
 
-	if(this->getDEBUG() == false){
+		//Filtro para que las tuplas del vector no sea negativo, en caso de serlo abortará la ejecución.
+		if (this->getTotalTuplas() < 0){
+			cerr << "¡¡ERROR!! las tuplas no pueden ser negativas." << endl;
+			cerr << RED << "Se abortará la ejecución" << DEFAULT << endl;
+			exit(-1);
+		}
+
+		//Reservamos un nuevo espacio para el vector de punteros que tiene dentro la variable estructurada TablaUsuario
+		this->punteroapuntero = new Usuario*[this->getTotalTuplas()];
+	
+		//Insertamos los Usuarios predefinidos.
+		this->dataBase();
+	
+		//Si no hay memoria suficiente se aborta la ejecución y se sale del programa.
+		if (this->punteroapuntero == 0){
+			cerr << "Error. No hay memoria suficiente para crear una nueva TablaUsuarios. Se abortará la ejecución" << endl;
+			exit(-1);
+		}
+		
+	if(this->getDEBUG() == true){
 		cout << GREEN << "La TablaUsuarios se ha creado correctamente.\n" << DEFAULT ;
 		cout << PURPLE << "************************************** " << DEFAULT << endl;
 	}
 }
 TablaUsuarios::~TablaUsuarios(){
 
-	if(this->getDEBUG() == false){
+	if(this->getDEBUG() == true){
 		cout  << PURPLE << "\n  ****    ELIMANDO TABLAUSUARIOS    **** " << DEFAULT << endl;
 	}	
 		if (this->getTotalTuplas() > 0){
@@ -101,7 +135,7 @@ TablaUsuarios::~TablaUsuarios(){
 			cerr << RED << "No existe ninguna TablaUsuarios. " << endl;
 	
 		}
-	if(this->getDEBUG() == false){
+	if(this->getDEBUG() == true){
 		cout << GREEN << "La TablaUsuarios se ha eliminado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 	}
@@ -119,6 +153,7 @@ int TablaUsuarios::getTotalTuplas(){
 
 void TablaUsuarios::credentials(string pass, string contrasena, bool &usado){
 	
+	//Declaración de variables.
 	int cont = 0;
 	
 	for(int i = 0; i < this->getTotalTuplas(); i++){
@@ -142,9 +177,52 @@ void TablaUsuarios::credentials(string pass, string contrasena, bool &usado){
 		
 	}
 }
-///////////////////////////////				 PREDEFINIDOS					////////////////////////////////
+void comprobacionLogin(string Login,Usuario *u, bool &usado){
 
-void TablaUsuarios::usuariosPredefinidos(){
+	//Comprobamos si el login está introducido o no. Si lo está devolveremos usado = true;(Lo hacemos aparte porque lo usaremos en varios sitios).
+	if(Login == u->getLogin()){
+		usado = true;
+	}
+
+}/*
+void TablaUsuarios::comprobacionLogin2(bool &usado, unsigned int &posicion){
+
+	//Declaración de variables locales.
+	string Login = "";
+	int cont = 0;
+	Usuario *u = 0;
+	
+	//Pedimos al usuario el login (que es único en el sistema) para eliminarlo.
+	cout << YELLOW << "Selecione el usuario que desea eliminar, recuerde que tiene que introducir el login" << DEFAULT << endl;
+	cin >> Login;
+
+	//Comprobar que el usuario existe.
+	for(int i = 0; i < this->getTotalTuplas();i++){
+		//Comprobamos si el login está introducido o no. Si lo está devolveremos usado = true;(Lo hacemos aparte porque lo usaremos en varios sitios).
+		if(Login == u->getLogin()){
+			usado = true;
+		}
+		//comprobacionLogin(Login,this->punteroapuntero[i],usado);
+		if(usado == true && cont != 1){
+			posicion=i;
+			cont++;	
+		}
+	}
+
+
+}*/
+void TablaUsuarios::comprobacionLogin(string Login, bool &usado){
+	
+	//Comprobamos si el login existe o no.
+	for(int i = 0; i < this->getTotalTuplas();i++){
+		if(Login == this->punteroapuntero[i]->getLogin()){
+			usado = true;
+		}
+	}
+}
+///////////////////////////////				 DATABASE					////////////////////////////////
+
+void TablaUsuarios::dataBase(){
 	
 	Foto *f = new Foto;
 	
@@ -285,7 +363,7 @@ void TablaUsuarios::resize(int DIM){
 	
 	//Compruebo que hay memoria suficiente.
 	if (aux == 0){
-		cerr << "Error. No hay memoria suficiente para crear un nuevo vector. Se abortará la ejecución" << endl;
+		cerr << "Error. No hay memoria suficiente para crear un nuevo usuario en el resize. Se abortará la ejecución" << endl;
 		exit(-1);
 	}
 
@@ -301,13 +379,13 @@ void TablaUsuarios::resize(int DIM){
 		//Copio el contenido de punteroapuntero[i] en aux[i].
 		for(int i = 0; i <= DIM; i++){
 			aux[i] = this->punteroapuntero[i];
-		}
+			}
 	}
 	
 	//Eliminamos la memoria del vector de usuario.
 	delete [] punteroapuntero;
 
-	//Reasignamos el puntero de punteroapuntero.
+	//Reasignamos el puntero de punteroapuntero y ponemos a 0 el puntero que hemos creado.
 	punteroapuntero = aux;
 	aux = 0;
 
@@ -319,46 +397,13 @@ void TablaUsuarios::insertarUsuarioTablaUsuarios(Usuario *u){
 	
 	//Aumentamos la dimensión en una posición.
 	this->resize(getTotalTuplas()+1);
+	
 	//Insertamos el usuario en la nueva posición.
 	this->punteroapuntero[this->getTotalTuplas()] = u;
+	
 	//Actualizamos las TotalTuplas.
 	this->setTotalTuplas(this->getTotalTuplas()+1);
 	
-	
-}
-void comprobacionLogin(string Login,Usuario *u, bool &usado){
-
-	//Comprobamos si el login está introducido o no. Si lo está devolveremos usado = true;(Lo hacemos aparte porque lo usaremos en varios sitios).
-	if(Login == u->getLogin()){
-		usado = true;
-	}
-
-}
-void TablaUsuarios::comprobacionLogin2(bool &usado, unsigned int &posicion){
-
-	//Declaración de variables locales.
-	string Login = "";
-	int cont = 0;
-	Usuario *u = 0;
-	
-	//Pedimos al usuario el login (que es único en el sistema) para eliminarlo.
-	cout << YELLOW << "Selecione el usuario que desea eliminar, recuerde que tiene que introducir el login" << DEFAULT << endl;
-	cin >> Login;
-
-	//Comprobar que el usuario existe.
-	for(int i = 0; i < this->getTotalTuplas();i++){
-		//Comprobamos si el login está introducido o no. Si lo está devolveremos usado = true;(Lo hacemos aparte porque lo usaremos en varios sitios).
-		if(Login == u->getLogin()){
-			usado = true;
-		}
-		//comprobacionLogin(Login,this->punteroapuntero[i],usado);
-		if(usado == true && cont != 1){
-			posicion=i;
-			cont++;	
-		}
-	}
-
-
 }
 void TablaUsuarios::eliminarUsuario(int posicion){
 
@@ -566,7 +611,7 @@ void TablaUsuarios::BuscarLogin(){
 	
 	//Comprobar que el usuario existe.
 	for(int i = 0; i < this->getTotalTuplas();i++){
-		comprobacionLogin(Login,this->punteroapuntero[i],usado);
+		this->comprobacionLogin(Login,this->punteroapuntero[i],usado);
 		if(usado == true && cont != 1){
 			posicion=i;
 			cont++;	
@@ -704,7 +749,7 @@ void TablaUsuarios::eliminarFotoUsuario(){
 	
 	//Comprobamos si el login existe o no.
 	for(int i = 0;i < this->getTotalTuplas();i++){
-		comprobacionLogin(Login,this->punteroapuntero[i],usado);
+		this->comprobacionLogin(Login,this->punteroapuntero[i],usado);
 		if(usado == true && cont != 1){
 			posicion=i;
 			cont++;	
@@ -745,7 +790,7 @@ void TablaUsuarios::printFotosUsuario(){
 	
 	//Comprobamos si el login existe o no.
 	for(int i = 0;i < this->getTotalTuplas();i++){
-		comprobacionLogin(Login,this->punteroapuntero[i],usado);
+		this->comprobacionLogin(Login,this->punteroapuntero[i],usado);
 		if(usado == true && cont != 1){
 			posicion=i;
 			cont++;	
