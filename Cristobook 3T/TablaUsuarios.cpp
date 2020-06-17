@@ -211,7 +211,7 @@ void TablaUsuarios::comprobacionLogin2(bool &usado, unsigned int &posicion){
 
 
 }*/
-void TablaUsuarios::comprobacionLogin(string Login, bool &usado){
+void TablaUsuarios::comprobacionLoginTU(string Login, bool &usado){
 	
 	//Comprobamos si el login existe o no.
 	for(int i = 0; i < this->getTotalTuplas();i++){
@@ -611,7 +611,7 @@ void TablaUsuarios::BuscarLogin(){
 	
 	//Comprobar que el usuario existe.
 	for(int i = 0; i < this->getTotalTuplas();i++){
-		this->comprobacionLogin(Login,this->punteroapuntero[i],usado);
+		comprobacionLogin(Login,this->punteroapuntero[i],usado);
 		if(usado == true && cont != 1){
 			posicion=i;
 			cont++;	
@@ -749,7 +749,7 @@ void TablaUsuarios::eliminarFotoUsuario(){
 	
 	//Comprobamos si el login existe o no.
 	for(int i = 0;i < this->getTotalTuplas();i++){
-		this->comprobacionLogin(Login,this->punteroapuntero[i],usado);
+		comprobacionLogin(Login,this->punteroapuntero[i],usado);
 		if(usado == true && cont != 1){
 			posicion=i;
 			cont++;	
@@ -790,7 +790,7 @@ void TablaUsuarios::printFotosUsuario(){
 	
 	//Comprobamos si el login existe o no.
 	for(int i = 0;i < this->getTotalTuplas();i++){
-		this->comprobacionLogin(Login,this->punteroapuntero[i],usado);
+		comprobacionLogin(Login,this->punteroapuntero[i],usado);
 		if(usado == true && cont != 1){
 			posicion=i;
 			cont++;	
@@ -851,14 +851,35 @@ void TablaUsuarios::TestingAutomatico(){
 	cout  << CYAN << " ****    ORDENANDO TABLA DE USUARIOS POR LOGIN    **** " << DEFAULT << endl;
 	this->ordenamosLogin();
 	cout  << YELLOW << " Ordenando... " << DEFAULT << endl;
+	cout  << PURPLE << " ****    ELIMINANDO USUARIOS    **** " << DEFAULT << endl;
+	this->eliminarUsuarioTablaUsuarios();
 	cout  << CYAN << " ****    IMPRIMIENDO TABLA DE USUARIOS    **** " << DEFAULT << endl;
 	this->printTablaUsuarios();
 	cout  << CYAN << " ****    INSERTANDO FOTOS A CADA USUARIOS    **** " << DEFAULT << endl;
 	this->insertarFoto();
-	cout  << PURPLE << " ****    ELIMINANDO USUARIOS    **** " << DEFAULT << endl;
-	this->eliminarUsuarioTablaUsuarios();
 
 }
+void TablaUsuarios::TestingAutomatico2(){
+
+	//this->TablaUsuarios();
+	this->printTablaUsuarios();
+	this->~TablaUsuarios();
+	//this->TablaUsuarios();
+	this->printTablaUsuarios();
+		for(int j=0; j < 3; j++){
+			this->insertarUsuarioNuevo();
+		}
+	this->printTablaUsuarios();
+		for(int k=0; k < 5; k++){
+			this->eliminarUsuarioTablaUsuarios();	
+		}
+	this->ordenamosLogin();
+	this->eliminarUsuarioTablaUsuarios();
+	
+	this->insertarFoto();
+
+}
+
 
 void TablaUsuarios::Testing(){
 
@@ -871,12 +892,13 @@ void TablaUsuarios::Testing(){
 		cout << BLUE << "[1] " << DEFAULT << " Insertar 3 Usuarios en TablaUsuarios. "<< DEFAULT << endl;
 		cout << BLUE << "[2] " << DEFAULT << " Eliminar 5 Usuarios de TablaUsuarios. "<< DEFAULT << endl;
 		cout << BLUE << "[3] " << DEFAULT << " Insertar 2 Usuarios en TablaUsuarios. "<< DEFAULT << endl;
-		cout << BLUE << "[4] " << DEFAULT << " Testing automátizado. "<< DEFAULT << endl;
-		cout << BLUE << "[5] " << DEFAULT << " Salir. "<< DEFAULT << endl;
+		cout << BLUE << "[4] " << DEFAULT << " Testing automatizado. "<< DEFAULT << endl;
+		cout << BLUE << "[5] " << DEFAULT << " Testing automatizado 2. "<< DEFAULT << endl;
+		cout << BLUE << "[6] " << DEFAULT << " Salir. "<< DEFAULT << endl;
 		cout << BLUE << " ****************************** " << DEFAULT << endl;
 		
 		//Pedimos al usuario que escoga una opción de las mostradas previamente.
-		cout << "\nEliga usted el Testing que desea ejecutar: " << endl;
+		cout << "\nIndica el Testing que desea ejecutar: " << endl;
 		cin >> opcion;
 
 		switch (opcion){
@@ -909,6 +931,11 @@ void TablaUsuarios::Testing(){
 			
 			case 5:	
 				// 5º) Salir
+				this->TestingAutomatico2();
+			break;
+			
+			case 6:	
+				// 6º) Salir
 				cout << " Saliendo del Testing " << endl;
 			break;
 	

@@ -114,6 +114,7 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void TestingAutomatico();
+		void TestingAutomatico2();
 		
 		
 		
@@ -135,7 +136,7 @@ class TablaUsuarios{
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		void comprobacionLogin(string Login, bool &usado);
+		void comprobacionLoginTU(string Login, bool &usado);
 		/**
 		* @brief Comprobamos que el Login existe en nuestra base de datos
 		* @pre Deberemos de tener insertado algún usuario en nuestra TablaUsuarios, aunque sino está manda un mensaje de error.

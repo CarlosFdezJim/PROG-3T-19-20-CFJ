@@ -141,7 +141,7 @@ void Vista::comprobacionLoginVista(bool &usado){
 	cin >> Login;
 	
 	//Comprobamos que el Login existe en nuestra base de datos.
-	tu->comprobacionLogin(Login, usado);
+	tu->comprobacionLoginTU(Login, usado);
 		
 	if (usado == true){ 
 		cout << "El Login está en nuestra base de datos" << endl;
@@ -164,7 +164,7 @@ void printMenu(){
 		cout << "****************************************/" << DEFAULT;
 	cout << BLUE <<  "\nAquí le mostramos las opciones disponibles para realizar en la clase Vista : " << DEFAULT;
 	cout << BLUE <<  "\n[  1 ] " << DEFAULT << " Modo DEBUG. ";
-	cout << BLUE <<  "\n[  2 ] " << DEFAULT << " Testing Automático. ";
+	cout << BLUE <<  "\n[  2 ] " << DEFAULT << " Testing. ";
 	cout << BLUE <<  "\n[  3 ] " << DEFAULT << " Crear Tabla Usuarios. ";
 	cout << BLUE <<  "\n[  4 ] " << DEFAULT << " Eliminar Tabla Usuarios. ";
 	cout << BLUE <<  "\n[  5 ] " << DEFAULT << " Imprimir Tabla Usuarios. ";
