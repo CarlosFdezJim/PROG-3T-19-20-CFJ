@@ -330,7 +330,7 @@ class Normal: public Usuario{
 		* @author Carlos Fdez
 		* @version 2.0
 		*/
-		~Normal();
+		virtual ~Normal();
 		
 		
 		

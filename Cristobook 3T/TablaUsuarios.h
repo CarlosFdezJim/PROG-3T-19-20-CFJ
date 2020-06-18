@@ -114,7 +114,22 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void TestingAutomatico();
+		/**
+		* @brief
+		* @pre
+		* @post
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
 		void TestingAutomatico2();
+		/**
+		* @brief
+		* @pre
+		* @post
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void TestingAutomatico3();
 		
 		
 		
@@ -130,21 +145,16 @@ class TablaUsuarios{
 		
 		
 		/**
-		* @brief Comprobamos que el Login existe en nuestra base de datos
+		* @brief Comprobamos que el Login existe en nuestra base de datos.
 		* @pre Deberemos de tener insertado algún usuario en nuestra TablaUsuarios, aunque sino está manda un mensaje de error.
 		* @post Devolveremos un bool usado, si existe el login en nuestra TablaUsuarios.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		void comprobacionLoginTU(string Login, bool &usado);
-		/**
-		* @brief Comprobamos que el Login existe en nuestra base de datos
-		* @pre Deberemos de tener insertado algún usuario en nuestra TablaUsuarios, aunque sino está manda un mensaje de error.
-		* @post Devolveremos un bool usado, si existe el login en nuestra TablaUsuarios.
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
-		void comprobacionLogin2(bool &usado, unsigned int &posicion);
+		void comprobacionLoginTU(string &Login, bool &usado,int &posicion);
+		
+		
+		
 		/**
 		 * @brief Módulo que se encarga de insertar en la TablaUsuarios algunos usuarios predefinidos (dedicados a hacer pruebas).
 		 * @pre Deberemos tener bien hecho el método para ingresar los usuarios.
@@ -162,20 +172,14 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void printTablaUsuarios();
-		
-		
-		
 		/**
-		 * @brief Módulo que se encarga de comprobar el login de un usuario para saber si está usado o no, devuelve una posición y un booleano.
-		 * @param int i
-		 * @param bool usado.
-		 * @pre La TablaUsuarios debberá de tener al menos un usuario ingresado
-		 * @post Sabremos si el login introducido está usado o no y la posición en caso de estar usado.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */
-		//void comprobacionLogin2(bool &usado, unsigned int &posicion);
-		
+		* @brief Imprime por pantalla un usuario si pasamos su posición en TablaUsuarios
+		* @pre Debes de tener al menos un usuario en TablaUsuarios.
+		* @post Imprimiremos el usuario que queramos de TablaUsuarios.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void printUser(int posicion);
 		
 		
 		/**
@@ -188,11 +192,17 @@ class TablaUsuarios{
 		*/
 		void insertarUsuarioTablaUsuarios(Usuario *u);
 		/**
-		* @brief Insertaremos un usuario en el vector de usuarios
+		* @brief Crearemos un usuario en el vector de usuarios, dependiendo de la opción (Admin/Normal) indicada en por el usuario.
+		* @param string Login
+		* @param int posicion
+		* @pram bool usado
+		* @param int opcion
+		* @pre Deberemos de tener creada una TablaUsuarios.
+		* @post Insertaremos el Usuario en el vector de Usuarios.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		void insertarUsuarioNuevo();
+		void crearUsuario(string Login, int posicion, bool usado, int opcion);
 		
 		
 		/**
@@ -217,22 +227,26 @@ class TablaUsuarios{
 		void eliminarUsuario(int posicion);
 		/**
 		* @brief Eliminamos un usuario de la tablaUsuarios
-		* @pre Deberemos de tener al menos un usuario introducido
+		* @param int posicion
+		* @param bool usado
+		* @pre Deberemos de tener al menos un usuario introducido.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		void eliminarUsuarioTablaUsuarios();
+		void eliminarUsuarioTablaUsuarios(int posicion, bool usado);
 		
 		
 		
 		/**
-		 * @brief Módulo que se encarga de buscar usuario por Login.
-		 * @pre Los usuarios deben de estar introducidos correctamente en el vector.
+		 * @brief Método que se encarga de buscar usuario por Login en la TablaUsuarios.
+		 * @param bool usado
+		 * @param int posicion
+		 * @pre Debemos de tener al menos un usuario introducido en la TablaUsuarios.
 		 * @post Nos dirá en que posición se encuentra el usuario.
 		 * @version 1.0
 		 * @author Carlos Fdez.
 		 */
-		void BuscarLogin();
+		void BuscarLogin(bool usado, int posicion);
 		/**
 		 * @brief Este módulo se encarga de dar dos opciones para ordenar el menú o por Login o por totalFotosUsuario.
 		 * @pre El vector de usuarios debe de estar relleno  y tener al menos dos usuarios introducidos para poder ordenarlos.
@@ -262,13 +276,16 @@ class TablaUsuarios{
 		
 		
 		/**
-		* @brief Método que se encarga de eliminar todos los usuarios que tengan menos fotos que fotos_min, para ello pediremos al usuario introduzcan un 			* 	número que será las fotos mínimas que debe de tener el usuario para no ser eliminado.
-		* @pre Deberemos de tener al menos introducidos más de un usuario, y además tener más de una foto cada usuario.
-		* @post Eliminaremos el usuario que tenga menos de "fotos_min"
+		* @brief Método que se encarga de eliminar todos los usuarios que tengan menos fotos que min, para ello pediremos al usuario introduzcan un 			* 	número que será las fotos mínimas que debe de tener el usuario para no ser eliminado.
+		* @pre Debemos de tener al menos un usuario insertado, de lo contrario nos mandará un mensaje de error, y recuerda que los usuarios Admin no se 		* 	puede borrar.
+		* @post Eliminaremos el usuario que tenga menos fotos de el número introducido "min".
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		void eliminarUsuariosFotosMin();
+		void eliminarUsuariosFotosMin(int min);
+		
+		
+		
 		/**
 		* @brief Eliminaremos la foto del usuario indicado.
 		* @pre Deberemos de tener al menos una foto insertada.
@@ -276,17 +293,7 @@ class TablaUsuarios{
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		void eliminarFotoUsuario();
-		/**
-		* @brief Insertaremos la foto en el vector de fotos del usuario.
-		* @post Quedará la foto insertada en el vector de su usuario.
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
-		void insertarFoto();
-		
-		
-		
+		void eliminarFotoUsuario(int posicion, bool usado, int elim);
 		/**
 		* @brief Imprime por pantalla las fotos que tiene el usuario.
 		* @pre Tenemos que tener alguna foto ingresada de caso contrario mostrará un mensaje advirtiendo.
@@ -294,7 +301,20 @@ class TablaUsuarios{
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		void printFotosUsuario();
+		void printFotosUsuario(bool usado, int posicion);
+		/**
+		* @brief Insertaremos la foto en el vector de fotos del usuario.
+		* @param int posicion
+		* @param bool usado
+		* @post Quedará la foto insertada en el vector de su usuario.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void insertarFoto(int posicion, bool usado);
+		
+		
+		
+		
 		/**
 		 * @brief Módulo que se encarga de pedir algunos datos al usuario. 
 		 * @param Usuario *u

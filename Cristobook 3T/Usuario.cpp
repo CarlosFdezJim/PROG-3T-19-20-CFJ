@@ -107,7 +107,7 @@ Admin::Admin():Usuario(){
 
 	//Creamos el miembro exclusivo del Administrador, el resto los hereda de Usuario.
 	int consultas = 0;
-
+	
 }
 Normal::Normal():Usuario(){
 	
@@ -153,6 +153,11 @@ Normal::~Normal(){
 		//Ponemos a 0 los valores de los miembros.
 		int DIM_vfotos = 0;
 		int totalFotosUsuario = 0;
+		
+		//Eliminamos el contenido del vector de punteros a Usuarios.
+		for(int i=0; i <= this->getTotalFotosUsuario(); i++){
+		//	delete this->v_fotos[i];
+		}
 	
 		//borro el vector dinámico de fotos, liberando así su memoria.
 		delete [] this->v_fotos;
@@ -186,12 +191,6 @@ void Normal::resizeFoto(int DIM){
 			aux[i] = this->v_fotos[i];
 		}
 		
-	}else if (DIM < this->getTotalFotosUsuario()){
-
-		//Copio el contenido de punteroapuntero[i] en aux[i].
-		for(int i = 0; i <= DIM; i++){
-			aux[i] = this->v_fotos[i];
-		}
 	}
 	
 	//Eliminamos la memoria del vector v_fotos.
@@ -294,9 +293,9 @@ void Admin::printUsuario(){
 	this->Usuario::printUsuario();
 	
 	//Imprimimos los datos únicos del Administrador.
-	cout << PURPLE << "****************************************" << endl;
+	cout << PURPLE << "****************************************" << DEFAULT << endl;
 	cout << PURPLE << "Consultas realizadas: " << DEFAULT <<  this->getConsultas() << endl;
-	cout << PURPLE << "****************************************" << endl;
+	cout << PURPLE << "****************************************" << DEFAULT << endl;
 
 }
 ///////////////////////////////				 INSERT					////////////////////////////////
@@ -305,13 +304,10 @@ void Normal::insertarFotoUsuario(Foto *f){
 
 	//Aumentamos en uno nuestro vector.
 	this->resizeFoto(this->getTotalFotosUsuario()+1);
-
 	//Insertamos en el vector nuestra foto.
 	this->v_fotos[this->getTotalFotosUsuario()] = *f;
-
 	//Actualizamos las TotalFotosUsuario
 	this->setTotalFotosUsuario(this->getTotalFotosUsuario()+1);
-
 }
 
 ///////////////////////////////				 SOBRECARGAS					////////////////////////////////

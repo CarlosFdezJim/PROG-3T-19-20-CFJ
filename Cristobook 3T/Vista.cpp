@@ -90,9 +90,12 @@ Vista::~Vista(){
 		cout  << PURPLE << "\n  ****    DESTRUYENDO VISTA    **** " << DEFAULT << endl;
 	}
 	
-		//Borramos los datos de los miembros del polinomio.
+		//Ponemos a 0 las TotalTuplas de TablaUsuarios.
 		tu->setTotalTuplas(0);
 
+		//Llamamos al destructor de TablaUsuarios.
+		tu->~TablaUsuarios();
+		
 	if(this->getDEBUG() == true){
 		cout << GREEN << "El modo Vista se ha eliminado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
@@ -131,23 +134,205 @@ void Vista::credentials(){
 
 ///////////////////////////////				----					////////////////////////////////
 
-void Vista::comprobacionLoginVista(bool &usado){
+void Vista::comprobacionLogin(string &Login, int &posicion, bool &usado){
 
-	//Declaración de variables locales.
-	string Login = "";
-	
 	//Pedimos al usuario el login (que es único en el sistema).
 	cout << BLUE << "Selecione el Login del Usuario: " << DEFAULT << endl;
 	cin >> Login;
 	
 	//Comprobamos que el Login existe en nuestra base de datos.
-	tu->comprobacionLoginTU(Login, usado);
+	tu->comprobacionLoginTU(Login, usado, posicion);
 		
 	if (usado == true){ 
-		cout << "El Login está en nuestra base de datos" << endl;
+		cout << GREEN << "El Login está en nuestra base de datos" << DEFAULT << endl;
 	}else if(usado == false){
-		cout << "El login no se encuentra en nuestra base de datos" << endl;
+		cout << RED << "El login no se encuentra en nuestra base de datos" << DEFAULT << endl;
 	}
+
+}
+void Vista::printcheck(){
+
+	int opcion = 0;
+	
+	cout << GREEN << "Para Imprimir la Tabla pulse [1] sino presione [0]." << DEFAULT << endl;
+	cin >> opcion;
+	
+	if(opcion == 1){
+		tu->printTablaUsuarios();
+	}else if (opcion == 0){
+		cout << GREEN << "Muchas gracias." << DEFAULT << endl;
+	}else{
+		cout << YELLOW << "\nLo siento, la opción seleccionada no ha sido añadida todavía. " << DEFAULT << endl;
+	}
+
+}
+void Vista::insertUser(){
+
+	//Declaración de variables.
+	string Login = "";
+	bool usado = false;
+	int posicion = 0;
+	int opcion = 0;
+		
+	//Comprobamos que el usuario existe y devolvemos la posición dónde se encuentra.
+	this->comprobacionLogin(Login, posicion, usado);
+	
+	//Si el usuario no existe entramos en este if y creamos Usuario (Normal/Admin) y lo insertamos en la TablaUsuarios.
+	if(usado != true){
+		//Elegimos que tipo de usuario queremos crear.
+		cout << GREEN << "¿Que tipo de Usuario desea insertar? " << DEFAULT << endl;
+		cout << "[1] Normal " << endl;
+		cout << "[2] Admin " << endl;
+		cin >> opcion;
+		cout << " *********************************** " << endl;
+		
+		//Creamos el usuario y lo introducimos en la TablaUsuarios
+		tu->crearUsuario(Login, usado, posicion, opcion);
+	}else{
+		cout << RED << "Lo sentimos, el Login introducido ya está en uso." << DEFAULT << endl;
+	}
+	
+	//Preguntamos al usuario si quiere o no imprimir la TablaUsuarios.
+	this->printcheck();
+}
+void Vista::deleteUser(){
+
+	//Declaración de variables.
+	string Login = "";
+	bool usado = false;
+	int posicion = 0;
+	int opcion = 0;
+
+	//Comprobamos que el usuario existe y devolvemos la posición dónde se encuentra.
+	this->comprobacionLogin(Login, posicion, usado);
+	
+	//Eliminamos el usuario indicado de la TablaUsuarios
+	tu->eliminarUsuarioTablaUsuarios(posicion,usado);
+	
+	//Preguntamos al usuario si quiere o no imprimir la TablaUsuarios.
+	this->printcheck();
+
+}
+void Vista::searchUser(){
+
+	//Declaración de variables.
+	string Login = "";
+	bool usado = false;
+	int posicion = 0;
+	int opcion = 0;
+	
+	//Comprobamos que el usuario existe y devolvemos la posición dónde se encuentra.
+	this->comprobacionLogin(Login, posicion, usado);
+
+	//Buscaremos el usuario y lo imprimimos por pantalla.
+	tu->BuscarLogin(usado, posicion);
+
+}
+void Vista::sortTable(){
+
+	//Declaración de variables
+	int opcion = 0;
+
+	cout << BLUE << "\n******************************";
+	cout << BLUE << "\n[1] " << DEFAULT << "Ordenar por Login ";
+	cout << BLUE << "\n[2] " << DEFAULT << "Ordenar por el total fotos. ";
+	cout << BLUE << "\n******************************" << DEFAULT << endl;
+
+	cout << "Seleccione el criterio por el que quiere ordenar: " << endl;
+	cin >> opcion;
+	
+	//Dependiendo de la opción que desee el usuario entrará en la opcion 1 o 2, en caso contrario mostraremos un mensaje de error.
+	if(opcion == 1){
+		cout  << GREEN << " ****    ORDENANDO TABLA DE USUARIOS POR LOGIN    **** " << DEFAULT << endl;
+		tu->ordenamosLogin();
+	}
+	else if(opcion == 2){
+		cout  << GREEN << " ****    ORDENANDO TABLA DE USUARIOS POR TOTAL FOTOS USUARIO    **** " << DEFAULT << endl;
+		tu->ordenamosTotalFotosUsuario();
+	}else{
+		cout << YELLOW << "\nLo siento, la opción seleccionada no ha sido añadida todavía. " << DEFAULT << endl;
+	}
+
+	//Preguntamos al usuario si quiere o no imprimir la TablaUsuarios.
+	this->printcheck();
+
+}
+
+
+
+
+
+
+void Vista::insertPhoto(){
+
+	//Declaración de variables.
+	string Login = "";
+	bool usado = false;
+	int posicion = 0;
+	int opcion = 0;
+	
+	tu->printTablaUsuarios();
+	this->comprobacionLogin(Login, posicion, usado);
+	tu->insertarFoto(posicion, usado);
+	tu->printUser(posicion);
+}
+void Vista::deletePhoto(){
+
+	//Declaración de variables.
+	string Login = "";
+	bool usado = false;
+	int posicion = 0;
+	int elim = 0;
+	
+	tu->printTablaUsuarios();
+	cout << BLUE << "\n*****************************************" << DEFAULT << endl;
+	//Comprobamos que el usuario existe y devolvemos la posición dónde se encuentra.
+	this->comprobacionLogin(Login, posicion, usado);
+	
+	//Imprimimos el Usuario para saber la cantidad de fotos que tiene.
+	tu->printUser(posicion);
+	
+	if(usado == true){
+		//Pedimos al usuario el número de fotografía que queremos eliminar.
+		cout << "Introduce la posición que quieres eliminar : " << endl;
+		cin >> elim;
+		tu->eliminarFotoUsuario(posicion, usado, elim);
+		tu->printFotosUsuario(usado,posicion);
+	}else{
+		cout << RED << "Lo sentimos, el Login introducido no está en nuestra base de datos." << DEFAULT << endl;
+	}
+}
+void Vista::printPhotoUser(){
+
+	//Declaración de variables
+	string Login = "";
+	bool usado = false;
+	int posicion = 0;
+	
+	//Comprobamos que el usuario existe y devolvemos la posición dónde se encuentra.
+	this->comprobacionLogin(Login, posicion, usado);
+	
+	//Imprimos el usuario que le indiquemos.
+	tu->printFotosUsuario(usado, posicion);
+
+}
+void Vista::deleteUserPhotoMin(){
+
+	//Declaración de variables
+	string Login = "";
+	bool usado = false;
+	int posicion = 0;
+	int min = 0;
+
+	//Pedimos al usuario el número de fotos mínimas necesario para eliminar el resto de usuarios.
+	cout << BLUE << "Por favor indique el número de fotos mínimas que tiene que tener un usuario para eliminarlo: " << DEFAULT << endl;
+	cin >> min;
+
+	//Eliminamos los usuario que tengan menos de "min" fotos.
+	tu->eliminarUsuariosFotosMin(min);
+	
+	//Imprimimos la TablaUsuarios.
+	tu->printTablaUsuarios();
 
 }
 ///////////////////////////////				MENU					////////////////////////////////
@@ -184,8 +369,10 @@ void Vista::menuVista(){
 
 	//Declaración de variables.
 	int opcion = 0;
+	int posicion = 0;
 	bool creado = false;
 	bool usado=false;
+	string Login = "";
 	
 	//Filtro para que el usuario no se salga de las opciones.
 	while(opcion!=15){
@@ -202,14 +389,14 @@ void Vista::menuVista(){
 					//Activar/ Desactivar MODO DEBUG
 					cout << GREEN << "Modo DEBUG... " << DEFAULT << endl;	
 					//this->modoDEBUG(getDEBUG());
-					this->comprobacionLoginVista(usado);
+					this->comprobacionLogin(Login, posicion, usado);
 				break;
 
 				case 2:
 					// Ejecutar Testing Automático.
-					if(creado==true){
+					if(creado==false){
 						cout << GREEN << "Ejecutando Testing en TablaUsuario... " << DEFAULT << endl;					
-						tu->Testing();
+						//tu->Testing();
 					}else{
 						cout << ERROR << "Recuerde que NO puede realizar el TESTING si no ha creado una TablaUsuarios. " << DEFAULT << endl;
 						}
@@ -219,7 +406,7 @@ void Vista::menuVista(){
 					//Crear tabla Usuario
 					if(creado==false){
 						cout << GREEN << "Creando TablaUsuario... " << DEFAULT << endl;
-						//tu->usuariosPredefinidos();
+						TablaUsuarios *tu;
 						creado=true;
 					}else{
 						cout << ERROR << "Recuerde que ya hay CREADA una TablaUsuarios. " << DEFAULT << endl;
@@ -250,7 +437,7 @@ void Vista::menuVista(){
 				case 6:
 					//Insertar Usuarios en TablaUsuario.
 					if(creado==true){
-						tu->insertarUsuarioNuevo();
+						this->insertUser();
 						cout << GREEN << "Insertando Usuario de tabla... " << DEFAULT << endl;
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede insertar ningún Usuario. " << DEFAULT << endl;
@@ -262,7 +449,7 @@ void Vista::menuVista(){
 					if(creado==true){
 						//eliminarUsuarioTablaUsuarios();
 						cout << GREEN << "Eliminando Usuario de tabla... " << DEFAULT << endl;
-						tu->eliminarUsuarioTablaUsuarios();
+						this->deleteUser();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminar ningún usuario. " << DEFAULT << endl;
 						}
@@ -271,8 +458,8 @@ void Vista::menuVista(){
 				case 8:
 					//Buscar Usuario por login (búsqueda secuencial)
 					if(creado==true){
-						cout << GREEN << "Buscanso Usuario... " << DEFAULT << endl;
-						tu->BuscarLogin();
+						cout << GREEN << "Buscando Usuario... " << DEFAULT << endl;
+						this->searchUser();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede buscar ningún Usuario. " << DEFAULT << endl;
 						}
@@ -282,8 +469,8 @@ void Vista::menuVista(){
 					//Ordenar TablaUsuario:
 					if(creado==true){
 						cout << GREEN << "Ordenando tabla... " << DEFAULT << endl;
-						tu->ordenarTablaUsuarios();
-						
+						this->sortTable();
+						this->printcheck();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -292,8 +479,8 @@ void Vista::menuVista(){
 				case 10:
 					//Añadir Fotografía en Usuario.
 					if(creado==true){
-						tu->insertarFoto();
 						cout << GREEN << "Insertando fotografía... " << DEFAULT << endl;
+						this->insertPhoto();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -303,7 +490,7 @@ void Vista::menuVista(){
 					//Eliminar Fotografía de un Usuario.
 					if(creado==true){
 						cout << GREEN << "Eliminando fotografía... " << DEFAULT << endl;
-						tu->eliminarFotoUsuario();
+						this->deletePhoto();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -313,7 +500,7 @@ void Vista::menuVista(){
 					//Imprimir Fotografía de un Usuario.
 					if(creado==true){
 						cout << GREEN << "Imprimiendo fotografía... " << DEFAULT << endl;
-						tu->printFotosUsuario();
+						this->printPhotoUser();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}
@@ -332,7 +519,7 @@ void Vista::menuVista(){
 					//Eliminar Usuarios Fotos min.
 					if(creado==true){
 						cout << GREEN << "Buscando Usuario con unas fotografías mínimas... " << DEFAULT << endl;
-						tu->eliminarUsuariosFotosMin();
+						this->deleteUserPhotoMin();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no tiene Usuarios para eliminar. " << DEFAULT << endl;
 						}
@@ -343,11 +530,12 @@ void Vista::menuVista(){
 					cout << PURPLE << "\n ----------SALIENDO---------- " << endl ;
 					cout << " Gracias por usar CRISTOBOOK " << endl;
 					cout << "\n 	© Carlos Fdez " << DEFAULT << endl;
+					tu->Salir();
 				break;
 				
 				default:
 					cout << PURPLE << "Lo siento, la opción seleccionada no es correcta. " << DEFAULT << endl;
-					cout << PURPLE << "Por favor seleccione otra o pulse 14 para salir. \n" << DEFAULT << endl;
+					cout << PURPLE << "Por favor seleccione otra o pulse 15 para salir. \n" << DEFAULT << endl;
 			}
 	}
 }

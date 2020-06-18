@@ -88,12 +88,99 @@ class Vista{
 		* @version 1.0
 		*/
 		void credentials();
+		
+		
+		
 		/**
 		* @brief Comprobamos que el Login existe en nuestra TablaUsuarios
+		* @param string Login
+		* @param int posicion
+		* @param bool usado
 		* @pre Deberemos de tener insertado algún Login en nuestra TablaUsuarios, aunque sino está manda un mensaje de error.
 		* @post Devolveremos un bool usado, si existe el login en nuestra TablaUsuarios.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		void comprobacionLoginVista(bool &usado);
+		void comprobacionLogin(string &Login, int &posicion, bool &usado);
+		
+		
+		
+		/**
+		* @brief Método que se encarga de realizar una comprobación por si quieres imprimir o no la tabla.
+		* @pre Debemos de tener bien hecho el método para imprimir la Tabla.
+		* @post Depende de la opción que nos de el Usuario, imprimiremos o no la TablaUsuarios.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void printcheck();
+		
+		
+		
+		/**
+		* @brief Método que se encarga de pedir un Login al usuario y comprobar si existe o no, si no existe da la opción al usuario para crear un nuevo 			*	usuario de dos tipos, Admin o Normal, insertandolo después en la TablaUsuarios.
+		* @pre Debemos de tener creada la TablaUsuarios
+		* @pre Debemos de tener bien hecho el insertar Usuario
+		* @pre Debemos de tener bien configurado la opción para crear Usuarios Normal o Usuarios Admin
+		* @post Método que ingresa un Usuario en la TablaUsuarios.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void insertUser();
+		/**
+		* @brief Método que eliminará un usuario de la TablaUsuarios, este módulo pedirá un Login al usuario y comprobará si existe. Si existe lo eliminará.
+		* @pre Debemos de tener al menos un usuario insertado en la TablaUsuarios.
+		* @post Eliminaremos un usuario de la TablaUsuarios.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void deleteUser();
+		/**
+		* @brief Método que se encarga de buscar un usuario pidiendo el Login al usuario y a continuación mostraremos su perfil.
+		* @pre Debemos de tener al menos un usuario insertado en la TablaUsuariosñ.
+		* @post Mostraremos por pantalla toda la información de un Usuario.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void searchUser();
+		/**
+		* @brief Método que muestra un menú por pantalla, dónde nos dará a elegir entre dos opciones:
+		*	1) Ordenar TablaUsuarios por Login.
+		*	2) Ordenar TablaUsuarios por TotalFotosUsuarios.
+		* @pre Debemos de tener al menos dos usuarios insertados en TablaUsuario.
+		* @post Mostraremos por pantalla la ordenación por la opción que nos ha indicado el usuario.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void sortTable();
+		/**
+		* @brief Método que se encarga de pedir un Login al usuario para comprobar si existe o no, si existe muestra los datos para que ingresemos la imagen 			*	en el vector de fotos de determinado Usuario.
+		* @post Insertaremos en el vector de fotos la nueva foto.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void insertPhoto();
+		/**
+		* @brief Método que se encarga de pedir un Login al usuario para comprobar si existe o no, si existe nos muestra el Usuario elegido y nos pide que 			*	indiquemos que imagen queremos borrar, a continuación borraremos la foto del usuario y volverá a mostrar el Usuario para comprobar que se ha 			*	eliminado correctamente.
+		* @pre Debemos de indicar un número de foto  válida del usuario, de no ser así mandará un mensaje por pantalla.
+		* @post Eliminaremos una foto del Usuario que deseemos, ¡OJO! recuerda que los Administradores no pueden tener fotos.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void deletePhoto();
+		/**
+		* @brief Imprimirá por pantalla todas las fotos de un usuario que le indiquemos.
+		* @pre Deberemos de tener al menos un usuario en nuestra base de datos.
+		* @post Imprimiremos por pantalla un usuario.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void printPhotoUser();
+		/**
+		* @brief
+		* @pre
+		* @post
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void deleteUserPhotoMin();
 };
