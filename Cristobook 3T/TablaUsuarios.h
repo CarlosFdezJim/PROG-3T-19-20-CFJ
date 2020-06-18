@@ -45,8 +45,6 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void modoDEBUG(bool DEBUG);
-		
-		
 		/**
 		 * @brief Este módulo se encarga de crear la TablaUsuarios. Creando en el siguiente orden :
 		 *		1º Inicializamos los valores propios de la clase TablaUsuario a 0.
@@ -78,9 +76,6 @@ class TablaUsuarios{
 		 * @author Carlos Fdez.
 		 */
 		~TablaUsuarios();
-		
-		
-		
 		/**
 		 * @brief Este método se encarga de almacenar el valor de TotalTuplas con el valor pasado por referencia.
 		 * @param int TotalTuplas.
@@ -95,44 +90,6 @@ class TablaUsuarios{
 		 * @author Carlos Fdez.
 		 */
 		int getTotalTuplas();
-		
-		
-		
-		/**
-		* @brief Método que imprimirá un menu por pantalla para realizar un Testing:
-		* @pre Tener bien creados los módulos a que vayamos a usar para testar.
-		* @post Daremos una serie de opciones para realizar el Testing.
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
-		void Testing();
-		/**
-		* @brief Testing Automático
-		* @pre Tener bien creados los módulos a testar.
-		* @post Realizaremos un testing automatizado.
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
-		void TestingAutomatico();
-		/**
-		* @brief
-		* @pre
-		* @post
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
-		void TestingAutomatico2();
-		/**
-		* @brief
-		* @pre
-		* @post
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
-		void TestingAutomatico3();
-		
-		
-		
 		/**
 		* @brief Comprueba que el Login introducido por el usuario está en nuestra base de datos.
 		* @pre Debemos de tener instroducido al menos un usuario predefinido.
@@ -141,9 +98,6 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void credentials(string pass, string contrasena, bool &usado);
-
-		
-		
 		/**
 		* @brief Comprobamos que el Login existe en nuestra base de datos.
 		* @pre Deberemos de tener insertado algún usuario en nuestra TablaUsuarios, aunque sino está manda un mensaje de error.
@@ -152,20 +106,6 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void comprobacionLoginTU(string &Login, bool &usado,int &posicion);
-		
-		
-		
-		/**
-		 * @brief Módulo que se encarga de insertar en la TablaUsuarios algunos usuarios predefinidos (dedicados a hacer pruebas).
-		 * @pre Deberemos tener bien hecho el método para ingresar los usuarios.
-		 * @post Los usuarios serán introducidos en la TablaUsuarios.
-		 * @version 2.2
-		 * @author Carlos Fdez.
-		 */
-		void dataBase();
-		
-		
-		
 		/**
 		* @brief Imprimiremos la tabla Usuarios por pantalla.
 		* @author Carlos Fdez
@@ -180,17 +120,22 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void printUser(int posicion);
-		
-		
 		/**
-		* @brief Método que se usa para insertar a los usuario en la TablaUsuarios.
-		*@param Usuario *u.
-		* @pre Debes tener creado los usuarios. ¡OJO! Este método sólamente sirve para añadir los usuarios ya creados, para introducir un usuario nuevo, hay 			* 	otro método creado llamado insertarUsuarioNuevo().
-		* @post Insertará los usuarios ya creados previamente.
+		 * @brief Módulo que se encarga de insertar en la TablaUsuarios algunos usuarios predefinidos (dedicados a hacer pruebas).
+		 * @pre Deberemos tener bien hecho el método para ingresar los usuarios.
+		 * @post Los usuarios serán introducidos en la TablaUsuarios.
+		 * @version 2.2
+		 * @author Carlos Fdez.
+		 */
+		void dataBase();
+		/**
+		* @brief Método que se usa para hacer crecer o decrecer el vector de Usuarios.
+		* @param DIM 
+		* @post Tendremos un vector de mayor/menos dimensión.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		void insertarUsuarioTablaUsuarios(Usuario *u);
+		void resize(int DIM);
 		/**
 		* @brief Crearemos un usuario en el vector de usuarios, dependiendo de la opción (Admin/Normal) indicada en por el usuario.
 		* @param string Login
@@ -203,19 +148,15 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void crearUsuario(string Login, int posicion, bool usado, int opcion);
-		
-		
 		/**
-		* @brief Método que se usa para hacer crecer o decrecer el vector de Usuarios.
-		* @param DIM 
-		* @post Tendremos un vector de mayor/menos dimensión.
+		* @brief Método que se usa para insertar a los usuario en la TablaUsuarios.
+		*@param Usuario *u.
+		* @pre Debes tener creado los usuarios. ¡OJO! Este método sólamente sirve para añadir los usuarios ya creados, para introducir un usuario nuevo, hay 			* 	otro método creado llamado insertarUsuarioNuevo().
+		* @post Insertará los usuarios ya creados previamente.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		void resize(int DIM);
-		
-		
-		
+		void insertarUsuarioTablaUsuarios(Usuario *u);
 		/**
 		* @brief Eliminaremos el usuario en la posición indicada.
 		* @param int posicion
@@ -234,9 +175,6 @@ class TablaUsuarios{
 		* @version 1.0
 		*/
 		void eliminarUsuarioTablaUsuarios(int posicion, bool usado);
-		
-		
-		
 		/**
 		 * @brief Método que se encarga de buscar usuario por Login en la TablaUsuarios.
 		 * @param bool usado
@@ -247,14 +185,6 @@ class TablaUsuarios{
 		 * @author Carlos Fdez.
 		 */
 		void BuscarLogin(bool usado, int posicion);
-		/**
-		 * @brief Este módulo se encarga de dar dos opciones para ordenar el menú o por Login o por totalFotosUsuario.
-		 * @pre El vector de usuarios debe de estar relleno  y tener al menos dos usuarios introducidos para poder ordenarlos.
-		 * @post El vector quedará ordenado por según el criterio seleccionado.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */
-		void ordenarTablaUsuarios();
 		/**
 		 * @brief Módulo que se encarga de ordenar el vector por Login
 		 * @pre El vector de usuarios debe de estar relleno  y tener al menos dos usuarios introducidos.
@@ -272,20 +202,15 @@ class TablaUsuarios{
 		 * @author Carlos Fdez.
 		 */
 		void ordenamosTotalFotosUsuario();
-		
-		
-		
 		/**
-		* @brief Método que se encarga de eliminar todos los usuarios que tengan menos fotos que min, para ello pediremos al usuario introduzcan un 			* 	número que será las fotos mínimas que debe de tener el usuario para no ser eliminado.
-		* @pre Debemos de tener al menos un usuario insertado, de lo contrario nos mandará un mensaje de error, y recuerda que los usuarios Admin no se 		* 	puede borrar.
-		* @post Eliminaremos el usuario que tenga menos fotos de el número introducido "min".
+		* @brief Insertaremos la foto en el vector de fotos del usuario.
+		* @param int posicion
+		* @param bool usado
+		* @post Quedará la foto insertada en el vector de su usuario.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		void eliminarUsuariosFotosMin(int min);
-		
-		
-		
+		void insertarFoto(int posicion, bool usado);
 		/**
 		* @brief Eliminaremos la foto del usuario indicado.
 		* @pre Deberemos de tener al menos una foto insertada.
@@ -303,18 +228,21 @@ class TablaUsuarios{
 		*/
 		void printFotosUsuario(bool usado, int posicion);
 		/**
-		* @brief Insertaremos la foto en el vector de fotos del usuario.
-		* @param int posicion
-		* @param bool usado
-		* @post Quedará la foto insertada en el vector de su usuario.
+		* @brief Método que se encarga de eliminar todos los usuarios que tengan menos fotos que min, para ello pediremos al usuario introduzcan un 			* 	número que será las fotos mínimas que debe de tener el usuario para no ser eliminado.
+		* @pre Debemos de tener al menos un usuario insertado, de lo contrario nos mandará un mensaje de error, y recuerda que los usuarios Admin no se 		* 	puede borrar.
+		* @post Eliminaremos el usuario que tenga menos fotos de el número introducido "min".
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		void insertarFoto(int posicion, bool usado);
-		
-		
-		
-		
+		void eliminarUsuariosFotosMin(int min);
+		/**
+		* @brief Método que se encarga de pedir al usuario los valores de las fotos que quiere insertar, al usuario cuando ingrese el tipo foto se le dará 			* 	unos formatos predeterminados y se le asiganarán automáticamente el tamaño de la foto, si ingresa un tipo de foto diferente se le dará un 			*	valor por defecto.
+		* @pre Deberemos de tener ya programados los set y get de Foto.
+		* @post Se ingresará en la fotos los valores dados por el usuario.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void ValoresFoto(Foto *f);
 		/**
 		 * @brief Módulo que se encarga de pedir algunos datos al usuario. 
 		 * @param Usuario *u
@@ -323,9 +251,6 @@ class TablaUsuarios{
 		 * @author Carlos Fdez.
 		 */
 		void pedirDatosUsuario(Usuario *u);
-		
-		
-		
 		/**
 		 * @brief Módulo que se encarga de liberar toda la memoria dinñamica que hemos utilizado en nuestro programa.
 		 * @post El programa no dejará ningún dato en el limbo, porque todo será borrado y puesto a 0/NULL

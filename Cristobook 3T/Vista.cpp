@@ -257,12 +257,23 @@ void Vista::sortTable(){
 	this->printcheck();
 
 }
+/*void Vista::dataPhoto(){
 
+	string ruta = "";
+	string tipo = "";
 
-
-
-
-
+	cout << BLUE << "* * * * * * * * * * * * * * * * * * * " << DEFAULT << endl;
+	cout << YELLOW << "Por favor ingresa la ruta de la foto. " << DEFAULT << endl;
+	cin >> ruta;
+	
+	cout << YELLOW << "Por favor ingresa el formato de la foto. " << DEFAULT << endl;
+	cout << YELLOW << "Le indico los tipos compatibles [bmp] [jpeg] [png] [gif] " << DEFAULT << endl ;
+	cin >> tipo;
+	
+	tu->ValoresFoto( ruta, tipo)
+	cout << BLUE << "* * * * * * * * * * * * * * * * * * * " << DEFAULT << endl;
+	
+}*/
 void Vista::insertPhoto(){
 
 	//Declaración de variables.
@@ -335,6 +346,26 @@ void Vista::deleteUserPhotoMin(){
 	tu->printTablaUsuarios();
 
 }
+
+///////////////////////////////				 TESTING					////////////////////////////////
+
+void Vista::TestingAutomatico(){
+
+	cout  << CYAN << " ****    IMPRIMIENDO TABLA DE USUARIOS    **** " << DEFAULT << endl;
+	tu->printTablaUsuarios();
+	cout  << CYAN << " ****    ORDENANDO TABLA DE USUARIOS POR LOGIN    **** " << DEFAULT << endl;
+	tu->ordenamosLogin();
+	cout  << PURPLE << " ****    ELIMINANDO DOS USUARIOS    **** " << DEFAULT << endl;
+	for(int i = 0; i < 2; i++){
+		tu->eliminarUsuario(i);
+	}
+	cout  << CYAN << " ****    IMPRIMIENDO TABLA DE USUARIOS    **** " << DEFAULT << endl;
+	tu->printTablaUsuarios();
+	cout  << CYAN << " ****    INSERTANDO FOTOS A CADA USUARIOS    **** " << DEFAULT << endl;
+	this->insertPhoto();
+
+}
+
 ///////////////////////////////				MENU					////////////////////////////////
 
 /**
@@ -388,14 +419,14 @@ void Vista::menuVista(){
 				case 1:	
 					//Activar/ Desactivar MODO DEBUG
 					cout << GREEN << "Modo DEBUG... " << DEFAULT << endl;	
-					//this->modoDEBUG(getDEBUG());
-					this->comprobacionLogin(Login, posicion, usado);
+					this->modoDEBUG(getDEBUG());
 				break;
 
 				case 2:
 					// Ejecutar Testing Automático.
-					if(creado==false){
+					if(creado==true){
 						cout << GREEN << "Ejecutando Testing en TablaUsuario... " << DEFAULT << endl;					
+						this->TestingAutomatico();
 						//tu->Testing();
 					}else{
 						cout << ERROR << "Recuerde que NO puede realizar el TESTING si no ha creado una TablaUsuarios. " << DEFAULT << endl;
@@ -470,7 +501,6 @@ void Vista::menuVista(){
 					if(creado==true){
 						cout << GREEN << "Ordenando tabla... " << DEFAULT << endl;
 						this->sortTable();
-						this->printcheck();
 					}else{
 						cout << ERROR << "Recuerde que si no CREA una TablaUsuarios no puede eliminarla. " << DEFAULT << endl;
 						}

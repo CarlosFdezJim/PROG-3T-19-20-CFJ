@@ -42,8 +42,6 @@ class Vista{
 		* @version 1.0
 		*/
 		void modoDEBUG(bool DEBUG);
-		
-		
 		/**
 		* @brief Método para crear la vista del Usuario.
 		* @post Crearemos los atributos de la clase vista, incluyendo la TablaUsuario.
@@ -66,20 +64,6 @@ class Vista{
 		* @version 1.0
 		*/
 		~Vista();
-		
-		
-		
-		/**
-		* @brief Muestra una vista del menú donde el usuario podrá elegir que opción seleccionar.
-		* @pre Deberemos de tener bien creado un módulo printMenu dónde seleccionaremos tendremos las opciones dadas al usuario.
-		* @post Mostraremos por pantalla una vista de todas las opciones disponibles en el menú.
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
-		void menuVista();
-
-
-
 		/**
 		* @brief Método que recoge los datos para comprobar que el usuario que desea ingresar es un usuario Administrador.
 		* @pre Deberemos de tener los usuarios creador una vez creamos la TablaUsuarios.
@@ -88,9 +72,6 @@ class Vista{
 		* @version 1.0
 		*/
 		void credentials();
-		
-		
-		
 		/**
 		* @brief Comprobamos que el Login existe en nuestra TablaUsuarios
 		* @param string Login
@@ -102,9 +83,6 @@ class Vista{
 		* @version 1.0
 		*/
 		void comprobacionLogin(string &Login, int &posicion, bool &usado);
-		
-		
-		
 		/**
 		* @brief Método que se encarga de realizar una comprobación por si quieres imprimir o no la tabla.
 		* @pre Debemos de tener bien hecho el método para imprimir la Tabla.
@@ -115,7 +93,7 @@ class Vista{
 		void printcheck();
 		
 		
-		
+		void dataPhoto();
 		/**
 		* @brief Método que se encarga de pedir un Login al usuario y comprobar si existe o no, si no existe da la opción al usuario para crear un nuevo 			*	usuario de dos tipos, Admin o Normal, insertandolo después en la TablaUsuarios.
 		* @pre Debemos de tener creada la TablaUsuarios
@@ -176,11 +154,27 @@ class Vista{
 		*/
 		void printPhotoUser();
 		/**
+		* @brief Método que pide al usuario el valor que como mínimo de fotos que tiene que tener un Usuario para no ser borrado.
+		* @pre Deberemos de tener al menos un usuario ingresado en la TablaUsuarios.
+		* @post Eliminaremos los usuarios que no cumplan con dichas fotos.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void deleteUserPhotoMin();
+		/**
 		* @brief
 		* @pre
 		* @post
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
-		void deleteUserPhotoMin();
+		void TestingAutomatico();
+		/**
+		* @brief Muestra una vista del menú donde el usuario podrá elegir que opción seleccionar.
+		* @pre Deberemos de tener bien creado un módulo printMenu dónde seleccionaremos tendremos las opciones dadas al usuario.
+		* @post Mostraremos por pantalla una vista de todas las opciones disponibles en el menú.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void menuVista();
 };

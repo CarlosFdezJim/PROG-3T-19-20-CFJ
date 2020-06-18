@@ -23,7 +23,6 @@ class Usuario{
 		string perfil_usuario;	//Perfil del Usuario. Administrador o Usuario Normal.
 		bool DEBUG;
 
-	
 	public:
 		/**
 		* @brief Método que cambia el valor de la variable booleana DEBUG.
@@ -40,17 +39,6 @@ class Usuario{
 		* @version 1.0
 		*/
 		bool getDEBUG();
-		/**
-		* @brief Método que cambia el estado de la variable booleana DEBUG para activar o desactivar el DEBUG.
-		* @pre Tendremos que tener bien hecho los set y get de la variable booleana DEBUG.
-		* @post Cambiamos el valor de la variable boolenana DEBUG.
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
-		void modoDEBUG(bool DEBUG);
-		
-		
-		
 		/**
 		 * @brief Se reservará un espacio de memoria para crear un nuevo Usuario y sus miembros, siempre y cuando haya memoria suficiente.
 		 * @post Se reservará un espacio de memoria para la Usuario.
@@ -88,9 +76,6 @@ class Usuario{
 		 * @author Carlos Fdez.
 		 */
 		virtual ~Usuario();
-		
-		
-		
 		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable string llamada login.
 		 * @param string login.
@@ -123,9 +108,6 @@ class Usuario{
 		 * @author Carlos Fdez.
 		 */		
 		void setPerfilUsuario(string perfil_usuario);
-		
-		
-		
 		/**
 		 * @brief Devuelve el valor Login de un de tipo Usuario.
 		 * @post Devolveremos el valor del Login de ese Usuario.
@@ -154,9 +136,6 @@ class Usuario{
 		 * @author Carlos Fdez.
 		 */
 		string getPerfilUsuario();
-		
-		
-		
 		/**
 		 * @brief Imprime por pantalla el contenido de un tipo Usuario.
 		 * @post Imprimir un Usuario seleccionado.
@@ -164,17 +143,6 @@ class Usuario{
 		 * @author Carlos Fdez.
 		 */
 		virtual void printUsuario();
-		/**
-		 * @brief Módulo que me muestra las fotos de un vector de fotos.
-		 * @pre El vector de fotos tiene que estar creado y tener por lo menos una foto.
-		 * @post Se mostrará el vector de fotos de un Usuario.
-		 * @version 1.0
-		 * @author Carlos Fdez.
-		 */
-		void printVectorFotos();
-		
-		
-		
 		/**
 		 * @brief Sobrecarga del operador << 
 		 * @post Se utiliza para poder imprimir un usuario de tipo Usuario utilizando simplemente este operador.
@@ -206,8 +174,6 @@ class Usuario{
 		*/
 		void operator=(Usuario *u);
 		
-		
-		
 };
 class Admin: public Usuario{
 
@@ -236,8 +202,6 @@ class Admin: public Usuario{
 		* @version 1.0
 		*/
 		virtual ~Admin();
-		
-		
 		/**
 		* @brief Método que se utiliza para insertar en el miembro consultas de la clase Admin un número de consultas.
 		* @pre No puede ser negativo.
@@ -251,9 +215,6 @@ class Admin: public Usuario{
 		* @version 1.0
 		*/
 		int getConsultas();
-		
-		
-		
 		/**
 		* @brief Imprime los atributos propios de la clase Normal.
 		* @post Imprimiermos los atributos propios y los de Usuario.
@@ -261,9 +222,6 @@ class Admin: public Usuario{
 		* @version 1.0
 		*/
 		virtual void printUsuario();
-		
-		
-		
 		/**
 		 * @brief Sobrecarga del operador << 
 		 * @post Se utiliza para poder imprimir un usuario de tipo Admin utilizando simplemente este operador.
@@ -294,8 +252,6 @@ class Admin: public Usuario{
 		* @version 1.0
 		*/
 		void operator=(Admin *a);
-		
-		
 
 };
 class Normal: public Usuario{
@@ -317,13 +273,6 @@ class Normal: public Usuario{
 		*/
 		Normal();
 		/**
-		* @brief Constructor por parámetros, este contructor hereda los miembros de la clase padre y los incluye en su mismo contructor.
-		* @post Construiremos los parámetros en una misma línea.
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
-		//Normal(int DIM_vfotos, int totalFotosUsuario):Usuario(login, nombre,apellido,perfil_usuario);
-		/**
 		* @brief Destructor de la clase Normal.
 		* @pre Debemos de tener al menos un Usuario Normal.
 		* @post Crearemos una clase que hereda los atributos desde la clase padre(class Usuario).
@@ -331,9 +280,12 @@ class Normal: public Usuario{
 		* @version 2.0
 		*/
 		virtual ~Normal();
-		
-		
-		
+		/**
+		* @brief Redimensiona el vector de fotos.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void resizeFoto(int DIM);
 		/**
 		 * @brief Este módulo se encarga de almacenar en el puntero de tipo Usuario una variable int llamada totalFotosUsuario.
 		 * @param int totalFotosUsuario
@@ -358,9 +310,6 @@ class Normal: public Usuario{
 		 * @author Carlos Fdez.
 		 */		
 		void setDIM_vfotos(int DIM_vfotos);
-		
-		
-		
 		/**
 		 * @brief Devuelve una posición del vector de fotos de un Usuario concreto.
 		 * @param int i
@@ -380,9 +329,6 @@ class Normal: public Usuario{
 		 * @author Carlos Fdez.
 		 */		
 		int getTotalFotosUsuario();
-		
-		
-		
 		/**
 		* @brief Imprime los atributos propios de la clase Normal.
 		* @post Imprimiermos los atributos propios y los de Usuario.
@@ -390,9 +336,6 @@ class Normal: public Usuario{
 		* @version 1.0
 		*/
 		virtual void printUsuario();
-		
-		
-		
 		/**
 		 * @brief Este módulo se usa para introducir las fotos del usuario predefinido.
 		 * @param Foto *f
@@ -402,15 +345,6 @@ class Normal: public Usuario{
 		 * @author Carlos Fdez.
 		 */
 		void insertarFotoUsuario(Foto *f);
-		/**
-		* @brief Redimensiona el vector de fotos.
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
-		void resizeFoto(int DIM);
-		
-		
-		
 		/**
 		 * @brief Sobrecarga del operador << 
 		 * @post Se utiliza para poder imprimir un Usuario de tipo Normal utilizando simplemente este operador.

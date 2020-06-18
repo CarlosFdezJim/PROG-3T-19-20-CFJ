@@ -177,14 +177,6 @@ void TablaUsuarios::credentials(string pass, string contrasena, bool &usado){
 		
 	}
 }
-void comprobacionLogin(string Login,Usuario *u, bool &usado){
-
-	//Comprobamos si el login está introducido o no. Si lo está devolveremos usado = true;(Lo hacemos aparte porque lo usaremos en varios sitios).
-	if(Login == u->getLogin()){
-		usado = true;
-	}
-
-}
 void TablaUsuarios::comprobacionLoginTU(string &Login, bool &usado, int &posicion){
 	
 	//Comprobamos si el login existe o no.
@@ -474,9 +466,11 @@ void TablaUsuarios::ordenamosLogin(){
 		}
 }
 void TablaUsuarios::ordenamosTotalFotosUsuario(){
-	
+		
+		
+		
 	if(this->getTotalTuplas() > 0){
-		for(int i = 0; i < this->getTotalTuplas()-1;i++){
+		for(int i = 0; i < this->getTotalTuplas();i++){
 			if(Normal *n = dynamic_cast<Normal*>(this->punteroapuntero[i])){
 				if(Normal *N = dynamic_cast<Normal*>(this->punteroapuntero[i+1])){	
 						if(n->getTotalFotosUsuario() < N->getTotalFotosUsuario()){
@@ -528,7 +522,7 @@ void TablaUsuarios::insertarFoto(int posicion, bool usado){
 		if(Normal *n = dynamic_cast<Normal*>(this->punteroapuntero[posicion])){
 			Foto *f = new Foto;
 			
-			ValoresFoto(f);
+			this->ValoresFoto(f);
 			n->insertarFotoUsuario(f);
 			n = 0;
 		}else if (Admin *a = dynamic_cast<Admin*>(this->punteroapuntero[posicion])){
@@ -602,7 +596,6 @@ void TablaUsuarios::eliminarUsuariosFotosMin(int min){
 			}
 		}
 		if(Admin *a = dynamic_cast<Admin*>(this->punteroapuntero[i])){
-			//cout << ERROR << "Este usuario es administrador y no puedes eliminarlo" << DEFAULT << endl;
 			a = 0;
 		}
 	}
@@ -616,9 +609,13 @@ void TablaUsuarios::eliminarUsuariosFotosMin(int min){
 
 
 
+
+
+
+
 ///////////////////////////////				 ------					////////////////////////////////
 
-void ValoresFoto(Foto *f){
+void TablaUsuarios::ValoresFoto(Foto *f){
 
 	string r = "";;
 	string t = "";;
@@ -664,8 +661,8 @@ void TablaUsuarios::pedirDatosUsuario(Usuario *u){
 }
 
 ///////////////////////////////				 TESTING					////////////////////////////////
-
-/*void TablaUsuarios::TestingAutomatico(){
+/*
+void TablaUsuarios::TestingAutomatico(){
 
 	cout  << CYAN << " ****    IMPRIMIENDO TABLA DE USUARIOS    **** " << DEFAULT << endl;
 	this->printTablaUsuarios();
@@ -742,8 +739,8 @@ void TablaUsuarios::TestingAutomatico3(){
 
 
 
-}*/
-/*void TablaUsuarios::Testing(){
+}
+void TablaUsuarios::Testing(){
 
 	int opcion = 0;
 

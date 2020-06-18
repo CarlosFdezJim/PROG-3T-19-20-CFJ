@@ -38,17 +38,6 @@ class Foto{
 		*/
 		bool getDEBUG();
 		/**
-		* @brief Método que cambia el estado de la variable booleana DEBUG para activar o desactivar el DEBUG.
-		* @pre Tendremos que tener bien hecho los set y get de la variable booleana DEBUG.
-		* @post Cambiamos el valor de la variable boolenana DEBUG.
-		* @author Carlos Fdez
-		* @version 1.0
-		*/
-		void modoDEBUG(bool DEBUG);
-		
-		
-		
-		/**
 		 * @brief Se reservará un espacio de memoria para crear una clase de tipo Foto, siempre y cuando haya memoria suficiente.
 		 * @post Se reservará un espacio de memoria para la Foto.
 		 * @pre Debe de teber memoria suficiente para crear la Foto.
@@ -64,9 +53,6 @@ class Foto{
 		 * @author Carlos Fdez.
 		 */
 		~Foto();
-		
-		
-		
 		/**
 		 * @brief Este módulo se encarga de almacenar en el valor de tipo Foto en una variable string llamada ruta.
 		 * @param string ruta		//Nombre de la ruta donde se va a almacenar la foto.
@@ -92,9 +78,6 @@ class Foto{
 		 * @author Carlos Fdez.
 		 */
 		void setTamanio(unsigned long int tamanio);
-		
-		
-		
 		/**
 		 * @brief Devuelve el valor Ruta de una variable estructurada de tipo Foto.
 		 * @version 1.0
@@ -114,9 +97,6 @@ class Foto{
 		 * @author Carlos Fdez.
 		 */		
 		int long unsigned getTamanio();
-		
-		
-		
 		/**
 		 * @brief Imprime por pantalla la ruta de la foto junto a su tipo y el tamaño que ocupa la foto.
 		 * @post Imprimiremos la ruta de la foto por pantalla.
@@ -124,9 +104,6 @@ class Foto{
 		 * @author Carlos Fdez.
 		 */
 		void printFoto();
-		
-		
-		
 		/**
 		 * @brief Sobrecarga del operador << 
 		 * @post Se utiliza para poder imprimir una foto utilizando simplemente este operador.
@@ -141,6 +118,5 @@ class Foto{
 		 * @version 1.0
 		 */
 		friend ostream& operator<<(ostream &flujo, Foto &f);
-		 
-		 
+
 };
