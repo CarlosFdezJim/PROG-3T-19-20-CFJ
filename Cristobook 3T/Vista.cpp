@@ -26,8 +26,6 @@
 #include "Vista.h"
 using namespace std;
 
-//Variable global.
-bool DEBUG = false;
 
 ///////////////////////////////				DEBUG					////////////////////////////////
 
@@ -127,7 +125,7 @@ void Vista::credentials(){
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;
 		menuVista();
 	}else{
-		cout << RED << "Este usuario no se encuentra en nuestra base de datos. " << DEFAULT << endl;
+		cout << RED << "Este usuario no se encuentra en nuestra base de datos o no es de tipo Administrador. " << DEFAULT << endl;
 	}
 
 }
@@ -206,9 +204,10 @@ void Vista::deleteUser(){
 	//Comprobamos que el usuario existe y devolvemos la posición dónde se encuentra.
 	this->comprobacionLogin(Login, posicion, usado);
 	
-	//Eliminamos el usuario indicado de la TablaUsuarios
-	tu->eliminarUsuarioTablaUsuarios(posicion,usado);
-	
+	if (tu->getTotalTuplas() >= 0){
+		//Eliminamos el usuario indicado de la TablaUsuarios
+		tu->eliminarUsuarioTablaUsuarios(posicion,usado);
+	}else cout << "DEBUG" ;
 	//Preguntamos al usuario si quiere o no imprimir la TablaUsuarios.
 	this->printcheck();
 
@@ -235,7 +234,7 @@ void Vista::sortTable(){
 
 	cout << BLUE << "\n******************************";
 	cout << BLUE << "\n[1] " << DEFAULT << "Ordenar por Login ";
-	cout << BLUE << "\n[2] " << DEFAULT << "Ordenar por el total fotos. ";
+	cout << BLUE << "\n[2] " << DEFAULT << "Ordenar por el TotalFotos. ";
 	cout << BLUE << "\n******************************" << DEFAULT << endl;
 
 	cout << "Seleccione el criterio por el que quiere ordenar: " << endl;
@@ -257,7 +256,7 @@ void Vista::sortTable(){
 	this->printcheck();
 
 }
-/*void Vista::dataPhoto(){
+/*void Vista::dataPhoto(string ruta, string tipo){
 
 	string ruta = "";
 	string tipo = "";
@@ -270,7 +269,7 @@ void Vista::sortTable(){
 	cout << YELLOW << "Le indico los tipos compatibles [bmp] [jpeg] [png] [gif] " << DEFAULT << endl ;
 	cin >> tipo;
 	
-	tu->ValoresFoto( ruta, tipo)
+	tu->ValoresFoto(ruta, tipo)
 	cout << BLUE << "* * * * * * * * * * * * * * * * * * * " << DEFAULT << endl;
 	
 }*/
@@ -285,7 +284,6 @@ void Vista::insertPhoto(){
 	tu->printTablaUsuarios();
 	this->comprobacionLogin(Login, posicion, usado);
 	tu->insertarFoto(posicion, usado);
-	tu->printUser(posicion);
 }
 void Vista::deletePhoto(){
 
@@ -365,6 +363,75 @@ void Vista::TestingAutomatico(){
 	this->insertPhoto();
 
 }
+void Vista::TestingAutomatico2(){
+
+	cout  << CYAN << " ****    ELIMINAR TABLA DE USUARIOS    **** " << DEFAULT << endl;	
+	tu->~TablaUsuarios();
+	cout  << CYAN << " ****    IMPRIMIENDO TABLA DE USUARIOS    **** " << DEFAULT << endl;	
+	tu->printTablaUsuarios();
+	cout  << CYAN << " ****    CREAR TRES USUARIO    **** " << DEFAULT << endl;
+	for(int i = 0; i < 2; i++){
+		this->insertUser();
+	}
+	cout  << CYAN << " ****    ELIMINO USUARIO    **** " << DEFAULT << endl;
+	this->deleteUser();
+	cout  << CYAN << " ****    BUSCAR USUARIO POR LOGIN    **** " << DEFAULT << endl;
+	this->searchUser();
+	cout << CYAN << " ****    ORDENANDO TABLA    **** " << DEFAULT << endl;	
+	tu->ordenamosLogin();
+	cout  << CYAN << " ****    INSERTANDO FOTO DE UN USUARIOS    **** " << DEFAULT << endl;
+	this->insertPhoto();
+	cout  << CYAN << " ****    ELIMINAR FOTO DE UN USUARIOS    **** " << DEFAULT << endl;
+	this->deletePhoto();
+	cout  << CYAN << " ****    IMPRIMIR FOTO DE UN USUARIOS    **** " << DEFAULT << endl;
+	this->printPhotoUser();
+}
+void Vista::MenuTesting(){
+
+	int opcion = 0;
+
+	while(opcion!=4){
+		cout << BLUE << " ****************************** "<< DEFAULT << endl;
+		cout << BLUE << " *****    MENÚ TESTING    ***** " << DEFAULT << endl;
+		cout << BLUE << "[1] " << DEFAULT << " Testing automatizado. "<< DEFAULT << endl;
+		cout << BLUE << "[2] " << DEFAULT << " Testing automatizado 2. "<< DEFAULT << endl;
+		cout << BLUE << "[3] " << DEFAULT << " Salir. "<< DEFAULT << endl;
+		cout << BLUE << " ****************************** " << DEFAULT << endl;
+		
+		//Pedimos al usuario que escoga una opción de las mostradas previamente.
+		cout << BLUE "\nIndica el Testing que desea ejecutar: " << DEFAULT << endl;
+		cin >> opcion;
+
+		switch (opcion){
+
+			case 1:	
+				// 1º) Testing automátizado
+				 this->TestingAutomatico();
+			break;
+			
+			case 2:	
+				// 2º) Testing automátizado 2
+				this->TestingAutomatico2();
+			break;
+			
+			case 3:	
+				// 3º) Salir
+				cout << "Saliendo del Menú de Testing... " << endl;
+				cout << "Continuaremos en el menú principal. " << endl;
+			break;
+	
+			default:
+				cout << BLUE << "Lo siento, la opción seleccionada no es correcta. " << DEFAULT << endl;
+				cout << BLUE << "Por favor seleccione otra o pulse 6 para salir. \n" << DEFAULT << endl;
+			}
+	}
+}
+///////////////////////////////				 EXIT					////////////////////////////////
+
+void Vista::exit(){
+
+	
+}
 
 ///////////////////////////////				MENU					////////////////////////////////
 
@@ -426,8 +493,7 @@ void Vista::menuVista(){
 					// Ejecutar Testing Automático.
 					if(creado==true){
 						cout << GREEN << "Ejecutando Testing en TablaUsuario... " << DEFAULT << endl;					
-						this->TestingAutomatico();
-						//tu->Testing();
+						this->MenuTesting();
 					}else{
 						cout << ERROR << "Recuerde que NO puede realizar el TESTING si no ha creado una TablaUsuarios. " << DEFAULT << endl;
 						}
@@ -560,7 +626,7 @@ void Vista::menuVista(){
 					cout << PURPLE << "\n ----------SALIENDO---------- " << endl ;
 					cout << " Gracias por usar CRISTOBOOK " << endl;
 					cout << "\n 	© Carlos Fdez " << DEFAULT << endl;
-					tu->Salir();
+					this->exit();
 				break;
 				
 				default:

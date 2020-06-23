@@ -114,6 +114,7 @@ Normal::Normal():Usuario(){
 	//Creamos los miembro exclusivos del Normal, el resto los hereda de Usuario.
 	int DIM_vfotos = 0;
 	int totalFotosUsuario = 0;
+	//Foto *v_fotos = new Foto[DIM_vfotos];
 	
 }
 Usuario::~Usuario(){
@@ -153,18 +154,18 @@ Normal::~Normal(){
 		//Ponemos a 0 los valores de los miembros.
 		int DIM_vfotos = 0;
 		int totalFotosUsuario = 0;
-		
+
 		//Eliminamos el contenido del vector de punteros a Usuarios.
 		for(int i=0; i <= this->getTotalFotosUsuario(); i++){
 		//	delete this->v_fotos[i];
 		}
-	
+		
 		//borro el vector dinámico de fotos, liberando así su memoria.
 		delete [] this->v_fotos;
-	
+
 		//elimino la dirección que referenciaba al vector dinámico de fotos.
 		this->v_fotos = 0;
-
+		
 	if(this->getDEBUG() == true){
 		cout << GREEN << "El Usuario Normal se ha borrado correctamente.\n" << DEFAULT ;
 		cout  << PURPLE << "************************************** " << DEFAULT << endl;

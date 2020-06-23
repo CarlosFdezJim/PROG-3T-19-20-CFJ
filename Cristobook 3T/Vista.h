@@ -51,7 +51,7 @@ class Vista{
 		Vista();
 		/**
 		* @brief Método para crear la vista del Usuario con parámetros.
-		* @post Crearemos los atributos de la clase vista, pasándole parámetros.
+		* @post Crearemos los atributos de la clase TablaUsuarios, pasándole parámetros.
 		* @author Carlos Fdez.
 		* @version 1.0
 		*/
@@ -92,8 +92,14 @@ class Vista{
 		*/
 		void printcheck();
 		
-		
-		void dataPhoto();
+		/**
+		* @brief
+		* @pre
+		* @post
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void dataPhoto(string ruta, string tipo);
 		/**
 		* @brief Método que se encarga de pedir un Login al usuario y comprobar si existe o no, si no existe da la opción al usuario para crear un nuevo 			*	usuario de dos tipos, Admin o Normal, insertandolo después en la TablaUsuarios.
 		* @pre Debemos de tener creada la TablaUsuarios
@@ -162,13 +168,49 @@ class Vista{
 		*/
 		void deleteUserPhotoMin();
 		/**
-		* @brief
-		* @pre
-		* @post
+		* @brief Método que se encarga de mostrar un menú y llamar al testing indicado.
+		* @post Realizaremos el testing que desee el usuario.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void MenuTesting();
+		/**
+		* @brief Módulo que realiza un testing automático:
+		*	1º) Imprime TablaUsuario
+		*	2º) Ordena por Login
+		*	3º) Elimina dos usuarios
+		*	4º) ImprimeTablaUsuario
+		*	5º) Inserta una Foto en un usuario.
+		* @pre Deberemos de tener bien hechos los módulos printTablaUsuario(), ordenamosLogin(), eliminarUsuario() e insertarFoto()
+		* @post Tendrémos un testing abarcando muchas posibilidades de error.
 		* @author Carlos Fdez
 		* @version 1.0
 		*/
 		void TestingAutomatico();
+		/**
+		* @brief Módulo que realiza un testing automático:
+		*	2º) ImprimeTablaUsuario
+		*	3º) Elimina TablaUsuario
+		*	1º) Crea TablaUsuario
+		*	5º) ImprimeTablaUsuario
+		*	6º) Crea tres usuarios
+		*	7º) ImprimeTablaUsuario
+		*	8º) Elimina dos usuarios
+		*	9º) Ordena por Login
+		*	10º) Inserta una Foto en un usuario.
+		* @pre Deberemos de tener bien hechos los módulos TablaUsuarios(), printTablaUsuario(), ~TablaUsuarios(), insertUser(), eliminarUsuario(), ordenamosLogin(),  e insertarFoto()
+		* @post Tendrémos un testing abarcando muchas posibilidades de error.
+		* @author Carlos Fdez
+		* @version 1.0
+		*/
+		void TestingAutomatico2();
+		/**
+		 * @brief Módulo que se encarga de liberar toda la memoria dinñamica que hemos utilizado en nuestro programa.
+		 * @post El programa no dejará ningún dato en el limbo, porque todo será borrado y puesto a 0/NULL
+		 * @version 1.0
+		 * @author Carlos Fdez.
+		 */
+		void exit();
 		/**
 		* @brief Muestra una vista del menú donde el usuario podrá elegir que opción seleccionar.
 		* @pre Deberemos de tener bien creado un módulo printMenu dónde seleccionaremos tendremos las opciones dadas al usuario.
@@ -177,4 +219,5 @@ class Vista{
 		* @version 1.0
 		*/
 		void menuVista();
+		
 };
